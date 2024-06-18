@@ -1,0 +1,26 @@
+package Tienda;
+
+import Enums.TallaLetra;
+import Enums.TipoRopaInterior;
+
+public class RopaInterior extends ProductoInf
+{
+    private TipoRopaInterior tipoRopaInterior;
+    public RopaInterior(String nombre, String id, int stock, Number precio, TallaLetra tallaLetra,TipoRopaInterior tipoRopaInterior) {
+        super(nombre, id, stock, precio, tallaLetra);
+        this.tipoRopaInterior = tipoRopaInterior;
+    }
+
+    public TipoRopaInterior getTipoRopaInterior() {
+        return tipoRopaInterior;
+    }
+
+    public void setTipoRopaInterior(TipoRopaInterior tipoRopaInterior) {
+        this.tipoRopaInterior = tipoRopaInterior;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+"tipo= "+tipoRopaInterior+'\'';
+    }
+}
