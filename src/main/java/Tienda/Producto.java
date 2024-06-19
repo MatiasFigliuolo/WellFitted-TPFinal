@@ -44,6 +44,11 @@ public class Producto {
         this.precio = precio;
     }
 
+    public boolean comparar(String id)
+    {
+        return this.id.equals(id);
+    }
+
     @Override
     public String toString() {
         return "Producto{" +

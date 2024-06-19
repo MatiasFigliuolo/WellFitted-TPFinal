@@ -26,6 +26,27 @@ public class Carrito {
     public ArrayList<Producto> getProductos() {
         return productos;
     }
+    public Boolean agregar(Producto producto)
+    {
+       return productos.add(producto);
+    }
+
+    public void quitar(String id)
+    {
+        int pos=-1;
+        for(int i=0;i<productos.size();i++)
+        {
+            if(productos.get(i).comparar(id))
+            {
+                pos=i;
+            }
+        }
+
+        if(pos!=-1)
+        {
+            productos.remove(pos);
+        }
+    }
 
     @Override
     public String toString() {

@@ -1,17 +1,18 @@
 package Usuarios;
 
-public class Usuario {
+import java.util.Objects;
+import java.util.Scanner;
+
+public class Usuario implements Comparable<Usuario> {
 
     private String nombre;
     private String email;
-    private String ID;
     private Boolean admin;
 
 
-    public Usuario(String nombre, String email, String ID) {
+    public Usuario(String nombre, String email) {
         this.nombre = nombre.toUpperCase();
         this.email = email;
-        this.ID = ID;
         this.admin = false;
     }
 
@@ -31,19 +32,53 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
     public Boolean getAdmin() {
         return admin;
     }
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    public void chequearAdmin()
+    {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Contraseña: ");
+        int contrasenia= scan.nextInt();
+        if(contrasenia == 1999)
+        {
+            setAdmin(true);
+            System.out.println("! Modo administrador activado !");
+        }
+        else
+        {
+            System.out.println("! Contraseña incorrecta !");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Usuario usuario)) return false;
+        return Objects.equals(email, usuario.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
+    }
+
+    @Override
+    public int compareTo(Usuario o)
+    {
+        return this.email.compareTo(o.getEmail());
     }
 }
