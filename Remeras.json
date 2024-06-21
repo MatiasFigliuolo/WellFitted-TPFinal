@@ -1,0 +1,82 @@
+[
+  {
+    "nombre": "Remera Manga Corta",
+    "id": "RM001",
+    "stock": 50,
+    "precio": 19.99,
+    "talla": 38.0,
+    "tipoRemera": "M_CORTA"
+  },
+  {
+    "nombre": "Remera Manga Larga",
+    "id": "RM002",
+    "stock": 75,
+    "precio": 24.99,
+    "talla": 40.0,
+    "tipoRemera": "M_LARGA"
+  },
+  {
+    "nombre": "Musculosa Deportiva",
+    "id": "MD003",
+    "stock": 40,
+    "precio": 14.99,
+    "talla": 36.0,
+    "tipoRemera": "MUSCULOSA"
+  },
+  {
+    "nombre": "Remera Deportiva",
+    "id": "RD004",
+    "stock": 60,
+    "precio": 29.99,
+    "talla": 42.0,
+    "tipoRemera": "DEPORTIVA"
+  },
+  {
+    "nombre": "Remera Manga Corta Básica",
+    "id": "RM005",
+    "stock": 30,
+    "precio": 12.99,
+    "talla": 37.5,
+    "tipoRemera": "M_CORTA"
+  },
+  {
+    "nombre": "Remera Manga Larga Casual",
+    "id": "RM006",
+    "stock": 45,
+    "precio": 27.99,
+    "talla": 41.0,
+    "tipoRemera": "M_LARGA"
+  },
+  {
+    "nombre": "Musculosa Verano",
+    "id": "MD007",
+    "stock": 55,
+    "precio": 16.99,
+    "talla": 35.0,
+    "tipoRemera": "MUSCULOSA"
+  },
+  {
+    "nombre": "Remera Deportiva Running",
+    "id": "RD008",
+    "stock": 35,
+    "precio": 32.99,
+    "talla": 43.0,
+    "tipoRemera": "DEPORTIVA"
+  },
+  {
+    "nombre": "Remera Manga Corta Premium",
+    "id": "RM009",
+    "stock": 25,
+    "precio": 21.99,
+    "talla": 38.5,
+    "tipoRemera": "M_CORTA"
+  },
+  {
+    "nombre": "Remera Manga Larga Térmica",
+    "id": "RM010",
+    "stock": 50,
+    "precio": 34.99,
+    "talla": 39.0,
+    "tipoRemera": "M_LARGA"
+  }
+]
