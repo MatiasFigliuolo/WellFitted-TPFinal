@@ -50,11 +50,32 @@ public class Menu
         while (seleccion != -1)
         {
             System.out.println("- - - MENU CLIENTE - - -");
-            System.out.println("0. Salir");
+            seleccion = menuVisualCliente();
 
-            seleccion=scan.nextInt();
+            System.out.println("\nHa seleccionado la opción: " + seleccion);
+
             switch (seleccion)
             {
+                case 1: //Buscar Porducto
+
+                    break;
+//-----------------------------------------------------------------------------------
+                case 2: //Sumar al carrito
+
+                    break;
+//-----------------------------------------------------------------------------------
+                case 3: //Mostrar carrito
+
+                    break;
+//-----------------------------------------------------------------------------------
+                case 4: //listar Productos
+
+                    break;
+//-----------------------------------------------------------------------------------
+                case 5: //Realizar compra
+
+                    break;
+//-----------------------------------------------------------------------------------
                 case 0: seleccion=-1;
                     break;
             }
@@ -163,6 +184,53 @@ public class Menu
         return seleccion;
     }
 
+
+    public int menuVisualCliente(){
+
+        int seleccion = 0;
+
+        while(true){
+            System.out.println(
+                    "\n1 Buscar Porducto" +
+                    "\n2 Sumar al carrito" +
+                    "\n3 Mostrar carrito" +
+                    "\n4 listar Productos" +
+                    "\n5 Realizar compra" +
+                    "\n0 Salir" +
+                    "\nInsertar Opcion: ");
+
+            try {
+                seleccion = validateOption(scan.nextLine(),5);
+                break; // Opción válida, salir del bucle
+            } catch (InvalidOptionException e) {
+                System.out.println(e.getMessage());
+            }}
+
+        return seleccion;
+    }
+
+
+    public int menuVisualFiltrado(){
+
+        int seleccion = 0;
+
+
+        while(true){
+            System.out.println(
+                            "\n1 Por Tipo" +    //superior o inferior
+                            "\n2 Por Prenda" + //pantalon,remera,campera,etc
+                            "\n0 Salir" +
+                            "\nInsertar Opcion: ");
+
+            try {
+                seleccion = validateOption(scan.nextLine(),2);
+                break; // Opción válida, salir del bucle
+            } catch (InvalidOptionException e) {
+                System.out.println(e.getMessage());
+            }}
+
+        return seleccion;
+    }
 
 
     //----------------------------------------------------------------------------------------------------------------------------------------------------------------------

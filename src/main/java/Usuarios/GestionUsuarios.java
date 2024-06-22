@@ -35,6 +35,7 @@ public class GestionUsuarios {
         System.out.println("1. Si");
         System.out.println("2. No");
         int seleccion = scan.nextByte();
+        scan.nextLine();//Limpiar Buffer
         if(seleccion==1)
         {
             perfil.chequearAdmin();
