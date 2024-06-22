@@ -58,7 +58,7 @@ public class GestionUsuarios {
             seleccion = scan.nextInt();
             switch (seleccion) {
                 case 1:
-                    perfil = iniciarSesion();
+                    perfil = buscarUsuario();
                     break;
                 case 2:
                     perfil = crearUsuario();
@@ -75,7 +75,7 @@ public class GestionUsuarios {
         return perfil;
     }
 
-    public Perfil iniciarSesion()
+    public Perfil buscarUsuario()
     {
         Scanner scan = new Scanner(System.in);
         System.out.println("Ingrese su email: ");
@@ -110,10 +110,5 @@ public class GestionUsuarios {
         return "GestionUsuarios{" +
                 "usuarios=" + usuarios +
                 '}';
-    }
-
-    public void modificarUsuario()
-    {
-
     }
 }

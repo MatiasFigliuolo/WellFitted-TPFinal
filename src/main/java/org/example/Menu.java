@@ -6,6 +6,7 @@ import Exepciones.InvalidOptionException;
 import Exepciones.ProductoNoEncontradoException;
 import Tienda.GestionProductos;
 import Tienda.Producto;
+import Usuarios.GestionAdministrador;
 import Usuarios.GestionUsuarios;
 import Usuarios.Perfil;
 import Usuarios.Usuario;
@@ -29,11 +30,12 @@ public class Menu
     public void menu() throws ProductoNoEncontradoException {
         GestionUsuarios gestionUsuarios = new GestionUsuarios();
         GestionProductos gestionProductos = new GestionProductos();
+        GestionAdministrador gestionAdministrador = new GestionAdministrador();
         Perfil usuario = gestionUsuarios.inicioSesion();
 
         if(usuario.getAdmin()==true)
         {
-            menuAdmin(usuario,gestionUsuarios, gestionProductos);
+            menuAdmin(usuario,gestionUsuarios, gestionProductos,gestionAdministrador);
 
         }else
         {
@@ -61,7 +63,7 @@ public class Menu
 
 
 
-    public void menuAdmin(Perfil usuario, GestionUsuarios gestionUsuarios, GestionProductos gestionProductos) throws ProductoNoEncontradoException
+    public void menuAdmin(Perfil usuario, GestionUsuarios gestionUsuarios, GestionProductos gestionProductos,GestionAdministrador gestionAdministrador) throws ProductoNoEncontradoException
     {
         int seleccion = 0;
         while (seleccion != -1)
@@ -71,11 +73,6 @@ public class Menu
             seleccion = menuVisualAdmin();
 
         System.out.println("\nHa seleccionado la opción: " + seleccion);
-
-            System.out.println("- - - MENU CLIENTE - - -");
-            System.out.println("1. Mirar Productos");
-            System.out.println("0. Salir");
-
 
             switch (seleccion)
             {
@@ -98,22 +95,12 @@ public class Menu
                 gestionProductos.listarProductos();
                     break;
 //-----------------------------------------------------------------------------------
-                case 5: //Cambiar contrasenia usuario
-
+                case 5: gestionAdministrador.modificacionUsuario(gestionUsuarios); //Modificar un usuario
                     break;
 //-----------------------------------------------------------------------------------
-                case 6: //Modificar nombre usuario
-
+                case 6: gestionUsuarios.crearUsuario(); //Crear usuario nuevo
                     break;
-//-----------------------------------------------------------------------------------
-                case 7: //Modificar email usuario
-
-                    break;
-//-----------------------------------------------------------------------------------
-                case 8: //Eliminar usuario
-
-                    break;
-//-----------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------
                 case 0:
                     seleccion=-1;
                     break;
@@ -137,15 +124,13 @@ public class Menu
                       "\n3 Modificar un Producto" +
                       "\n4 Listar Productos" +
                       "\n" +
-                      "\n5 Cambiar contrasenia usuario" +
-                      "\n6 Modificar nombre usuario" +
-                      "\n7 Modificar email usuario" +
-                      "\n8 Eliminar usuario" +
+                      "\n5 Modificar usuario" +
+                      "\n6 Crear Usuario" +
                       "\n0 Salir" +
                       "\nInsertar Opcion: ");
 
         try {
-            seleccion = validateOption(scan.nextLine(),8);
+            seleccion = validateOption(scan.nextLine(),6);
             break; // Opción válida, salir del bucle
         } catch (InvalidOptionException e) {
             System.out.println(e.getMessage());
@@ -177,9 +162,6 @@ public class Menu
 
         return seleccion;
     }
-
-
-
 
 
 

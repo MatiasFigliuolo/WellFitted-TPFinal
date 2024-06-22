@@ -9,7 +9,5 @@ public class Main {
         Menu menu = new Menu();
         menu.menu();
 
-
-
     }
 }
