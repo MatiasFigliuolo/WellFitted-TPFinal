@@ -148,8 +148,9 @@ public class Menu
                       "\n4 Cambiar contrasenia usuario" +
                       "\n5 Modificar nombre usuario" +
                       "\n6 Modificar email usuario" +
-                      "\n7 Eliminar usuario");
-
+                      "\n7 Eliminar usuario" +
+                      "\nInsertar Opcion: ");
+                seleccion = scan.nextInt();
 
 
     return seleccion;
