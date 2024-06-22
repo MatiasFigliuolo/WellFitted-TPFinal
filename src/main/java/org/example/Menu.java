@@ -1,5 +1,6 @@
 package org.example;
 
+import Exepciones.InvalidOptionException;
 import Usuarios.GestionUsuarios;
 import Usuarios.Perfil;
 import Usuarios.Usuario;
@@ -103,23 +104,6 @@ public class Menu
         return null;
     }
 
-    public void menuAdmin(Perfil usuario, GestionUsuarios gestionUsuarios)
-    {
-        int seleccion = 0;
-        while (seleccion != -1)
-        {
-            System.out.println("- - - MENU ADMIN - - -");
-            System.out.println("0. Salir");
-
-            seleccion=scan.nextInt();
-            switch (seleccion)
-            {
-                case 0: seleccion=-1;
-                break;
-            }
-        }
-    }
-
     public void menuCliente(Perfil usuario, GestionUsuarios gestionUsuarios)
     {
         int seleccion = 0;
@@ -137,11 +121,73 @@ public class Menu
         }
     }
 
+
+
+    public void menuAdmin(Perfil usuario, GestionUsuarios gestionUsuarios)
+    {
+        int seleccion = 0;
+
+
+        while (seleccion != -1)
+        {
+            System.out.println("- - - MENU ADMIN - - -\n");
+            seleccion = menuVisualAdmin();
+
+
+
+        System.out.println("\nHa seleccionado la opción: " + seleccion);
+
+
+            switch (seleccion)
+            {
+                case 1: //Agregar nuevo producto
+
+                    break;
+//-----------------------------------------------------------------------------------
+                case 2: //Eliminar un producto
+
+                    break;
+//-----------------------------------------------------------------------------------
+                case 3: //Modificar un Producto
+
+                    break;
+//-----------------------------------------------------------------------------------
+                case 4: //Cambiar contrasenia usuario
+
+                    break;
+//-----------------------------------------------------------------------------------
+                case 5: //Modificar nombre usuario
+
+                    break;
+//-----------------------------------------------------------------------------------
+                case 6: //Modificar email usuario
+
+                    break;
+//-----------------------------------------------------------------------------------
+                case 7: //Eliminar usuario
+
+                    break;
+//-----------------------------------------------------------------------------------
+                case 0: seleccion=-1;
+
+                    break;
+//-----------------------------------------------------------------------------------
+                default:
+
+                    break;
+            }
+        }
+    }
+
+
+
     public int menuVisualAdmin(){
 
         int seleccion = 0;
 
-        String.format("\n1 Agregar nuevo producto" +
+
+        while(true){
+        System.out.println("\n1 Agregar nuevo producto" +
                       "\n2 Eliminar un producto" +
                       "\n3 Modificar un Producto" +
                       "\n" +
@@ -149,15 +195,41 @@ public class Menu
                       "\n5 Modificar nombre usuario" +
                       "\n6 Modificar email usuario" +
                       "\n7 Eliminar usuario" +
+                      "\n0 Salir" +
                       "\nInsertar Opcion: ");
-                seleccion = scan.nextInt();
+
+        try {
+            seleccion = validateOption(scan.nextLine());
+            break; // Opción válida, salir del bucle
+        } catch (InvalidOptionException e) {
+            System.out.println(e.getMessage());
+        }}
+
+        return seleccion;
+    }
 
 
-    return seleccion;
+
+    private int validateOption(String input) throws InvalidOptionException {
+        // Verifica si la entrada está compuesta solo de dígitos
+        if (!input.matches("\\d+")) {
+            throw new InvalidOptionException("Error: Debe ingresar un número válido.");
+        }
+
+        // Convierte la cadena a un número entero
+        int number = Integer.parseInt(input);
+
+        // Verifica si el número está en el rango válido (0 a 7)
+        if (number < 0 || number > 7) {
+            throw new InvalidOptionException("Error: Opción no válida. Por favor, seleccione un número entre 0 y 7.");
+        }
+
+        return number;
+    }
+
     }
 
 
 
 
 
-}
