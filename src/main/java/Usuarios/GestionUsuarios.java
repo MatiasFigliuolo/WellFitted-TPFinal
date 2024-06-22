@@ -100,10 +100,20 @@ public class GestionUsuarios {
         return usuarios.remove(usuario);
     }
 
+    public void mostrar()
+    {
+        System.out.println(usuarios.toString());
+    }
+
     @Override
     public String toString() {
         return "GestionUsuarios{" +
                 "usuarios=" + usuarios +
                 '}';
+    }
+
+    public void modificarUsuario()
+    {
+
     }
 }

@@ -28,6 +28,7 @@ public class Menu
 
     public void menu() throws ProductoNoEncontradoException {
         GestionUsuarios gestionUsuarios = new GestionUsuarios();
+        GestionProductos gestionProductos = new GestionProductos();
         Perfil usuario = gestionUsuarios.inicioSesion();
 
         if(usuario.getAdmin()==true)
@@ -63,8 +64,6 @@ public class Menu
     public void menuAdmin(Perfil usuario, GestionUsuarios gestionUsuarios, GestionProductos gestionProductos) throws ProductoNoEncontradoException
     {
         int seleccion = 0;
-
-
         while (seleccion != -1)
         {
 
@@ -131,7 +130,6 @@ public class Menu
     public int menuVisualAdmin(){
 
         int seleccion = 0;
-
 
         while(true){
         System.out.println("\n1 Agregar nuevo producto" +
