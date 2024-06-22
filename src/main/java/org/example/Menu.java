@@ -11,7 +11,13 @@ import java.util.TreeSet;
 
 public class Menu
 {
+
+    private Scanner scan;
+
+
     public Menu() {
+
+        this.scan = new Scanner(System.in);
     }
 
     public void menu()
@@ -30,7 +36,7 @@ public class Menu
 
     public Perfil inicioSesion(GestionUsuarios gestionUsuarios)
     {
-        Scanner scan = new Scanner(System.in);
+
         Perfil perfil = null;
         while (perfil == null)
         {
@@ -59,7 +65,6 @@ public class Menu
 
     public Perfil iniciarSesion(TreeSet<Perfil> usuarios)
     {
-        Scanner scan = new Scanner(System.in);
         System.out.println("Ingrese su email: ");
         String email = scan.next();
         for(Perfil perfil : usuarios)
@@ -75,7 +80,6 @@ public class Menu
 
     public Perfil crearSesion(GestionUsuarios gestionUsuarios)
     {
-        Scanner scan = new Scanner(System.in);
         System.out.println("email: ");
         String email = scan.next();
         System.out.println("Nombre: ");
@@ -101,7 +105,6 @@ public class Menu
 
     public void menuAdmin(Perfil usuario, GestionUsuarios gestionUsuarios)
     {
-        Scanner scan = new Scanner(System.in);
         int seleccion = 0;
         while (seleccion != -1)
         {
@@ -119,7 +122,6 @@ public class Menu
 
     public void menuCliente(Perfil usuario, GestionUsuarios gestionUsuarios)
     {
-        Scanner scan = new Scanner(System.in);
         int seleccion = 0;
         while (seleccion != -1)
         {
@@ -134,4 +136,27 @@ public class Menu
             }
         }
     }
+
+    public int menuVisualAdmin(){
+
+        int seleccion = 0;
+
+        String.format("\n1 Agregar nuevo producto" +
+                      "\n2 Eliminar un producto" +
+                      "\n3 Modificar un Producto" +
+                      "\n" +
+                      "\n4 Cambiar contrasenia usuario" +
+                      "\n5 Modificar nombre usuario" +
+                      "\n6 Modificar email usuario" +
+                      "\n7 Eliminar usuario");
+
+
+
+    return seleccion;
+    }
+
+
+
+
+
 }
