@@ -1,6 +1,11 @@
 package org.example;
 
+import Enums.TallaLetra;
+import Enums.TipoPantalon;
 import Exepciones.InvalidOptionException;
+import Exepciones.ProductoNoEncontradoException;
+import Tienda.GestionProductos;
+import Tienda.Producto;
 import Usuarios.GestionUsuarios;
 import Usuarios.Perfil;
 import Usuarios.Usuario;
@@ -21,13 +26,15 @@ public class Menu
         this.scan = new Scanner(System.in);
     }
 
-    public void menu()
-    {
+    public void menu() throws ProductoNoEncontradoException {
         GestionUsuarios gestionUsuarios = new GestionUsuarios();
+        GestionProductos gestionProductos = new GestionProductos();
+
+
         Perfil usuario = inicioSesion(gestionUsuarios);
         if(usuario.getAdmin()==true)
         {
-            menuAdmin(usuario,gestionUsuarios);
+            menuAdmin(usuario,gestionUsuarios, gestionProductos);
 
         }else
         {
@@ -93,6 +100,7 @@ public class Menu
         System.out.println("1. Si");
         System.out.println("2. No");
         int seleccion = scan.nextByte();
+        scan.nextLine(); //limpiar buffer
         if(seleccion==1)
         {
             perfil.chequearAdmin();
@@ -123,7 +131,7 @@ public class Menu
 
 
 
-    public void menuAdmin(Perfil usuario, GestionUsuarios gestionUsuarios)
+    public void menuAdmin(Perfil usuario, GestionUsuarios gestionUsuarios, GestionProductos gestionProductos) throws ProductoNoEncontradoException
     {
         int seleccion = 0;
 
@@ -142,34 +150,41 @@ public class Menu
             {
                 case 1: //Agregar nuevo producto
 
+                    gestionProductos.crearAgregarProducto();
+
                     break;
 //-----------------------------------------------------------------------------------
                 case 2: //Eliminar un producto
+                    gestionProductos.eliminarProductoPorId();
 
                     break;
 //-----------------------------------------------------------------------------------
                 case 3: //Modificar un Producto
+                    gestionProductos.modificarProducto();
+                    break;
+//-----------------------------------------------------------------------------------
+                case 4:
+                gestionProductos.listarProductos();
+                    break;
+//-----------------------------------------------------------------------------------
+                case 5: //Cambiar contrasenia usuario
 
                     break;
 //-----------------------------------------------------------------------------------
-                case 4: //Cambiar contrasenia usuario
+                case 6: //Modificar nombre usuario
 
                     break;
 //-----------------------------------------------------------------------------------
-                case 5: //Modificar nombre usuario
+                case 7: //Modificar email usuario
 
                     break;
 //-----------------------------------------------------------------------------------
-                case 6: //Modificar email usuario
+                case 8: //Eliminar usuario
 
                     break;
 //-----------------------------------------------------------------------------------
-                case 7: //Eliminar usuario
-
-                    break;
-//-----------------------------------------------------------------------------------
-                case 0: seleccion=-1;
-
+                case 0:
+                    seleccion=-1;
                     break;
 //-----------------------------------------------------------------------------------
                 default:
@@ -190,16 +205,17 @@ public class Menu
         System.out.println("\n1 Agregar nuevo producto" +
                       "\n2 Eliminar un producto" +
                       "\n3 Modificar un Producto" +
+                      "\n4 Listar Productos" +
                       "\n" +
-                      "\n4 Cambiar contrasenia usuario" +
-                      "\n5 Modificar nombre usuario" +
-                      "\n6 Modificar email usuario" +
-                      "\n7 Eliminar usuario" +
+                      "\n5 Cambiar contrasenia usuario" +
+                      "\n6 Modificar nombre usuario" +
+                      "\n7 Modificar email usuario" +
+                      "\n8 Eliminar usuario" +
                       "\n0 Salir" +
                       "\nInsertar Opcion: ");
 
         try {
-            seleccion = validateOption(scan.nextLine());
+            seleccion = validateOption(scan.nextLine(),8);
             break; // Opción válida, salir del bucle
         } catch (InvalidOptionException e) {
             System.out.println(e.getMessage());
@@ -209,8 +225,39 @@ public class Menu
     }
 
 
+    public int menuVisualModifProducto(){
 
-    private int validateOption(String input) throws InvalidOptionException {
+        int seleccion = 0;
+
+
+        while(true){
+            System.out.println(
+                    "\n1 Nombre" +
+                    "\n2 Stock" +
+                    "\n3 Precio" +
+                    "\n0 Salir" +
+                    "\nInsertar Opcion: ");
+
+            try {
+                seleccion = validateOption(scan.nextLine(),3);
+                break; // Opción válida, salir del bucle
+            } catch (InvalidOptionException e) {
+                System.out.println(e.getMessage());
+            }}
+
+        return seleccion;
+    }
+
+
+
+
+
+
+    //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    private int validateOption(String input, int limite) throws InvalidOptionException {
         // Verifica si la entrada está compuesta solo de dígitos
         if (!input.matches("\\d+")) {
             throw new InvalidOptionException("Error: Debe ingresar un número válido.");
@@ -220,8 +267,8 @@ public class Menu
         int number = Integer.parseInt(input);
 
         // Verifica si el número está en el rango válido (0 a 7)
-        if (number < 0 || number > 7) {
-            throw new InvalidOptionException("Error: Opción no válida. Por favor, seleccione un número entre 0 y 7.");
+        if (number < 0 || number > limite) {
+            throw new InvalidOptionException("Error: Opción no válida. Por favor, seleccione un número entre 0 y ." + limite);
         }
 
         return number;
