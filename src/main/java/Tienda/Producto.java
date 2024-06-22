@@ -1,6 +1,6 @@
 package Tienda;
 
-public class Producto {
+public class Producto implements Comparable<Producto> {
 
     private String nombre;
 
@@ -14,6 +14,11 @@ public class Producto {
         this.id = id;
         this.stock = stock;
         this.precio = precio;
+    }
+
+    @Override
+    public int compareTo(Producto o) {
+        return this.nombre.compareTo(o.nombre);
     }
 
     public String getNombre() {
