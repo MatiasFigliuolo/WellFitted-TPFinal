@@ -4,9 +4,8 @@ import Enums.TallaLetra;
 import Enums.TipoPantalon;
 
 public class Pantalon  extends ProductoInf{
-
-
     private TipoPantalon tipoPantalon;
+
     public Pantalon(String nombre, String id, int stock, Number precio, TallaLetra tallaLetra,TipoPantalon tipoPantalon) {
         super(nombre, id, stock, precio, tallaLetra);
         this.tipoPantalon = tipoPantalon;

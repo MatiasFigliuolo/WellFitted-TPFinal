@@ -28,10 +28,8 @@ public class Menu
 
     public void menu() throws ProductoNoEncontradoException {
         GestionUsuarios gestionUsuarios = new GestionUsuarios();
-        GestionProductos gestionProductos = new GestionProductos();
+        Perfil usuario = gestionUsuarios.inicioSesion();
 
-
-        Perfil usuario = inicioSesion(gestionUsuarios);
         if(usuario.getAdmin()==true)
         {
             menuAdmin(usuario,gestionUsuarios, gestionProductos);
@@ -42,75 +40,6 @@ public class Menu
         }
     }
 
-    public Perfil inicioSesion(GestionUsuarios gestionUsuarios)
-    {
-
-        Perfil perfil = null;
-        while (perfil == null)
-        {
-            int seleccion;
-            System.out.println("1. Iniciar Sesion");
-            System.out.println("2. Crear nuevo usuario");
-            seleccion = scan.nextInt();
-            switch (seleccion) {
-                case 1:
-                    perfil = iniciarSesion(gestionUsuarios.getUsuarios());
-                    break;
-                case 2:
-                    perfil = crearSesion(gestionUsuarios);
-                    break;
-                default:
-                    System.out.println("! Dato invalido !");
-                    break;
-            }
-            if(perfil==null)
-            {
-                System.out.println("! Usuario invalido !");
-            }
-        }
-        return perfil;
-    }
-
-    public Perfil iniciarSesion(TreeSet<Perfil> usuarios)
-    {
-        System.out.println("Ingrese su email: ");
-        String email = scan.next();
-        for(Perfil perfil : usuarios)
-        {
-            if(perfil.getEmail().equals(email))
-            {
-                return perfil;
-            }
-        }
-
-        return null;
-    }
-
-    public Perfil crearSesion(GestionUsuarios gestionUsuarios)
-    {
-        System.out.println("email: ");
-        String email = scan.next();
-        System.out.println("Nombre: ");
-        String nombre = scan.next();
-        System.out.println("Apellido: ");
-        String apellido = scan.next();
-        String nombreYapellido= nombre +" "+ apellido;
-        Perfil perfil = new Perfil(nombreYapellido,email);
-        System.out.println("Usuario admin?");
-        System.out.println("1. Si");
-        System.out.println("2. No");
-        int seleccion = scan.nextByte();
-        scan.nextLine(); //limpiar buffer
-        if(seleccion==1)
-        {
-            perfil.chequearAdmin();
-        }
-        if(gestionUsuarios.agregar(perfil))
-        {
-            return perfil;
-        }
-        return null;
-    }
 
     public void menuCliente(Perfil usuario, GestionUsuarios gestionUsuarios)
     {
@@ -138,12 +67,15 @@ public class Menu
 
         while (seleccion != -1)
         {
+
             System.out.println("- - - MENU ADMIN - - -\n");
             seleccion = menuVisualAdmin();
 
-
-
         System.out.println("\nHa seleccionado la opción: " + seleccion);
+
+            System.out.println("- - - MENU CLIENTE - - -");
+            System.out.println("1. Mirar Productos");
+            System.out.println("0. Salir");
 
 
             switch (seleccion)
