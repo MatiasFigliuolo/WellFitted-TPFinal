@@ -420,6 +420,7 @@ public class GestionProductos implements Serializable {
                     seleccion = -1;
                     break;
                 default:
+                    System.out.println("Opcion invalida");
                     break;
             }
         }
