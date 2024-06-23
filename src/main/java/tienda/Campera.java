@@ -1,6 +1,6 @@
-package Tienda;
+package tienda;
 
-import Enums.TipoCampera;
+import enums.TipoCampera;
 
 public class Campera extends ProductoSup{
     private TipoCampera tipoCampera;

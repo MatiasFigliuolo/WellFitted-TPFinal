@@ -1,6 +1,6 @@
-package Tienda;
+package tienda;
 
-public class Producto implements Comparable<Producto> {
+public abstract class Producto implements Comparable<Producto> {
 
     private String nombre;
 

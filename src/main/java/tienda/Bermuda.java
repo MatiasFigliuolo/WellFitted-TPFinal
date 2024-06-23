@@ -1,7 +1,7 @@
-package Tienda;
+package tienda;
 
-import Enums.TallaLetra;
-import Enums.TipoBermuda;
+import enums.TallaLetra;
+import enums.TipoBermuda;
 
 public class Bermuda extends ProductoInf{
 

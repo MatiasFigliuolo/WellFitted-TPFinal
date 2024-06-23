@@ -1,7 +1,7 @@
-package Usuarios;
+package usuarios;
 
-import Tienda.Carrito;
-import Tienda.Producto;
+import tienda.Carrito;
+import tienda.Producto;
 
 import java.util.ArrayList;
 

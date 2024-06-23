@@ -1,7 +1,7 @@
-package Tienda;
+package tienda;
 
-import Enums.TallaLetra;
-import Enums.TipoRopaInterior;
+import enums.TallaLetra;
+import enums.TipoRopaInterior;
 
 public class RopaInterior extends ProductoInf
 {

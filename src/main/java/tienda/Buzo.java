@@ -1,4 +1,4 @@
-package Tienda;
+package tienda;
 
 public class Buzo extends ProductoSup {
 
