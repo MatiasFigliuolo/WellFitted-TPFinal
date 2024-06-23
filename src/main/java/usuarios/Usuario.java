@@ -10,6 +10,8 @@ public class Usuario implements Comparable<Usuario> {
     private String email;
     private Boolean admin;
 
+    private static int contraAdmin = 1999;
+
 
     public Usuario(String nombre, String email) {
         this.nombre = nombre.toUpperCase();
@@ -46,7 +48,7 @@ public class Usuario implements Comparable<Usuario> {
         Scanner scan = new Scanner(System.in);
         System.out.println("Contraseña: ");
         int contrasenia= scan.nextInt();
-        if(contrasenia == 1999)
+        if(contrasenia == contraAdmin)
         {
             setAdmin(true);
             System.out.println("! Modo administrador activado !");

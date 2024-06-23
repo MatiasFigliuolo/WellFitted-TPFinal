@@ -13,13 +13,12 @@ public class Perfil extends Usuario implements Comparable<Usuario> {
     private Carrito carrito;
     private ArrayList<Carrito> historial;
 
-    private Scanner scan;
 
     public Perfil(String nombre, String email) {
         super(nombre, email);
         this.carrito = new Carrito();
         this.historial = new ArrayList<>();
-        this.scan = new Scanner(System.in);
+
     }
 
     public Perfil(String nombre, String email, Boolean admin, Carrito carrito, ArrayList<Carrito> historial) {
@@ -46,14 +45,23 @@ public class Perfil extends Usuario implements Comparable<Usuario> {
     }
 
     public void agregarAlCarrito(GestionProductos gestionProductos){
+        Scanner scan = new Scanner(System.in);
         for (int intento = 1; intento <= 3; intento++) {
             System.out.print("Ingrese el nombre del producto a agregar al carrito (Intento " + intento + " de 3): ");
             String nombreProducto = scan.nextLine();
             Producto producto = gestionProductos.getProductos().stream().filter(p -> p.getNombre().equalsIgnoreCase(nombreProducto)).findFirst().orElse(null);
             if (producto != null) {
-                carrito.agregar(producto);
-                System.out.println("Producto agregado al carrito: " + producto);
-                return; // Salir del método si se encontró y añadió el producto
+                if(producto.getStock()>0)
+                {
+                    carrito.agregar(producto);
+                    producto.setStock(producto.getStock() - 1);
+                    System.out.println("Producto agregado al carrito: " + producto);
+                    return; // Salir del método si se encontró y añadió el producto
+                } else
+                {
+                    System.out.println("! Producto Agotado !");
+                    intento = intento-1;
+                }
             } else {
                 System.out.println("Producto no encontrado.");
             }
@@ -81,6 +89,7 @@ public class Perfil extends Usuario implements Comparable<Usuario> {
 
     public void quitarDelCarrito()
     {
+        Scanner scan = new Scanner(System.in);
         mostrandoCarrito();
         if(!carrito.getProductos().isEmpty())
         {

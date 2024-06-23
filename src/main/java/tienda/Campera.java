@@ -20,6 +20,6 @@ public class Campera extends ProductoSup{
 
     @Override
     public String toString() {
-        return super.toString()+ "Tipo= "+tipoCampera+ '\'';
+        return super.toString()+ ", Tipo= "+tipoCampera+ '\'';
     }
 }

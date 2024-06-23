@@ -22,6 +22,6 @@ public class Remera extends ProductoSup  {
 
     @Override
     public String toString() {
-        return super.toString()+ "tipo= "+tipoRemera+ '\'';
+        return super.toString()+ ", Tipo= "+tipoRemera+ '\'';
     }
 }

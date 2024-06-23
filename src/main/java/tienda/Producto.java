@@ -43,6 +43,7 @@ public abstract class Producto implements Comparable<Producto> {
         this.stock = stock;
     }
 
+
     public Number getPrecio() {
         return precio;
     }
@@ -61,6 +62,6 @@ public abstract class Producto implements Comparable<Producto> {
         return "Producto{" +
                 "nombre='" + nombre + '\'' +
                 ", stock=" + stock + '\'' +
-                ", precio=" + precio + '\'';
+                ", precio=" + precio + "}"+'\'';
     }
 }
