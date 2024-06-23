@@ -18,7 +18,7 @@ public class Producto implements Comparable<Producto> {
 
     @Override
     public int compareTo(Producto o) {
-        return this.nombre.compareTo(o.nombre);
+        return this.id.compareTo(o.id);
     }
 
     public String getNombre() {
