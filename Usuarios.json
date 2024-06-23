@@ -1,0 +1,67 @@
+[
+  {
+    "nombre": "Juan Perez",
+    "email": "juan.perez@hotmail.com",
+    "admin": false,
+    "carrito": {
+      "fecha": "2023-06-23T10:15:30",
+      "productos": [
+        {
+          "nombre": "Campera Rompe Viento",
+          "id": "CR001",
+          "stock": 50,
+          "precio": 59.99,
+          "talla": 40.0,
+          "tipoCampera": "ROMPE_VIENTO"
+        },
+        {
+          "nombre": "Pantalón Jeans",
+          "id": "PJ002",
+          "stock": 75,
+          "precio": 49.99,
+          "tallaLetra": "LARGE",
+          "tipoPantalon": "JEANS"
+        }
+      ]
+    },
+    "historial": []
+  },
+  {
+    "nombre": "Maria Lopez",
+    "email": "maria.lopez@gmail.com",
+    "admin": true,
+    "carrito": {
+      "fecha": "2024-01-15T14:30:00",
+      "productos": [
+        {
+          "nombre": "Pantalón Jogging",
+          "id": "PJ001",
+          "stock": 50,
+          "precio": 29.99,
+          "tallaLetra": "MEDIUM",
+          "tipoPantalon": "JOGGING"
+        }
+      ]
+    },
+    "historial": []
+  },
+  {
+    "nombre": "Carlos Garcia",
+    "email": "carlos.garcia@outlook.com",
+    "admin": false,
+    "carrito": {
+      "fecha": "2023-11-10T08:20:45",
+      "productos": [
+        {
+          "nombre": "Campera de Nieve",
+          "id": "CN002",
+          "stock": 75,
+          "precio": 129.99,
+          "talla": 42.0,
+          "tipoCampera": "NIEVE"
+        }
+      ]
+    },
+    "historial": []
+  }
+]

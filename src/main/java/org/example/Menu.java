@@ -31,6 +31,7 @@ public class Menu {
 
         //Cargar datos desde json
         gestionProductos.cargandoDatos();
+        gestionUsuarios.cargandoDatos();
 
         Perfil usuario = gestionUsuarios.inicioSesion();
 
@@ -125,6 +126,11 @@ public class Menu {
                     gestionUsuarios.crearUsuario(); //Crear usuario nuevo
                     break;
 // -----------------------------------------------------------------------------------
+                  case 7:
+                    gestionAdministrador.mostrarUsuarios(gestionUsuarios); //Crear usuario nuevo
+                    break;
+// -----------------------------------------------------------------------------------
+
                 case 0:
                     seleccion = -1;
                     break;
@@ -149,11 +155,12 @@ public class Menu {
                     "\n" +
                     "\n5 Modificar usuario" +
                     "\n6 Crear Usuario" +
+                    "\n7 Mostrar Usuarios" +
                     "\n0 Salir" +
                     "\nInsertar Opcion: ");
 
             try {
-                seleccion = validateOption(scan.nextLine(), 6);
+                seleccion = validateOption(scan.nextLine(), 7);
                 break; // Opción válida, salir del bucle
             } catch (InvalidOptionException e) {
                 System.out.println(e.getMessage());

@@ -18,6 +18,11 @@ public class Carrito implements Agregable<Producto>, Quitable<String> {
         this.productos = new ArrayList<>();
     }
 
+    public Carrito(LocalDateTime fecha, ArrayList<Producto> productos) {
+        this.fecha = fecha;
+        this.productos = productos;
+    }
+
     public LocalDateTime getFecha() {
         return fecha;
     }

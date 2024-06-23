@@ -12,9 +12,8 @@ public class GestionAdministrador {
     public void modificacionUsuario(GestionUsuarios gestionUsuarios)
     {
         Scanner scan = new Scanner(System.in);
-        gestionUsuarios.mostrar();
+        gestionUsuarios.mostrarUsuarios();
         Perfil usuario = null;
-        String email;
         usuario = gestionUsuarios.buscarUsuario();
         if(usuario!=null)
         {
@@ -101,6 +100,11 @@ public class GestionAdministrador {
             gestionUsuarios.quitar(usuario);
             System.out.println("! Usuario eliminado !");
         }
+    }
+
+    public void mostrarUsuarios(GestionUsuarios gestionUsuarios)
+    {
+        gestionUsuarios.mostrarUsuarios();
     }
 
 }

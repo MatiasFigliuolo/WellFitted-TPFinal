@@ -22,6 +22,13 @@ public class Perfil extends Usuario implements Comparable<Usuario> {
         this.scan = new Scanner(System.in);
     }
 
+    public Perfil(String nombre, String email, Boolean admin, Carrito carrito, ArrayList<Carrito> historial) {
+        super(nombre, email);
+        setAdmin(admin);
+        setCarrito(carrito);
+        setHistorial(historial);
+    }
+
     public Carrito getCarrito() {
         return carrito;
     }
@@ -90,6 +97,8 @@ public class Perfil extends Usuario implements Comparable<Usuario> {
 
     @Override
     public String toString() {
-        return super.toString();
+        return super.toString() +"\n" +
+                 carrito+ "\n" +
+                 "Hisotrial { "+ historial+ " }";
     }
 }

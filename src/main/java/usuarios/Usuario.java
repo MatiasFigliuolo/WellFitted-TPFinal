@@ -58,14 +58,6 @@ public class Usuario implements Comparable<Usuario> {
     }
 
     @Override
-    public String toString() {
-        return "Usuario{" +
-                "nombre='" + nombre + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Usuario usuario)) return false;
@@ -81,5 +73,14 @@ public class Usuario implements Comparable<Usuario> {
     public int compareTo(Usuario o)
     {
         return this.email.compareTo(o.getEmail());
+    }
+
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
