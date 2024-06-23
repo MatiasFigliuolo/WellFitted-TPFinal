@@ -1,4 +1,4 @@
-package Exepciones;
+package exepciones;
 
 public class InvalidOptionException extends Exception {
     public InvalidOptionException(String message) {

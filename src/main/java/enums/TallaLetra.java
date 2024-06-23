@@ -1,4 +1,4 @@
-package Enums;
+package enums;
 
 
 //Formato de talles para productos superiores

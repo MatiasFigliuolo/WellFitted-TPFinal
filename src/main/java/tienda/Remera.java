@@ -1,6 +1,6 @@
-package Tienda;
+package tienda;
 
-import Enums.TipoRemera;
+import enums.TipoRemera;
 
 public class Remera extends ProductoSup{
 

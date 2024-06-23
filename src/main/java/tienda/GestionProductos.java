@@ -1,15 +1,14 @@
-package Tienda;
+package tienda;
 
-import Enums.*;
-import com.sun.source.tree.Tree;
-import Exepciones.*;
+import enums.*;
+import exepciones.*;
 import org.example.Menu;
 
-import java.util.Scanner;
-import java.util.TreeSet;
+import java.util.*;
 
 public class GestionProductos {
 
+    private static List<Producto> carrito = new ArrayList<>();
     private TreeSet<Producto> productos;
     private Scanner scan;
 
@@ -142,7 +141,44 @@ public class GestionProductos {
         }
     }
 
+    public void filtrarPorPrenda() throws ProductoNoEncontradoException{
+        System.out.println("Ingrese el tipo de prenda: ");
+        String tipo = scan.nextLine().trim();
 
+        validarTipoPrenda(tipo);
+        System.out.println("Productos encontrados: \n");
+        productos.stream().filter(producto -> producto.getClass().getSimpleName().equalsIgnoreCase(tipo)).forEach(System.out::println);
+    }
+
+    public void filtrarPorTipo(){
+        System.out.println("Ingrese el tipo de prenda (sup/inf): ");
+        String tipo = scan.nextLine();
+
+        try{
+            if (tipo.equalsIgnoreCase("sup")){
+                filtrarYImprimirPorClase(productos, ProductoSup.class);
+            }else if (tipo.equalsIgnoreCase("inf")){
+                filtrarYImprimirPorClase(productos,ProductoInf.class);
+            } else {
+                throw new IllegalArgumentException("Tipo inválido: "+ tipo);
+            }
+        }catch (IllegalArgumentException e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public static void filtrarYImprimirPorClase(Set<Producto> productos, Class<? extends Producto> claseDeseada) {
+        productos.stream()
+                .filter(claseDeseada::isInstance)
+                .forEach(System.out::println);
+    }
+
+    public static void validarTipoPrenda(String tipoDeseado) throws ProductoNoEncontradoException {
+        Set<String> tiposValidos = Set.of("Bermuda","Buzo","Campera","Pantalon", "Remera", "RopaInterior");
+        if (!tiposValidos.contains(tipoDeseado)) {
+            throw new ProductoNoEncontradoException("Tipo de producto inválido: " + tipoDeseado);
+        }
+    }
 
     public void modificarProducto () throws ProductoNoEncontradoException {
 
@@ -178,10 +214,69 @@ public class GestionProductos {
                 break;
         }
         }
+    }
+    public void filtrarProductos() throws ProductoNoEncontradoException {
+        Menu menu = new Menu();
+        int seleccion = 0;
 
+        while (seleccion != -1){
+            seleccion = menu.menuVisualFiltrado();
 
+            switch (seleccion){
+
+                case 1:
+                    filtrarPorTipo();
+                    break;
+                case 2:
+                    filtrarPorPrenda();
+                    break;
+                case 0:
+                    seleccion = -1;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
+    public void agregarAlCarrito(){
+        for (int intento = 1; intento <= 3; intento++) {
+            System.out.print("Ingrese el nombre del producto a agregar al carrito (Intento " + intento + " de 3): ");
+        String nombreProducto = scan.nextLine();
+        Producto producto = productos.stream().filter(p -> p.getNombre().equalsIgnoreCase(nombreProducto)).findFirst().orElse(null);
+        if (producto != null) {
+            carrito.add(producto);
+            System.out.println("Producto agregado al carrito: " + producto);
+            return; // Salir del método si se encontró y añadió el producto
+        } else {
+            System.out.println("Producto no encontrado.");
+        }
+    }
+        System.out.println("Ha alcanzado el número máximo de intentos. No se agregó ningún producto al carrito.");
+}
+
+
+    public static void mostrarCarrito() {
+        if (carrito.isEmpty()) {
+            System.out.println("El carrito está vacío.");
+        } else {
+            System.out.println("Carrito de compras:");
+            carrito.forEach(System.out::println);
+        }
+    }
+
+    public static void realizarCompra() {
+        if (carrito.isEmpty()) {
+            System.out.println("El carrito está vacío. No se puede realizar la compra.");
+        } else {
+            double total = 0.0;
+            for (Producto producto : carrito) {
+                total += producto.getPrecio().doubleValue(); // Convertir a double para sumar
+            }
+            System.out.println("Compra realizada. Total a pagar: $" + total);
+            carrito.clear();
+        }
+    }
 
     public void modificarNombre() throws ProductoNoEncontradoException {
 
@@ -243,8 +338,6 @@ public class GestionProductos {
 
 
     public Producto buscarProductoPorId(String idBuscado) throws ProductoNoEncontradoException {
-
-
 
         for (Producto producto : productos) {
             if (producto.getId().equals(idBuscado)) {
