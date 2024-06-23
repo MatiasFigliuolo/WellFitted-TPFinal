@@ -397,7 +397,7 @@ public class GestionProductos implements Serializable, Agregable<Producto> {
                 break;
             //------------------------------------------------
             default:
-
+                System.out.println("Opcion invalida");
                 break;
         }
         }
@@ -421,6 +421,7 @@ public class GestionProductos implements Serializable, Agregable<Producto> {
                     seleccion = -1;
                     break;
                 default:
+                    System.out.println("Opcion invalida");
                     break;
             }
         }
