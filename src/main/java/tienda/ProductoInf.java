@@ -1,6 +1,6 @@
-package Tienda;
+package tienda;
 
-import Enums.TallaLetra;
+import enums.TallaLetra;
 
 public class ProductoInf extends Producto{
 

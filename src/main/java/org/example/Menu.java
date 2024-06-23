@@ -1,23 +1,15 @@
 package org.example;
 
-import Enums.TallaLetra;
-import Enums.TipoPantalon;
-import Exepciones.InvalidOptionException;
-import Exepciones.ProductoNoEncontradoException;
-import Tienda.GestionProductos;
-import Tienda.Producto;
-import Usuarios.GestionAdministrador;
-import Usuarios.GestionUsuarios;
-import Usuarios.Perfil;
-import Usuarios.Usuario;
+import exepciones.InvalidOptionException;
+import exepciones.ProductoNoEncontradoException;
+import tienda.GestionProductos;
+import usuarios.GestionAdministrador;
+import usuarios.GestionUsuarios;
+import usuarios.Perfil;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.TreeSet;
 
-public class Menu
-{
+public class Menu {
 
     private Scanner scan;
 
@@ -33,70 +25,61 @@ public class Menu
         GestionAdministrador gestionAdministrador = new GestionAdministrador();
         Perfil usuario = gestionUsuarios.inicioSesion();
 
-        if(usuario.getAdmin()==true)
-        {
-            menuAdmin(usuario,gestionUsuarios, gestionProductos,gestionAdministrador);
+        if (usuario.getAdmin() == true) {
+            menuAdmin(usuario, gestionUsuarios, gestionProductos, gestionAdministrador);
 
-        }else
-        {
-            menuCliente(usuario,gestionUsuarios);
+        } else {
+            menuCliente(usuario, gestionProductos);
         }
     }
 
 
-    public void menuCliente(Perfil usuario, GestionUsuarios gestionUsuarios)
-    {
+    public void menuCliente(Perfil usuario, GestionProductos gestionProductos) throws ProductoNoEncontradoException {
         int seleccion = 0;
-        while (seleccion != -1)
-        {
+        while (seleccion != -1) {
             System.out.println("- - - MENU CLIENTE - - -");
             seleccion = menuVisualCliente();
 
             System.out.println("\nHa seleccionado la opción: " + seleccion);
 
-            switch (seleccion)
-            {
-                case 1: //Buscar Porducto
-
+            switch (seleccion) {
+                case 1: //Buscar Producto
+                    gestionProductos.filtrarProductos();
                     break;
 //-----------------------------------------------------------------------------------
                 case 2: //Sumar al carrito
-
+                    gestionProductos.agregarAlCarrito();
                     break;
 //-----------------------------------------------------------------------------------
                 case 3: //Mostrar carrito
-
+                    GestionProductos.mostrarCarrito();
                     break;
 //-----------------------------------------------------------------------------------
                 case 4: //listar Productos
-
+                    gestionProductos.listarProductos();
                     break;
 //-----------------------------------------------------------------------------------
                 case 5: //Realizar compra
-
+                    GestionProductos.realizarCompra();
                     break;
 //-----------------------------------------------------------------------------------
-                case 0: seleccion=-1;
+                case 0:
+                    seleccion = -1;
                     break;
             }
         }
     }
 
-
-
-    public void menuAdmin(Perfil usuario, GestionUsuarios gestionUsuarios, GestionProductos gestionProductos,GestionAdministrador gestionAdministrador) throws ProductoNoEncontradoException
-    {
+    public void menuAdmin(Perfil usuario, GestionUsuarios gestionUsuarios, GestionProductos gestionProductos, GestionAdministrador gestionAdministrador) throws ProductoNoEncontradoException {
         int seleccion = 0;
-        while (seleccion != -1)
-        {
+        while (seleccion != -1) {
 
             System.out.println("- - - MENU ADMIN - - -\n");
             seleccion = menuVisualAdmin();
 
-        System.out.println("\nHa seleccionado la opción: " + seleccion);
+            System.out.println("\nHa seleccionado la opción: " + seleccion);
 
-            switch (seleccion)
-            {
+            switch (seleccion) {
                 case 1: //Agregar nuevo producto
 
                     gestionProductos.crearAgregarProducto();
@@ -113,17 +96,19 @@ public class Menu
                     break;
 //-----------------------------------------------------------------------------------
                 case 4:
-                gestionProductos.listarProductos();
+                    gestionProductos.listarProductos();
                     break;
 //-----------------------------------------------------------------------------------
-                case 5: gestionAdministrador.modificacionUsuario(gestionUsuarios); //Modificar un usuario
+                case 5:
+                    gestionAdministrador.modificacionUsuario(gestionUsuarios); //Modificar un usuario
                     break;
 //-----------------------------------------------------------------------------------
-                case 6: gestionUsuarios.crearUsuario(); //Crear usuario nuevo
+                case 6:
+                    gestionUsuarios.crearUsuario(); //Crear usuario nuevo
                     break;
 // -----------------------------------------------------------------------------------
                 case 0:
-                    seleccion=-1;
+                    seleccion = -1;
                     break;
 //-----------------------------------------------------------------------------------
                 default:
@@ -134,100 +119,104 @@ public class Menu
     }
 
 
-
-    public int menuVisualAdmin(){
+    public int menuVisualAdmin() {
 
         int seleccion = 0;
 
-        while(true){
-        System.out.println("\n1 Agregar nuevo producto" +
-                      "\n2 Eliminar un producto" +
-                      "\n3 Modificar un Producto" +
-                      "\n4 Listar Productos" +
-                      "\n" +
-                      "\n5 Modificar usuario" +
-                      "\n6 Crear Usuario" +
-                      "\n0 Salir" +
-                      "\nInsertar Opcion: ");
+        while (true) {
+            System.out.println("\n1 Agregar nuevo producto" +
+                    "\n2 Eliminar un producto" +
+                    "\n3 Modificar un Producto" +
+                    "\n4 Listar Productos" +
+                    "\n" +
+                    "\n5 Modificar usuario" +
+                    "\n6 Crear Usuario" +
+                    "\n0 Salir" +
+                    "\nInsertar Opcion: ");
 
-        try {
-            seleccion = validateOption(scan.nextLine(),6);
-            break; // Opción válida, salir del bucle
-        } catch (InvalidOptionException e) {
-            System.out.println(e.getMessage());
-        }}
+            try {
+                seleccion = validateOption(scan.nextLine(), 6);
+                break; // Opción válida, salir del bucle
+            } catch (InvalidOptionException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
         return seleccion;
     }
 
 
-    public int menuVisualModifProducto(){
+    public int menuVisualModifProducto() {
 
         int seleccion = 0;
 
 
-        while(true){
+        while (true) {
             System.out.println(
                     "\n1 Nombre" +
-                    "\n2 Stock" +
-                    "\n3 Precio" +
-                    "\n0 Salir" +
-                    "\nInsertar Opcion: ");
-
-            try {
-                seleccion = validateOption(scan.nextLine(),3);
-                break; // Opción válida, salir del bucle
-            } catch (InvalidOptionException e) {
-                System.out.println(e.getMessage());
-            }}
-
-        return seleccion;
-    }
-
-
-    public int menuVisualCliente(){
-
-        int seleccion = 0;
-
-        while(true){
-            System.out.println(
-                    "\n1 Buscar Porducto" +
-                    "\n2 Sumar al carrito" +
-                    "\n3 Mostrar carrito" +
-                    "\n4 listar Productos" +
-                    "\n5 Realizar compra" +
-                    "\n0 Salir" +
-                    "\nInsertar Opcion: ");
-
-            try {
-                seleccion = validateOption(scan.nextLine(),5);
-                break; // Opción válida, salir del bucle
-            } catch (InvalidOptionException e) {
-                System.out.println(e.getMessage());
-            }}
-
-        return seleccion;
-    }
-
-
-    public int menuVisualFiltrado(){
-
-        int seleccion = 0;
-
-
-        while(true){
-            System.out.println(
-                            "\n1 Por Tipo" +    //superior o inferior
-                            "\n2 Por Prenda" + //pantalon,remera,campera,etc
+                            "\n2 Stock" +
+                            "\n3 Precio" +
                             "\n0 Salir" +
                             "\nInsertar Opcion: ");
 
             try {
-                seleccion = validateOption(scan.nextLine(),2);
+                seleccion = validateOption(scan.nextLine(), 3);
                 break; // Opción válida, salir del bucle
             } catch (InvalidOptionException e) {
                 System.out.println(e.getMessage());
-            }}
+            }
+        }
+
+        return seleccion;
+    }
+
+
+    public int menuVisualCliente() {
+
+        int seleccion = 0;
+
+        while (true) {
+            System.out.println(
+                    "\n1 Buscar Producto" +
+                            "\n2 Sumar al carrito" +
+                            "\n3 Mostrar carrito" +
+                            "\n4 listar Productos" +
+                            "\n5 Realizar compra" +
+                            "\n0 Salir" +
+                            "\nInsertar Opcion: ");
+
+            try {
+                seleccion = validateOption(scan.nextLine(), 5);
+                break; // Opción válida, salir del bucle
+            } catch (InvalidOptionException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return seleccion;
+    }
+
+
+
+    public int menuVisualFiltrado() {
+
+        int seleccion = 0;
+
+
+        while (true) {
+            System.out.println(
+                            "\n1 Por Tipo" + // superior o inferior
+                            "\n2 Por Prenda" + // pantalon,remera,campera,etc
+                            "\n0 Salir" +
+                            "\nInsertar Opcion: ");
+
+            try {
+                seleccion = validateOption(scan.nextLine(), 2);
+                break; // Opción válida, salir del bucle
+            } catch (InvalidOptionException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
         return seleccion;
     }
@@ -254,7 +243,7 @@ public class Menu
         return number;
     }
 
-    }
+}
 
 
 
