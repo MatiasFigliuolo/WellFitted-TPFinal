@@ -330,6 +330,7 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
 
     public void filtrarPorPrenda() throws ProductoNoEncontradoException{
         System.out.println("Ingrese el tipo de prenda: ");
+        System.out.println("bermuda | buzo | campera | pantalon | remera | ropa_interior");
         String tipo = scan.nextLine().trim();
 
         validarTipoPrenda(tipo);
@@ -361,8 +362,8 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
     }
 
     public static void validarTipoPrenda(String tipoDeseado) throws ProductoNoEncontradoException {
-        Set<String> tiposValidos = Set.of("Bermuda","Buzo","Campera","Pantalon", "Remera", "RopaInterior");
-        if (!tiposValidos.contains(tipoDeseado)) {
+        Set<String> tiposValidos = Set.of("bermuda","buzo","campera","pantalon", "remera", "ropa_interior");
+        if (!tiposValidos.contains(tipoDeseado.toLowerCase())) {
             throw new ProductoNoEncontradoException("Tipo de producto inválido: " + tipoDeseado);
         }
     }
