@@ -2,8 +2,11 @@ package tienda;
 
 import enums.TipoRemera;
 
-public class Remera extends ProductoSup{
+import java.io.Serializable;
 
+public class Remera extends ProductoSup implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private TipoRemera tipoRemera;
     public Remera(String nombre, String id, int stock, Number precio, float talla, TipoRemera tipoRemera) {
         super(nombre, id, stock, precio, talla);

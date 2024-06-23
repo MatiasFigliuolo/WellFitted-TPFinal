@@ -1,5 +1,6 @@
 package usuarios;
 
+import java.io.*;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -9,6 +10,26 @@ public class GestionUsuarios {
 
     public TreeSet<Perfil> getUsuarios() {
         return usuarios;
+    }
+
+//region Métodos para guardar y cargar usuarios en un archivo
+    public void guardarUsuariosEnArchivo(String filename) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            oos.writeObject(usuarios);
+            System.out.println("Usuarios guardados exitosamente en " + filename);
+        } catch (IOException e) {
+            System.err.println("Error al guardar los usuarios: " + e.getMessage());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void cargarUsuariosDesdeArchivo(String filename) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+            usuarios = (TreeSet<Perfil>) ois.readObject();
+            System.out.println("Usuarios cargados exitosamente desde " + filename);
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error al cargar los usuarios: " + e.getMessage());
+        }
     }
 
     public void setUsuarios(TreeSet<Perfil> usuarios) {

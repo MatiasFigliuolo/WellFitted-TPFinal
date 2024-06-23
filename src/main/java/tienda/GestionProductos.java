@@ -3,10 +3,15 @@ package tienda;
 import enums.*;
 import exepciones.*;
 import org.example.Menu;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
-public class GestionProductos {
+public class GestionProductos implements Serializable {
 
     private TreeSet<Producto> productos;
     private Scanner scan;
@@ -21,6 +26,188 @@ public class GestionProductos {
         return productos;
     }
 
+    //region Métodos para guardar y cargar productos en un archivo
+
+    public void cargandoDatos() {
+        String pathBermudas = null;
+        String pathBuzos = null;
+        String pathCamperas = null;
+        String pathPantalones = null;
+        String pathRemeras = null;
+        String pathRopaInterior = null;
+        try {
+            pathBermudas = new String(Files.readAllBytes(Paths.get("./Bermudas.json")));
+            pathBuzos = new String(Files.readAllBytes(Paths.get("./Buzos.json")));
+            pathCamperas = new String(Files.readAllBytes(Paths.get("./Camperas.json")));
+            pathPantalones = new String(Files.readAllBytes(Paths.get("./Pantalones.json")));
+            pathRemeras = new String(Files.readAllBytes(Paths.get("./Remeras.json")));
+            pathRopaInterior = new String(Files.readAllBytes(Paths.get("./RopaInterior.json")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            JSONArray jsonArray = new JSONArray(pathBermudas);
+            cargarBermudas(jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONArray jsonArray = new JSONArray(pathPantalones);
+            cargarPantalon(jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            JSONArray jsonArray = new JSONArray(pathRopaInterior);
+            cargarRopaInterior(jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            JSONArray jsonArray = new JSONArray(pathBuzos);
+            cargarBuzos(jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            JSONArray jsonArray = new JSONArray(pathRemeras);
+            cargarRemeras(jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            JSONArray jsonArray = new JSONArray(pathCamperas);
+            cargarCamperas(jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cargarBermudas(JSONArray jsonArray)
+    {
+        JSONObject jsonObject = new JSONObject();
+        for(int i=0 ; i<jsonArray.length();i++)
+        {
+            jsonObject = jsonArray.getJSONObject(i);
+            cargarDatosJsonABermudas(jsonObject);
+        }
+    }
+    public void cargarDatosJsonABermudas(JSONObject jsonObject)
+    {
+        String nombre = jsonObject.getString("nombre");
+        String id = jsonObject.getString("id");
+        int stock = jsonObject.getInt("stock");
+        Number precio = jsonObject.getNumber("precio");
+        TallaLetra tallaLetra = TallaLetra.valueOf(jsonObject.getString("tallaLetra"));
+        TipoBermuda tipoBermuda = TipoBermuda.valueOf(jsonObject.getString("tipoBermuda"));
+        Bermuda bermuda = new Bermuda(nombre,id,stock,precio,tallaLetra,tipoBermuda);
+        productos.add(bermuda);
+    }
+
+    public void cargarPantalon(JSONArray jsonArray)
+    {
+        JSONObject jsonObject = new JSONObject();
+        for(int i=0 ; i<jsonArray.length();i++)
+        {
+            jsonObject = jsonArray.getJSONObject(i);
+            cargarDatosJsonAPantalon(jsonObject);
+        }
+    }
+    public void cargarDatosJsonAPantalon(JSONObject jsonObject)
+    {
+        String nombre = jsonObject.getString("nombre");
+        String id = jsonObject.getString("id");
+        int stock = jsonObject.getInt("stock");
+        Number precio = jsonObject.getNumber("precio");
+        TallaLetra tallaLetra = TallaLetra.valueOf(jsonObject.getString("tallaLetra"));
+        TipoPantalon tipoPantalon = TipoPantalon.valueOf(jsonObject.getString("tipoPantalon"));
+        Pantalon pantalon = new Pantalon(nombre,id,stock,precio,tallaLetra,tipoPantalon);
+        productos.add(pantalon);
+    }
+   public void cargarRopaInterior(JSONArray jsonArray)
+    {
+        JSONObject jsonObject = new JSONObject();
+        for(int i=0 ; i<jsonArray.length();i++)
+        {
+            jsonObject = jsonArray.getJSONObject(i);
+            cargarDatosJsonARopaInterior(jsonObject);
+        }
+    }
+    public void cargarDatosJsonARopaInterior(JSONObject jsonObject)
+    {
+        String nombre = jsonObject.getString("nombre");
+        String id = jsonObject.getString("id");
+        int stock = jsonObject.getInt("stock");
+        Number precio = jsonObject.getNumber("precio");
+        TallaLetra tallaLetra = TallaLetra.valueOf(jsonObject.getString("tallaLetra"));
+        TipoRopaInterior tipoRopaInterior = TipoRopaInterior.valueOf(jsonObject.getString("tipoRopaInterior"));
+        RopaInterior ropaInterior = new RopaInterior(nombre,id,stock,precio,tallaLetra,tipoRopaInterior);
+        productos.add(ropaInterior);
+    }
+  public void cargarBuzos(JSONArray jsonArray)
+    {
+        JSONObject jsonObject = new JSONObject();
+        for(int i=0 ; i<jsonArray.length();i++)
+        {
+            jsonObject = jsonArray.getJSONObject(i);
+            cargarDatosJsonABuzos(jsonObject);
+        }
+    }
+    public void cargarDatosJsonABuzos(JSONObject jsonObject)
+    {
+        String nombre = jsonObject.getString("nombre");
+        String id = jsonObject.getString("id");
+        int stock = jsonObject.getInt("stock");
+        Number precio = jsonObject.getNumber("precio");
+        float talla= jsonObject.getFloat("talla");
+        Boolean capucha = jsonObject.getBoolean("capucha");
+        Buzo buzo = new Buzo(nombre,id,stock,precio,talla,capucha);
+        productos.add(buzo);
+    }
+  public void cargarRemeras(JSONArray jsonArray)
+    {
+        JSONObject jsonObject = new JSONObject();
+        for(int i=0 ; i<jsonArray.length();i++)
+        {
+            jsonObject = jsonArray.getJSONObject(i);
+            cargarDatosJsonARemeras(jsonObject);
+        }
+    }
+    public void cargarDatosJsonARemeras(JSONObject jsonObject)
+    {
+        String nombre = jsonObject.getString("nombre");
+        String id = jsonObject.getString("id");
+        int stock = jsonObject.getInt("stock");
+        Number precio = jsonObject.getNumber("precio");
+        float talla= jsonObject.getFloat("talla");
+        TipoRemera tipoRemera = TipoRemera.valueOf(jsonObject.getString("tipoRemera"));
+        Remera remera = new Remera(nombre,id,stock,precio,talla,tipoRemera);
+        productos.add(remera);
+    }
+ public void cargarCamperas(JSONArray jsonArray)
+    {
+        JSONObject jsonObject = new JSONObject();
+        for(int i=0 ; i<jsonArray.length();i++)
+        {
+            jsonObject = jsonArray.getJSONObject(i);
+            cargarDatosJsonACamperas(jsonObject);
+        }
+    }
+    public void cargarDatosJsonACamperas(JSONObject jsonObject)
+    {
+        String nombre = jsonObject.getString("nombre");
+        String id = jsonObject.getString("id");
+        int stock = jsonObject.getInt("stock");
+        Number precio = jsonObject.getNumber("precio");
+        float talla= jsonObject.getFloat("talla");
+        TipoCampera tipoCampera = TipoCampera.valueOf(jsonObject.getString("tipoCampera"));
+        Campera campera = new Campera(nombre,id,stock,precio,talla,tipoCampera);
+        productos.add(campera);
+    }
+
+    //endregion
 
     public void crearAgregarProducto() {
 

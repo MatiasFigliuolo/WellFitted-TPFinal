@@ -7,6 +7,7 @@ import usuarios.GestionAdministrador;
 import usuarios.GestionUsuarios;
 import usuarios.Perfil;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
@@ -23,6 +24,14 @@ public class Menu {
         GestionUsuarios gestionUsuarios = new GestionUsuarios();
         GestionProductos gestionProductos = new GestionProductos();
         GestionAdministrador gestionAdministrador = new GestionAdministrador();
+
+        // Cargar datos desde archivos al iniciar
+        //gestionProductos.cargarProductosDesdeArchivo("productos.dat");
+        //gestionUsuarios.cargarUsuariosDesdeArchivo("usuarios.dat");
+
+        //Cargar datos desde json
+        gestionProductos.cargandoDatos();
+
         Perfil usuario = gestionUsuarios.inicioSesion();
 
         if (usuario.getAdmin() == true) {
@@ -31,6 +40,10 @@ public class Menu {
         } else {
             menuCliente(usuario, gestionProductos);
         }
+
+        // Guardar datos en archivos al finalizar
+        //gestionProductos.guardarProductosEnArchivo("productos.dat");
+        //gestionUsuarios.guardarUsuariosEnArchivo("usuarios.dat");
     }
 
 

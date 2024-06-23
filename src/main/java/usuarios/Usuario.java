@@ -1,10 +1,12 @@
 package usuarios;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Usuario implements Comparable<Usuario> {
+public class Usuario implements Comparable<Usuario>, Serializable {
 
+    private static final long serialVersionUID = 1L;
     private String nombre;
     private String email;
     private Boolean admin;

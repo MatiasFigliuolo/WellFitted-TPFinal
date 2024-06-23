@@ -4,11 +4,13 @@ import tienda.Carrito;
 import tienda.GestionProductos;
 import tienda.Producto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Perfil extends Usuario implements Comparable<Usuario>{
+public class Perfil extends Usuario implements Comparable<Usuario>, Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Carrito carrito;
     private ArrayList<Carrito> historial;
 

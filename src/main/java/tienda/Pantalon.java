@@ -3,7 +3,10 @@ package tienda;
 import enums.TallaLetra;
 import enums.TipoPantalon;
 
-public class Pantalon  extends ProductoInf{
+import java.io.Serializable;
+
+public class Pantalon  extends ProductoInf implements Serializable {
+    private static final long serialVersionUID = 1L;
     private TipoPantalon tipoPantalon;
 
     public Pantalon(String nombre, String id, int stock, Number precio, TallaLetra tallaLetra,TipoPantalon tipoPantalon) {
