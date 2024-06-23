@@ -48,19 +48,24 @@ public class Menu {
                     break;
 //-----------------------------------------------------------------------------------
                 case 2: //Sumar al carrito
-                    gestionProductos.agregarAlCarrito();
+                    usuario.agregarAlCarrito(gestionProductos);
                     break;
 //-----------------------------------------------------------------------------------
-                case 3: //Mostrar carrito
-                    GestionProductos.mostrarCarrito();
+                case 3: //Quitar del carrito
+                    usuario.quitarDelCarrito();
                     break;
 //-----------------------------------------------------------------------------------
-                case 4: //listar Productos
+                case 4: //Mostrar carrito
+                    usuario.mostrandoCarrito();
+                    break;
+//-----------------------------------------------------------------------------------
+
+                case 5: //listar Productos
                     gestionProductos.listarProductos();
                     break;
 //-----------------------------------------------------------------------------------
-                case 5: //Realizar compra
-                    GestionProductos.realizarCompra();
+                case 6: //Realizar compra
+                    usuario.realizarCompra();
                     break;
 //-----------------------------------------------------------------------------------
                 case 0:
@@ -179,9 +184,10 @@ public class Menu {
             System.out.println(
                     "\n1 Buscar Producto" +
                             "\n2 Sumar al carrito" +
-                            "\n3 Mostrar carrito" +
-                            "\n4 listar Productos" +
-                            "\n5 Realizar compra" +
+                            "\n3 Quitar producto del carrito" +
+                            "\n4 Mostrar carrito" +
+                            "\n5 listar Productos" +
+                            "\n6 Realizar compra" +
                             "\n0 Salir" +
                             "\nInsertar Opcion: ");
 

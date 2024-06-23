@@ -1,6 +1,7 @@
 package tienda;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Carrito {
@@ -29,7 +30,7 @@ public class Carrito {
        return productos.add(producto);
     }
 
-    public void quitar(String id)
+    public Boolean quitar(String id)
     {
         int pos=-1;
         for(int i=0;i<productos.size();i++)
@@ -43,7 +44,24 @@ public class Carrito {
         if(pos!=-1)
         {
             productos.remove(pos);
+            System.out.println("! Producto eliminado con exito !");
+            return true;
         }
+        return false;
+    }
+
+    public  void mostrarCarrito() {
+        if (productos.isEmpty()) {
+            System.out.println("El carrito está vacío.");
+        } else {
+            System.out.println("Carrito de compras:  (" +fecha.format(DateTimeFormatter.ISO_DATE_TIME) + ")");
+            productos.forEach(System.out::println);
+        }
+    }
+
+    public void limpiarCarrito()
+    {
+        productos.clear();
     }
 
     @Override

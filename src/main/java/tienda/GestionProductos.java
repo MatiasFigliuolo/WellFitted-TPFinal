@@ -8,7 +8,6 @@ import java.util.*;
 
 public class GestionProductos {
 
-    private static List<Producto> carrito = new ArrayList<>();
     private TreeSet<Producto> productos;
     private Scanner scan;
 
@@ -238,46 +237,6 @@ public class GestionProductos {
             }
         }
     }
-
-    public void agregarAlCarrito(){
-        for (int intento = 1; intento <= 3; intento++) {
-            System.out.print("Ingrese el nombre del producto a agregar al carrito (Intento " + intento + " de 3): ");
-        String nombreProducto = scan.nextLine();
-        Producto producto = productos.stream().filter(p -> p.getNombre().equalsIgnoreCase(nombreProducto)).findFirst().orElse(null);
-        if (producto != null) {
-            carrito.add(producto);
-            System.out.println("Producto agregado al carrito: " + producto);
-            return; // Salir del método si se encontró y añadió el producto
-        } else {
-            System.out.println("Producto no encontrado.");
-        }
-    }
-        System.out.println("Ha alcanzado el número máximo de intentos. No se agregó ningún producto al carrito.");
-}
-
-
-    public static void mostrarCarrito() {
-        if (carrito.isEmpty()) {
-            System.out.println("El carrito está vacío.");
-        } else {
-            System.out.println("Carrito de compras:");
-            carrito.forEach(System.out::println);
-        }
-    }
-
-    public static void realizarCompra() {
-        if (carrito.isEmpty()) {
-            System.out.println("El carrito está vacío. No se puede realizar la compra.");
-        } else {
-            double total = 0.0;
-            for (Producto producto : carrito) {
-                total += producto.getPrecio().doubleValue(); // Convertir a double para sumar
-            }
-            System.out.println("Compra realizada. Total a pagar: $" + total);
-            carrito.clear();
-        }
-    }
-
     public void modificarNombre() throws ProductoNoEncontradoException {
 
         System.out.print("Ingrese el ID del producto buscado: ");
@@ -357,7 +316,5 @@ public class GestionProductos {
         System.out.println("\n\n");
 
     }
-
-
 }
 
