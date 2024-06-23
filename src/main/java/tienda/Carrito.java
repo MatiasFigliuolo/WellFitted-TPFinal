@@ -1,13 +1,15 @@
 package tienda;
 
-import java.io.Serializable;
+import Interfazes.Agregable;
+import Interfazes.Quitable;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Carrito implements Serializable {
+public class Carrito implements Agregable<Producto>, Quitable<String> {
 
-    private static final long serialVersionUID = 1L;
+
     private LocalDateTime fecha;
     private ArrayList<Producto> productos;
 
@@ -73,4 +75,5 @@ public class Carrito implements Serializable {
                 ", productos= " + productos +
                 '}';
     }
+
 }

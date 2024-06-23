@@ -1,5 +1,7 @@
 package usuarios;
 
+import Interfazes.Quitable;
+
 import java.util.Scanner;
 
 public class GestionAdministrador {

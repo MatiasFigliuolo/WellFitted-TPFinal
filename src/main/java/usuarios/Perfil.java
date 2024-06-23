@@ -8,9 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Perfil extends Usuario implements Comparable<Usuario>, Serializable {
+public class Perfil extends Usuario implements Comparable<Usuario> {
 
-    private static final long serialVersionUID = 1L;
     private Carrito carrito;
     private ArrayList<Carrito> historial;
 

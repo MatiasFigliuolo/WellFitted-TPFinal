@@ -1,10 +1,13 @@
 package usuarios;
 
+import Interfazes.Agregable;
+import Interfazes.Quitable;
+
 import java.io.*;
 import java.util.Scanner;
 import java.util.TreeSet;
 
-public class GestionUsuarios {
+public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
 
     private TreeSet<Perfil> usuarios = new TreeSet<>();
 

@@ -1,6 +1,7 @@
 package tienda;
 
 import Interfazes.Agregable;
+import Interfazes.Quitable;
 import enums.*;
 import exepciones.*;
 import org.example.Menu;
@@ -12,7 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class GestionProductos implements Serializable, Agregable<Producto> {
+public class GestionProductos implements Agregable<Producto>, Quitable<Producto> {
 
     private TreeSet<Producto> productos;
     private Scanner scan;
@@ -104,7 +105,7 @@ public class GestionProductos implements Serializable, Agregable<Producto> {
         TallaLetra tallaLetra = TallaLetra.valueOf(jsonObject.getString("tallaLetra"));
         TipoBermuda tipoBermuda = TipoBermuda.valueOf(jsonObject.getString("tipoBermuda"));
         Bermuda bermuda = new Bermuda(nombre,id,stock,precio,tallaLetra,tipoBermuda);
-        productos.add(bermuda);
+        agregar(bermuda);
     }
 
     public void cargarPantalon(JSONArray jsonArray)
@@ -125,7 +126,7 @@ public class GestionProductos implements Serializable, Agregable<Producto> {
         TallaLetra tallaLetra = TallaLetra.valueOf(jsonObject.getString("tallaLetra"));
         TipoPantalon tipoPantalon = TipoPantalon.valueOf(jsonObject.getString("tipoPantalon"));
         Pantalon pantalon = new Pantalon(nombre,id,stock,precio,tallaLetra,tipoPantalon);
-        productos.add(pantalon);
+        agregar(pantalon);
     }
    public void cargarRopaInterior(JSONArray jsonArray)
     {
@@ -145,7 +146,7 @@ public class GestionProductos implements Serializable, Agregable<Producto> {
         TallaLetra tallaLetra = TallaLetra.valueOf(jsonObject.getString("tallaLetra"));
         TipoRopaInterior tipoRopaInterior = TipoRopaInterior.valueOf(jsonObject.getString("tipoRopaInterior"));
         RopaInterior ropaInterior = new RopaInterior(nombre,id,stock,precio,tallaLetra,tipoRopaInterior);
-        productos.add(ropaInterior);
+        agregar(ropaInterior);
     }
   public void cargarBuzos(JSONArray jsonArray)
     {
@@ -165,7 +166,7 @@ public class GestionProductos implements Serializable, Agregable<Producto> {
         float talla= jsonObject.getFloat("talla");
         Boolean capucha = jsonObject.getBoolean("capucha");
         Buzo buzo = new Buzo(nombre,id,stock,precio,talla,capucha);
-        productos.add(buzo);
+        agregar(buzo);
     }
   public void cargarRemeras(JSONArray jsonArray)
     {
@@ -185,7 +186,7 @@ public class GestionProductos implements Serializable, Agregable<Producto> {
         float talla= jsonObject.getFloat("talla");
         TipoRemera tipoRemera = TipoRemera.valueOf(jsonObject.getString("tipoRemera"));
         Remera remera = new Remera(nombre,id,stock,precio,talla,tipoRemera);
-        productos.add(remera);
+        agregar(remera);
     }
  public void cargarCamperas(JSONArray jsonArray)
     {
@@ -205,7 +206,7 @@ public class GestionProductos implements Serializable, Agregable<Producto> {
         float talla= jsonObject.getFloat("talla");
         TipoCampera tipoCampera = TipoCampera.valueOf(jsonObject.getString("tipoCampera"));
         Campera campera = new Campera(nombre,id,stock,precio,talla,tipoCampera);
-        productos.add(campera);
+        agregar(campera);
     }
 
     //endregion
@@ -314,8 +315,7 @@ public class GestionProductos implements Serializable, Agregable<Producto> {
             boolean encontrado = false;
             for (Producto producto : productos) {
                 if (producto.getId().equals(id)) {
-                    productos.remove(producto);
-                    encontrado = true;
+                    encontrado = quitar(producto);
                     System.out.println("Producto eliminado correctamente.");
                     break; // Termina el bucle una vez que se elimina el producto
                 }
@@ -510,5 +510,11 @@ public class GestionProductos implements Serializable, Agregable<Producto> {
     public Boolean agregar(Producto elemento) {
         return productos.add(elemento);
     }
+
+    @Override
+    public Boolean quitar(Producto elemento) {
+        return productos.remove(elemento);
+    }
+
 }
 

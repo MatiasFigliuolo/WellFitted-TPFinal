@@ -4,9 +4,8 @@ import enums.TipoRemera;
 
 import java.io.Serializable;
 
-public class Remera extends ProductoSup implements Serializable {
+public class Remera extends ProductoSup  {
 
-    private static final long serialVersionUID = 1L;
     private TipoRemera tipoRemera;
     public Remera(String nombre, String id, int stock, Number precio, float talla, TipoRemera tipoRemera) {
         super(nombre, id, stock, precio, talla);

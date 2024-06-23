@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Usuario implements Comparable<Usuario>, Serializable {
+public class Usuario implements Comparable<Usuario> {
 
-    private static final long serialVersionUID = 1L;
     private String nombre;
     private String email;
     private Boolean admin;

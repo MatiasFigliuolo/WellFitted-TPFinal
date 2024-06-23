@@ -2,9 +2,8 @@ package tienda;
 
 import java.io.Serializable;
 
-public abstract class Producto implements Comparable<Producto>, Serializable {
+public abstract class Producto implements Comparable<Producto> {
 
-    private static final long serialVersionUID = 1L;
     private String nombre;
 
     private String id;
