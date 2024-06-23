@@ -396,7 +396,7 @@ public class GestionProductos implements Serializable {
                 break;
             //------------------------------------------------
             default:
-
+                System.out.println("Opcion invalida");
                 break;
         }
         }
