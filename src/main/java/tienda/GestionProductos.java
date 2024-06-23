@@ -1,5 +1,6 @@
 package tienda;
 
+import Interfazes.Agregable;
 import enums.*;
 import exepciones.*;
 import org.example.Menu;
@@ -11,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class GestionProductos implements Serializable {
+public class GestionProductos implements Serializable, Agregable<Producto> {
 
     private TreeSet<Producto> productos;
     private Scanner scan;
@@ -251,19 +252,19 @@ public class GestionProductos implements Serializable {
                 case "pantalon":
                     System.out.print("Ingrese el tipo de pantalón (JOGGING,JEANS,CARGO,LEGGINS): ");
                     TipoPantalon tipoPantalon = TipoPantalon.valueOf(scan.nextLine().toUpperCase());
-                    productos.add(new Pantalon(nombre, ID, stock, precio, talle, tipoPantalon));
+                    agregar(new Pantalon(nombre, ID, stock, precio, talle, tipoPantalon));
                     break;
 
                 case "bermuda":
                     System.out.print("Ingrese el tipo de bermuda (AJUSTADA, PIERNA_ANCHA, A_MEDIDA, CASUAL, DEPORTIVA): ");
                     TipoBermuda tipoBermuda = TipoBermuda.valueOf(scan.nextLine().toUpperCase());
-                    productos.add(new Bermuda(nombre, ID, stock, precio, talle, tipoBermuda));
+                    agregar(new Bermuda(nombre, ID, stock, precio, talle, tipoBermuda));
                     break;
 
                 case "ropa_interior":
                     System.out.print("Ingrese el tipo de ropa interior (BOXER, SLIPS, TRUNKS, CALZONCILLOS_CONICOS): ");
                     TipoRopaInterior tipoRopaInterior = TipoRopaInterior.valueOf(scan.nextLine().toUpperCase());
-                    productos.add(new RopaInterior(nombre, ID, stock, precio, talle, tipoRopaInterior));
+                    agregar(new RopaInterior(nombre, ID, stock, precio, talle, tipoRopaInterior));
                     break;
 
                 default:
@@ -282,17 +283,17 @@ public class GestionProductos implements Serializable {
                 case "remera":
                     System.out.print("Ingrese el tipo de remera (M_CORTA,M_LARGA,MUSCULOSA,DEPORTIVA): ");
                     TipoRemera tipoRemera = TipoRemera.valueOf(scan.nextLine().toUpperCase());
-                    productos.add(new Remera(nombre, ID, stock, precio, talleNumerico, tipoRemera));
+                    agregar(new Remera(nombre, ID, stock, precio, talleNumerico, tipoRemera));
                     break;
                 case "campera":
                     System.out.print("Ingrese el tipo de campera (ROMPE_VIENTO,NIEVE,AISLANTE): ");
                     TipoCampera tipoCampera = TipoCampera.valueOf(scan.nextLine().toUpperCase());
-                    productos.add(new Campera(nombre, ID, stock, precio, talleNumerico, tipoCampera));
+                    agregar(new Campera(nombre, ID, stock, precio, talleNumerico, tipoCampera));
                     break;
                 case "buzo":
                     System.out.print("¿Tiene capucha? (true/false): ");
                     boolean tieneCapucha = scan.nextBoolean();
-                    productos.add(new Buzo(nombre, ID, stock, precio, talleNumerico, true));
+                    agregar(new Buzo(nombre, ID, stock, precio, talleNumerico, true));
                     break;
                 default:
                     System.out.println("Tipo de producto superior no válido.");
@@ -502,6 +503,11 @@ public class GestionProductos implements Serializable {
         }
         System.out.println("\n\n");
 
+    }
+
+    @Override
+    public Boolean agregar(Producto elemento) {
+        return productos.add(elemento);
     }
 }
 
