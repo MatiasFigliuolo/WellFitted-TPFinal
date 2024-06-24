@@ -1,6 +1,7 @@
 package usuarios;
 
 import java.io.Serializable;
+import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -46,16 +47,31 @@ public class Usuario implements Comparable<Usuario> {
     public void chequearAdmin()
     {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Contraseña: ");
-        int contrasenia= scan.nextInt();
-        if(contrasenia == contraAdmin)
+        int i = 0;
+        while (i<3)
+        try {
+            System.out.println("Ingrese la Contraseña:    (Intentos: "+i+"/3)   //Solo numericos");
+            int contrasenia= scan.nextInt();
+            if(contrasenia == contraAdmin)
+            {
+                setAdmin(true);
+                System.out.println("! Modo administrador activado !");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return;
+            }
+            else
+            {
+                System.out.println("! Contraseña incorrecta !");
+                i++;
+            }
+        }catch (InputMismatchException e)
         {
-            setAdmin(true);
-            System.out.println("! Modo administrador activado !");
-        }
-        else
-        {
-            System.out.println("! Contraseña incorrecta !");
+            System.err.println("! Caracteres no numericos ingresados !");
+            return;
         }
     }
 

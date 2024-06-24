@@ -24,6 +24,6 @@ public class Pantalon  extends ProductoInf{
 
     @Override
     public String toString() {
-        return super.toString()+ ", tipoPantalon= "+ tipoPantalon+ '\'';
+        return super.toString()+ ", tipoPantalon= "+ tipoPantalon+ '\n';
     }
 }

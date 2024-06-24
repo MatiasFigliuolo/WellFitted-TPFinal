@@ -22,6 +22,6 @@ public class Bermuda extends ProductoInf{
 
     @Override
     public String toString() {
-        return super.toString() + ", Tipo= "+tipoBermuda+ '\'';
+        return super.toString() + ", Tipo= "+tipoBermuda+ '\n';
     }
 }

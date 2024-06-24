@@ -62,6 +62,6 @@ public abstract class Producto implements Comparable<Producto> {
         return "Producto{" +
                 "nombre='" + nombre + '\'' +
                 ", stock=" + stock + '\'' +
-                ", precio=" + precio + "}"+'\'';
+                ", precio=" + precio + '\'';
     }
 }

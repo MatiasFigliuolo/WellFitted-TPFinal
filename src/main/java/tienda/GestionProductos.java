@@ -18,17 +18,22 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
     private TreeSet<Producto> productos;
     private Scanner scan;
 
+    private final int idLenght;
+    private final String creaciondeID;
+
     public GestionProductos() {
 
         this.productos = new TreeSet<>();
         this.scan = new Scanner(System.in);
+        this.creaciondeID = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";;
+        this.idLenght = 5;
     }
 
     public TreeSet<Producto> getProductos() {
         return productos;
     }
 
-    //region Métodos para guardar y cargar productos en un archivo
+    //region Métodos para guardar y cargar productos en un Json
 
     public void cargandoDatos() {
         String pathBermudas = null;
@@ -219,8 +224,7 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
 
         //-------------------------------------------------------
 
-        System.out.print("Ingrese el ID del producto: ");
-        String ID = scan.nextLine();
+        String ID = generarIdReserva();
 
         //-------------------------------------------------------
 
@@ -253,19 +257,34 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
                 case "pantalon":
                     System.out.print("Ingrese el tipo de pantalón (JOGGING,JEANS,CARGO,LEGGINS): ");
                     TipoPantalon tipoPantalon = TipoPantalon.valueOf(scan.nextLine().toUpperCase());
-                    agregar(new Pantalon(nombre, ID, stock, precio, talle, tipoPantalon));
+                    if(agregar(new Pantalon(nombre, ID, stock, precio, talle, tipoPantalon)))
+                    {
+                        System.out.println("! Producto agregado exitosamente !");
+                    }else {
+                        System.out.println("! el id del producto creado ya esta en el sistema !");
+                    }
                     break;
 
                 case "bermuda":
                     System.out.print("Ingrese el tipo de bermuda (AJUSTADA, PIERNA_ANCHA, A_MEDIDA, CASUAL, DEPORTIVA): ");
                     TipoBermuda tipoBermuda = TipoBermuda.valueOf(scan.nextLine().toUpperCase());
-                    agregar(new Bermuda(nombre, ID, stock, precio, talle, tipoBermuda));
+                    if(agregar(new Bermuda(nombre, ID, stock, precio, talle, tipoBermuda)))
+                    {
+                        System.out.println("! Producto agregado exitosamente !");
+                    }else {
+                        System.out.println("! el id del producto creado ya esta en el sistema !");
+                    }
                     break;
 
                 case "ropa_interior":
                     System.out.print("Ingrese el tipo de ropa interior (BOXER, SLIPS, TRUNKS, CALZONCILLOS_CONICOS): ");
                     TipoRopaInterior tipoRopaInterior = TipoRopaInterior.valueOf(scan.nextLine().toUpperCase());
-                    agregar(new RopaInterior(nombre, ID, stock, precio, talle, tipoRopaInterior));
+                    if(agregar(new RopaInterior(nombre, ID, stock, precio, talle, tipoRopaInterior)))
+                    {
+                        System.out.println("! Producto agregado exitosamente !");
+                    }else {
+                        System.out.println("! el id del producto creado ya esta en el sistema !");
+                    }
                     break;
 
                 default:
@@ -284,17 +303,34 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
                 case "remera":
                     System.out.print("Ingrese el tipo de remera (M_CORTA,M_LARGA,MUSCULOSA,DEPORTIVA): ");
                     TipoRemera tipoRemera = TipoRemera.valueOf(scan.nextLine().toUpperCase());
-                    agregar(new Remera(nombre, ID, stock, precio, talleNumerico, tipoRemera));
+                    if( agregar(new Remera(nombre, ID, stock, precio, talleNumerico, tipoRemera)))
+                    {
+                        System.out.println("! Producto agregado exitosamente !");
+                    }else {
+                        System.out.println("! el id del producto creado ya esta en el sistema !");
+                    }
+
                     break;
                 case "campera":
                     System.out.print("Ingrese el tipo de campera (ROMPE_VIENTO,NIEVE,AISLANTE): ");
                     TipoCampera tipoCampera = TipoCampera.valueOf(scan.nextLine().toUpperCase());
-                    agregar(new Campera(nombre, ID, stock, precio, talleNumerico, tipoCampera));
+                    if(agregar(new Campera(nombre, ID, stock, precio, talleNumerico, tipoCampera)))
+                    {
+                        System.out.println("! Producto agregado exitosamente !");
+                    }else {
+                        System.out.println("! el id del producto creado ya esta en el sistema !");
+                    }
                     break;
                 case "buzo":
                     System.out.print("¿Tiene capucha? (true/false): ");
                     boolean tieneCapucha = scan.nextBoolean();
-                    agregar(new Buzo(nombre, ID, stock, precio, talleNumerico, true));
+
+                    if(agregar(new Buzo(nombre, ID, stock, precio, talleNumerico, true)))
+                    {
+                        System.out.println("! Producto agregado exitosamente !");
+                    }else {
+                        System.out.println("! el id del producto creado ya esta en el sistema !");
+                    }
                     break;
                 default:
                     System.out.println("Tipo de producto superior no válido.");
@@ -304,6 +340,19 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
             System.out.println("Categoría de producto no válida.");
         }
 
+    }
+    public String generarIdReserva()   //Metodo que crea un id de 5 caracters de manera aleatoria
+    {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+        String id = null;
+        for (int i = 0; i < idLenght; i++)
+        {
+            int index = random.nextInt(creaciondeID.length());
+            sb.append(creaciondeID.charAt(index));
+        }
+        id = sb.toString();
+        return id;
     }
 
     public void eliminarProductoPorId() {
@@ -326,7 +375,7 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
         } catch (ProductoNoEncontradoException e) {
             System.out.println(e.getMessage()); // Maneja la excepción si no se encuentra el producto
         }
-    }
+    }         //Metodo para la eliminacion de productos por id
 
     public void filtrarPorPrenda() throws ProductoNoEncontradoException{
         System.out.println("Ingrese el tipo de prenda: ");
@@ -336,7 +385,7 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
         validarTipoPrenda(tipo);
         System.out.println("Productos encontrados: \n");
         productos.stream().filter(producto -> producto.getClass().getSimpleName().equalsIgnoreCase(tipo)).forEach(System.out::println);
-    }
+    }    //Metodo de filtrado
 
     public void filtrarPorTipo(){
         System.out.println("Ingrese el tipo de prenda (sup/inf): ");
@@ -353,20 +402,20 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
         }catch (IllegalArgumentException e){
             System.err.println(e.getMessage());
         }
-    }
+    }     //Metodo de filtrado
 
     public static void filtrarYImprimirPorClase(Set<Producto> productos, Class<? extends Producto> claseDeseada) {
         productos.stream()
                 .filter(claseDeseada::isInstance)
                 .forEach(System.out::println);
-    }
+    }   //Metodo de filtrado
 
     public static void validarTipoPrenda(String tipoDeseado) throws ProductoNoEncontradoException {
         Set<String> tiposValidos = Set.of("bermuda","buzo","campera","pantalon", "remera", "ropa_interior");
         if (!tiposValidos.contains(tipoDeseado.toLowerCase())) {
             throw new ProductoNoEncontradoException("Tipo de producto inválido: " + tipoDeseado);
         }
-    }
+    }    //Metodo de validacion de tipo de prenda ingresado
 
     public void modificarProducto () throws ProductoNoEncontradoException {
 
@@ -402,7 +451,7 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
                 break;
         }
         }
-    }
+    }  //Metodo para la modificacion de algun atributo de un producto
     public void filtrarProductos() throws ProductoNoEncontradoException {
         Menu menu = new Menu();
         int seleccion = 0;
@@ -426,7 +475,7 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
                     break;
             }
         }
-    }
+    }   //Metodo para filtrar la lista de productos por filtro a eleccion
     public void modificarNombre() throws ProductoNoEncontradoException {
 
         System.out.print("Ingrese el ID del producto buscado: ");
@@ -444,7 +493,7 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
             }
         }
 
-    }
+    } //Metodo de modificacion
 
     public void modificarStock() throws ProductoNoEncontradoException {
 
@@ -463,7 +512,7 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
             }
         }
 
-    }
+    } //Metodo de modificacion
 
     public void modificarPrecio() throws ProductoNoEncontradoException {
 
@@ -483,7 +532,7 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
             }
         }
 
-    }
+    } //Metodo de modificacion
 
 
     public Producto buscarProductoPorId(String idBuscado) throws ProductoNoEncontradoException {
@@ -494,7 +543,7 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
             }
         }
         throw new ProductoNoEncontradoException("No se encontró ningún producto con el ID " + idBuscado);
-    }
+    }  //Metodo de busqueda de productos por id
 
     public void listarProductos(){
 
@@ -505,17 +554,17 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
         }
         System.out.println("\n\n");
 
-    }
+    }  //Metodo para mostrar todos los productos
 
     @Override
-    public Boolean agregar(Producto elemento) {
+    public Boolean agregar(Producto elemento) {   //Metodo para agregar productos
         return productos.add(elemento);
-    }
+    } //Metodo para agregar productos
 
     @Override
     public Boolean quitar(Producto elemento) {
         return productos.remove(elemento);
-    }
+    }    //Metodo para quitar productos
 
 }
 

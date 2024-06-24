@@ -83,6 +83,7 @@ public class Perfil extends Usuario implements Comparable<Usuario> {
                 total += producto.getPrecio().doubleValue(); // Convertir a double para sumar
             }
             System.out.println("Compra realizada. Total a pagar: $" + total);
+            historial.add(carrito);
             carrito.limpiarCarrito();
         }
     }
@@ -108,6 +109,6 @@ public class Perfil extends Usuario implements Comparable<Usuario> {
     public String toString() {
         return super.toString() +"\n" +
                  carrito+ "\n" +
-                 "Hisotrial { "+ historial+ " }";
+                 "Hisotrial { "+ historial+ " }"+"\n";
     }
 }

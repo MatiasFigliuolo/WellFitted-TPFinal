@@ -37,9 +37,9 @@ public class Carrito implements Agregable<Producto>, Quitable<String> {
     public Boolean agregar(Producto producto)
     {
        return productos.add(producto);
-    }
+    }  //Metodo para agregar productos
 
-    public Boolean quitar(String id)
+    public Boolean quitar(String id)  //Metodo para quitra productos
     {
         int pos=-1;
         for(int i=0;i<productos.size();i++)
@@ -66,19 +66,18 @@ public class Carrito implements Agregable<Producto>, Quitable<String> {
             System.out.println("Carrito de compras:  (" +fecha.format(DateTimeFormatter.ISO_DATE_TIME) + ")");
             productos.forEach(System.out::println);
         }
-    }
+    } //Metodo para mostrar los productos del carrito
 
     public void limpiarCarrito()
     {
         productos.clear();
-    }
+    }  //Metodo para limpiar el carrito
 
     @Override
     public String toString() {
         return "Carrito{" +
                 "fecha=" + fecha +
-                ", productos= " + productos +
+                ", productos = "+ '\n' + productos +
                 '}';
     }
-
 }

@@ -20,6 +20,6 @@ public class Buzo extends ProductoSup {
 
     @Override
     public String toString() {
-        return super.toString() + ", Capucha= " +capucha+ '\'';
+        return super.toString() + ", Capucha= " +capucha+ '\n';
     }
 }

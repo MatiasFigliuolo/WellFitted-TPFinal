@@ -35,16 +35,18 @@ public class Menu {
 
         Perfil usuario = gestionUsuarios.inicioSesion();
 
-        if (usuario.getAdmin() == true) {
-            menuAdmin(usuario, gestionUsuarios, gestionProductos, gestionAdministrador);
+        try {
+            if (usuario.getAdmin() == true) {
+                menuAdmin(usuario, gestionUsuarios, gestionProductos, gestionAdministrador);
 
-        } else {
-            menuCliente(usuario, gestionProductos);
+            } else {
+                menuCliente(usuario, gestionProductos);
+            }
+        }catch (NullPointerException e)
+        {
+            System.err.println("! Error, Finalizando Ejecucion !");
         }
 
-        // Guardar datos en archivos al finalizar
-        //gestionProductos.guardarProductosEnArchivo("productos.dat");
-        //gestionUsuarios.guardarUsuariosEnArchivo("usuarios.dat");
     }
 
 
