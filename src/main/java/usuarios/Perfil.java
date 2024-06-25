@@ -1,5 +1,6 @@
 package usuarios;
 
+import org.example.Menu;
 import tienda.Carrito;
 import tienda.GestionProductos;
 import tienda.Producto;
@@ -55,18 +56,18 @@ public class Perfil extends Usuario implements Comparable<Usuario> {
                 {
                     carrito.agregar(producto);
                     producto.setStock(producto.getStock() - 1);
-                    System.out.println("Producto agregado al carrito: " + producto);
+                    System.out.println(Menu.ANSI_GREEN + "Producto agregado al carrito: " + producto + Menu.ANSI_RESET);
                     return; // Salir del método si se encontró y añadió el producto
                 } else
                 {
-                    System.out.println("! Producto Agotado !");
+                    System.out.println(Menu.ANSI_YELLOW + "! Producto Agotado !" + Menu.ANSI_RESET);
                     intento = intento-1;
                 }
             } else {
                 System.out.println("Producto no encontrado.");
             }
         }
-        System.out.println("Ha alcanzado el número máximo de intentos. No se agregó ningún producto al carrito.");
+        System.out.println(Menu.ANSI_YELLOW + "Ha alcanzado el número máximo de intentos. No se agregó ningún producto al carrito." + Menu.ANSI_RESET);
     }
 
     public void mostrandoCarrito()
@@ -76,20 +77,19 @@ public class Perfil extends Usuario implements Comparable<Usuario> {
 
     public  void realizarCompra() {
         if (carrito.getProductos().isEmpty()) {
-            System.out.println("El carrito está vacío. No se puede realizar la compra.");
+            System.out.println(Menu.ANSI_YELLOW +"El carrito está vacío. No se puede realizar la compra." + Menu.ANSI_RESET);
         } else {
             double total = 0.0;
             for (Producto producto : carrito.getProductos()) {
                 total += producto.getPrecio().doubleValue(); // Convertir a double para sumar
             }
-            System.out.println("Compra realizada. Total a pagar: $" + total);
+            System.out.println(Menu.ANSI_GREEN +"Compra realizada. Total a pagar: $" + total+ Menu.ANSI_RESET);
             historial.add(carrito);
             carrito.limpiarCarrito();
         }
     }
 
-    public void quitarDelCarrito()
-    {
+    public void quitarDelCarrito() {
         Scanner scan = new Scanner(System.in);
         mostrandoCarrito();
         if(!carrito.getProductos().isEmpty())
@@ -98,7 +98,7 @@ public class Perfil extends Usuario implements Comparable<Usuario> {
             String id = scan.next();
             if(!carrito.quitar(id))
             {
-                System.out.println("! Producto no encontrado !");
+                System.out.println(Menu.ANSI_RED + "! Producto no encontrado !"+ Menu.ANSI_RESET);
             }
         }
     }
