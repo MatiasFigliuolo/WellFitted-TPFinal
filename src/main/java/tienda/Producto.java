@@ -59,9 +59,10 @@ public abstract class Producto implements Comparable<Producto> {
 
     @Override
     public String toString() {
-        return "Producto{" +
-                "nombre='" + nombre + '\'' +
-                ", stock=" + stock + '\'' +
-                ", precio=" + precio + '\'';
+        return String.format("|ID: "       + this.id +
+                             "| |Nombre: " + this.nombre +
+                             "| |Stock: "  + this.stock +
+                             "| |Precio: " + this.precio +
+                             "| ");
     }
 }
