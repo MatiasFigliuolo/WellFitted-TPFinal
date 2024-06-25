@@ -22,17 +22,19 @@ import java.util.TreeSet;
 public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
 
     private TreeSet<Perfil> usuarios = new TreeSet<>();
+    private static String usuariosPath = "./Usuarios.json";
 
     public TreeSet<Perfil> getUsuarios() {
         return usuarios;
     }
+
 
 //region Métodos para guardar y cargar usuarios en un json
 
     public void cargandoDatos()
     {
         try {
-            String pathPerfiles = new String(Files.readAllBytes(Paths.get("./Usuarios.json")));
+            String pathPerfiles = new String(Files.readAllBytes(Paths.get(usuariosPath)));
             JSONArray jsonArray = new JSONArray(pathPerfiles);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -118,6 +120,22 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
         throw new IllegalArgumentException("Tipo de producto desconocido: "+jsonObject);
     }
 
+    public void guardarDatos() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Perfil perfil : usuarios) {
+            JSONObject jsonObject = perfil.toJson();
+            jsonArray.put(jsonObject);
+        }
+
+        try {
+            String jsonFormatted = jsonArray.toString(4);
+            Files.write(Paths.get(usuariosPath), jsonFormatted.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 //endregion
 
     public void setUsuarios(TreeSet<Perfil> usuarios) {
@@ -137,7 +155,6 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
 
         Perfil perfil = new Perfil(nombreYapellido,email);
 
-
         int seleccion = solicitarAdmin();
         if(seleccion==1)
         {
@@ -146,14 +163,9 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
 
         if(agregar(perfil))
         {
-            try {
-                agregarUsuarioAlArchivo(perfil,"./Usuarios.json");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
             return perfil;
         }
-        return null;
+         return null;
     }
 
     public String solicitarNombre() {
@@ -241,117 +253,6 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
     //----------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------
 
-
-
-    public static void agregarUsuarioAlArchivo(Perfil perfil, String filePath) throws IOException {
-        // Leer el archivo existente
-        String content = new String(Files.readAllBytes(Paths.get(filePath)));
-        JSONArray jsonArray = new JSONArray(content);
-
-        // Crear un JSONObject para el nuevo perfil
-        JSONObject nuevoPerfilJson = new JSONObject();
-        nuevoPerfilJson.put("nombre", perfil.getNombre());
-        nuevoPerfilJson.put("email", perfil.getEmail());
-        nuevoPerfilJson.put("admin", perfil.getAdmin());
-
-        JSONObject carritoJson = new JSONObject();
-        carritoJson.put("fecha", perfil.getCarrito().getFecha().toString());
-        JSONArray productosJsonArray = new JSONArray();
-        for (Producto producto : perfil.getCarrito().getProductos()) {
-            JSONObject productoJson = new JSONObject();
-            productoJson.put("nombre", producto.getNombre());
-            productoJson.put("id", producto.getId());
-            productoJson.put("stock", producto.getStock());
-            productoJson.put("precio", producto.getPrecio());
-            // Dependiendo del tipo de producto
-            if (producto instanceof Campera) {
-                Campera campera = (Campera) producto;
-                productoJson.put("talla", campera.getTalla());
-                productoJson.put("tipoCampera", campera.getTipoCampera());
-            } else if (producto instanceof Pantalon) {
-                Pantalon pantalon = (Pantalon) producto;
-                productoJson.put("tallaLetra", pantalon.getTallaLetra());
-                productoJson.put("tipoPantalon", pantalon.getTipoPantalon());
-            }else if(producto instanceof Remera)
-            {
-                Remera remera = (Remera) producto;
-                productoJson.put("talla", remera.getTalla());
-                productoJson.put("tipoRemera", remera.getTipoRemera());
-            } else if(producto instanceof Bermuda)
-            {
-                Bermuda bermuda = (Bermuda) producto;
-                productoJson.put("tallaLetra", bermuda.getTallaLetra());
-                productoJson.put("tipoBermuda", bermuda.getTipoBermuda());
-            } else if(producto instanceof RopaInterior)
-            {
-                RopaInterior ropaInterior = (RopaInterior) producto;
-                productoJson.put("tallaLetra", ropaInterior.getTallaLetra());
-                productoJson.put("tipoRopaInterior", ropaInterior.getTipoRopaInterior());
-            }else if(producto instanceof Buzo)
-            {
-                Buzo buzo = (Buzo) producto;
-                productoJson.put("talla", buzo.getTalla());
-                productoJson.put("capucha", buzo.isCapucha());
-            }
-
-            productosJsonArray.put(productoJson);
-        }
-        carritoJson.put("productos", productosJsonArray);
-        nuevoPerfilJson.put("carrito", carritoJson);
-
-        JSONArray historialJsonArray = new JSONArray();
-        for (Carrito historialCarrito : perfil.getHistorial()) {
-            JSONObject historialCarritoJson = new JSONObject();
-            historialCarritoJson.put("fecha", historialCarrito.getFecha().toString());
-            JSONArray historialProductosJsonArray = new JSONArray();
-            for (Producto producto : historialCarrito.getProductos()) {
-                JSONObject productoJson = new JSONObject();
-                productoJson.put("nombre", producto.getNombre());
-                productoJson.put("id", producto.getId());
-                productoJson.put("stock", producto.getStock());
-                productoJson.put("precio", producto.getPrecio());
-                if (producto instanceof Campera) {
-                    Campera campera = (Campera) producto;
-                    productoJson.put("talla", campera.getTalla());
-                    productoJson.put("tipoCampera", campera.getTipoCampera());
-                } else if (producto instanceof Pantalon) {
-                    Pantalon pantalon = (Pantalon) producto;
-                    productoJson.put("tallaLetra", pantalon.getTallaLetra());
-                    productoJson.put("tipoPantalon", pantalon.getTipoPantalon());
-                }else if(producto instanceof Remera)
-                {
-                    Remera remera = (Remera) producto;
-                    productoJson.put("talla", remera.getTalla());
-                    productoJson.put("tipoRemera", remera.getTipoRemera());
-                } else if(producto instanceof Bermuda)
-                {
-                    Bermuda bermuda = (Bermuda) producto;
-                    productoJson.put("tallaLetra", bermuda.getTallaLetra());
-                    productoJson.put("tipoBermuda", bermuda.getTipoBermuda());
-                } else if(producto instanceof RopaInterior)
-                {
-                    RopaInterior ropaInterior = (RopaInterior) producto;
-                    productoJson.put("tallaLetra", ropaInterior.getTallaLetra());
-                    productoJson.put("tipoRopaInterior", ropaInterior.getTipoRopaInterior());
-                }else if(producto instanceof Buzo)
-                {
-                    Buzo buzo = (Buzo) producto;
-                    productoJson.put("talla", buzo.getTalla());
-                    productoJson.put("capucha", buzo.isCapucha());
-                }
-                historialProductosJsonArray.put(productoJson);
-            }
-            historialCarritoJson.put("productos", historialProductosJsonArray);
-            historialJsonArray.put(historialCarritoJson);
-        }
-        nuevoPerfilJson.put("historial", historialJsonArray);
-
-        // Agregar el nuevo perfil al JSONArray
-        jsonArray.put(nuevoPerfilJson);
-
-        // Escribir el JSONArray actualizado de vuelta al archivo
-        Files.write(Paths.get(filePath), jsonArray.toString().getBytes(), StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
-    }
 
     public Perfil inicioSesion()
     {

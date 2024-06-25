@@ -1,5 +1,7 @@
 package tienda;
 
+import org.json.JSONObject;
+
 public class ProductoSup extends Producto{
 
     private float talla;
@@ -19,5 +21,10 @@ public class ProductoSup extends Producto{
     @Override
     public String toString() {
        return String.format(super.toString() + "|Talla: " + this.talla + "| ");
+    }
+
+    @Override
+    public JSONObject toJson() {
+        return null;
     }
 }

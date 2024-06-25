@@ -34,10 +34,6 @@ public class Menu {
         GestionProductos gestionProductos = new GestionProductos();
         GestionAdministrador gestionAdministrador = new GestionAdministrador();
 
-        // Cargar datos desde archivos al iniciar
-        //gestionProductos.cargarProductosDesdeArchivo("productos.dat");
-        //gestionUsuarios.cargarUsuariosDesdeArchivo("usuarios.dat");
-
         //Cargar datos desde json
         gestionProductos.cargandoDatos();
         gestionUsuarios.cargandoDatos();
@@ -55,6 +51,9 @@ public class Menu {
         {
             System.err.println("! Error, Finalizando Ejecucion !");
         }
+
+        gestionUsuarios.guardarDatos();
+        gestionProductos.guardarDatos();
 
     }
 

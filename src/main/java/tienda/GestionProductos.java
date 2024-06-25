@@ -7,16 +7,25 @@ import exepciones.*;
 import org.example.Menu;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import usuarios.Perfil;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
+
 
 public class GestionProductos implements Agregable<Producto>, Quitable<Producto> {
 
     private TreeSet<Producto> productos;
     private Scanner scan;
+    private String bermudasPath;
+    private String pantalonesPath;
+    private String ropaInteriorPath;
+    private String buzosPath;
+    private String camperasPath;
+    private String remerasPath;
 
     private final int idLenght;
     private final String creaciondeID;
@@ -29,6 +38,12 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
         this.scan = new Scanner(System.in);
         this.creaciondeID = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";;
         this.idLenght = 5;
+        this.bermudasPath = "./Bermudas.json";
+        this.buzosPath = "./Buzos.json";
+        this.camperasPath = "./Camperas.json";
+        this.pantalonesPath = "./Pantalones.json";
+        this.ropaInteriorPath = "./RopaInterior.json";
+        this.remerasPath= "./Remeras.json";
     }
 
     public TreeSet<Producto> getProductos() {
@@ -45,12 +60,12 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
         String pathRemeras = null;
         String pathRopaInterior = null;
         try {
-            pathBermudas = new String(Files.readAllBytes(Paths.get("./Bermudas.json")));
-            pathBuzos = new String(Files.readAllBytes(Paths.get("./Buzos.json")));
-            pathCamperas = new String(Files.readAllBytes(Paths.get("./Camperas.json")));
-            pathPantalones = new String(Files.readAllBytes(Paths.get("./Pantalones.json")));
-            pathRemeras = new String(Files.readAllBytes(Paths.get("./Remeras.json")));
-            pathRopaInterior = new String(Files.readAllBytes(Paths.get("./RopaInterior.json")));
+            pathBermudas = new String(Files.readAllBytes(Paths.get(bermudasPath)));
+            pathBuzos = new String(Files.readAllBytes(Paths.get(buzosPath)));
+            pathCamperas = new String(Files.readAllBytes(Paths.get(camperasPath)));
+            pathPantalones = new String(Files.readAllBytes(Paths.get(pantalonesPath)));
+            pathRemeras = new String(Files.readAllBytes(Paths.get(remerasPath)));
+            pathRopaInterior = new String(Files.readAllBytes(Paths.get(ropaInteriorPath)));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -215,6 +230,66 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
         Campera campera = new Campera(nombre,id,stock,precio,talla,tipoCampera);
         agregar(campera);
     }
+
+    public void guardarDatos() {
+        JSONArray jsonArrayBermuda = new JSONArray();
+        JSONArray jsonArrayBuzo = new JSONArray();
+        JSONArray jsonArrayCampera = new JSONArray();
+        JSONArray jsonArrayRemera = new JSONArray();
+        JSONArray jsonArrayRopaInterior = new JSONArray();
+        JSONArray jsonArrayPantalon = new JSONArray();
+
+        for (Producto producto : productos) {
+            if(producto instanceof Bermuda)
+            {
+                JSONObject jsonObject = producto.toJson();
+                jsonArrayBermuda.put(jsonObject);
+            }
+           if(producto instanceof Buzo)
+            {
+                JSONObject jsonObject = producto.toJson();
+                jsonArrayBuzo.put(jsonObject);
+            }
+             if(producto instanceof Campera)
+            {
+                JSONObject jsonObject = producto.toJson();
+                jsonArrayCampera.put(jsonObject);
+            }
+             if(producto instanceof Remera)
+            {
+                JSONObject jsonObject = producto.toJson();
+                jsonArrayRemera.put(jsonObject);
+            }
+             if(producto instanceof RopaInterior)
+            {
+                JSONObject jsonObject = producto.toJson();
+                jsonArrayRopaInterior.put(jsonObject);
+            }
+            if(producto instanceof Pantalon)
+            {
+                JSONObject jsonObject = producto.toJson();
+                jsonArrayPantalon.put(jsonObject);
+            }
+        }
+        try {
+            String jsonFormattedBermuda = jsonArrayBermuda.toString(4);
+            String jsonFormattedCampera = jsonArrayCampera.toString(4);
+            String jsonFormattedBuzo = jsonArrayBuzo.toString(4);
+            String jsonFormattedPantalon = jsonArrayPantalon.toString(4);
+            String jsonFormattedRemera = jsonArrayRemera.toString(4);
+            String jsonFormattedRopaInterior = jsonArrayRopaInterior.toString(4);
+            Files.write(Paths.get(bermudasPath), jsonFormattedBermuda.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(Paths.get(camperasPath), jsonFormattedCampera.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(Paths.get(buzosPath), jsonFormattedBuzo.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(Paths.get(remerasPath), jsonFormattedRemera.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(Paths.get(pantalonesPath), jsonFormattedPantalon.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(Paths.get(ropaInteriorPath), jsonFormattedRopaInterior.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     //endregion
 //---------------------------------------------------------------------------------------------------------

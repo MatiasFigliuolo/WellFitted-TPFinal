@@ -2,13 +2,16 @@ package tienda;
 
 import Interfazes.Agregable;
 import Interfazes.Quitable;
+import Interfazes.ToJson;
 import org.example.Menu;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Carrito implements Agregable<Producto>, Quitable<String> {
+public class Carrito implements Agregable<Producto>, Quitable<String>, ToJson {
 
 
     private LocalDateTime fecha;
@@ -22,6 +25,10 @@ public class Carrito implements Agregable<Producto>, Quitable<String> {
     public Carrito(LocalDateTime fecha, ArrayList<Producto> productos) {
         this.fecha = fecha;
         this.productos = productos;
+    }
+    public Carrito(Carrito otroCarrito) {
+        this.fecha = otroCarrito.fecha;  // LocalDateTime es inmutable, así que esto está bien
+        this.productos = new ArrayList<>(otroCarrito.productos);
     }
 
     public LocalDateTime getFecha() {
@@ -81,5 +88,19 @@ public class Carrito implements Agregable<Producto>, Quitable<String> {
                         "|Fecha: "    + this.fecha +
                         "|\nProductos: " + this.productos);
 
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("fecha", this.fecha.toString());
+
+        JSONArray productosJson = new JSONArray();
+        for (Producto p : productos) {
+            productosJson.put(p.toJson());
+        }
+        jsonObject.put("productos", productosJson);
+
+        return jsonObject;
     }
 }

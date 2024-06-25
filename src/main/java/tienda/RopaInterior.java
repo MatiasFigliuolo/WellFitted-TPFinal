@@ -2,6 +2,7 @@ package tienda;
 
 import enums.TallaLetra;
 import enums.TipoRopaInterior;
+import org.json.JSONObject;
 
 public class RopaInterior extends ProductoInf
 {
@@ -22,5 +23,18 @@ public class RopaInterior extends ProductoInf
     @Override
     public String toString() {
         return String.format(super.toString() + "|Tipo: " + this.tipoRopaInterior + "| ");
+    }
+
+    @Override
+    public JSONObject toJson() {
+
+        JSONObject productoJson = new JSONObject();
+        productoJson.put("nombre", getNombre());
+        productoJson.put("id", getId());
+        productoJson.put("stock", getStock());
+        productoJson.put("precio", getPrecio());
+        productoJson.put("tallaLetra", getTallaLetra());
+        productoJson.put("tipoRopaInterior", getTipoRopaInterior());
+        return productoJson;
     }
 }

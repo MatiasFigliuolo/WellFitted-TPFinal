@@ -1,82 +1,82 @@
 [
-  {
-    "nombre": "Pantalón Jogging",
-    "id": "PJ001",
-    "stock": 50,
-    "precio": 29.99,
-    "tallaLetra": "MEDIUM",
-    "tipoPantalon": "JOGGING"
-  },
-  {
-    "nombre": "Pantalón Jeans",
-    "id": "PJ002",
-    "stock": 75,
-    "precio": 49.99,
-    "tallaLetra": "LARGE",
-    "tipoPantalon": "JEANS"
-  },
-  {
-    "nombre": "Pantalón Cargo",
-    "id": "PC003",
-    "stock": 40,
-    "precio": 39.99,
-    "tallaLetra": "SMALL",
-    "tipoPantalon": "CARGO"
-  },
-  {
-    "nombre": "Pantalón Leggins",
-    "id": "PL004",
-    "stock": 60,
-    "precio": 19.99,
-    "tallaLetra": "XLARGE",
-    "tipoPantalon": "LEGGINS"
-  },
-  {
-    "nombre": "Pantalón Jogging Deportivo",
-    "id": "PJ005",
-    "stock": 30,
-    "precio": 35.99,
-    "tallaLetra": "XSMALL",
-    "tipoPantalon": "JOGGING"
-  },
-  {
-    "nombre": "Pantalón Jeans Clásico",
-    "id": "PJ006",
-    "stock": 45,
-    "precio": 55.99,
-    "tallaLetra": "MEDIUM",
-    "tipoPantalon": "JEANS"
-  },
-  {
-    "nombre": "Pantalón Cargo Militar",
-    "id": "PC007",
-    "stock": 55,
-    "precio": 44.99,
-    "tallaLetra": "LARGE",
-    "tipoPantalon": "CARGO"
-  },
-  {
-    "nombre": "Pantalón Leggins Yoga",
-    "id": "PL008",
-    "stock": 35,
-    "precio": 24.99,
-    "tallaLetra": "MEDIUM",
-    "tipoPantalon": "LEGGINS"
-  },
-  {
-    "nombre": "Pantalón Jogging Urbano",
-    "id": "PJ009",
-    "stock": 25,
-    "precio": 31.99,
-    "tallaLetra": "LARGE",
-    "tipoPantalon": "JOGGING"
-  },
-  {
-    "nombre": "Pantalón Jeans Slim",
-    "id": "PJ010",
-    "stock": 50,
-    "precio": 59.99,
-    "tallaLetra": "SMALL",
-    "tipoPantalon": "JEANS"
-  }
+    {
+        "precio": 39.99,
+        "id": "PC003",
+        "stock": 40,
+        "tipoPantalon": "CARGO",
+        "nombre": "Pantalón Cargo",
+        "tallaLetra": "SMALL"
+    },
+    {
+        "precio": 44.99,
+        "id": "PC007",
+        "stock": 55,
+        "tipoPantalon": "CARGO",
+        "nombre": "Pantalón Cargo Militar",
+        "tallaLetra": "LARGE"
+    },
+    {
+        "precio": 29.99,
+        "id": "PJ001",
+        "stock": 50,
+        "tipoPantalon": "JOGGING",
+        "nombre": "Pantalón Jogging",
+        "tallaLetra": "MEDIUM"
+    },
+    {
+        "precio": 49.99,
+        "id": "PJ002",
+        "stock": 75,
+        "tipoPantalon": "JEANS",
+        "nombre": "Pantalón Jeans",
+        "tallaLetra": "LARGE"
+    },
+    {
+        "precio": 35.99,
+        "id": "PJ005",
+        "stock": 30,
+        "tipoPantalon": "JOGGING",
+        "nombre": "Pantalón Jogging Deportivo",
+        "tallaLetra": "XSMALL"
+    },
+    {
+        "precio": 55.99,
+        "id": "PJ006",
+        "stock": 45,
+        "tipoPantalon": "JEANS",
+        "nombre": "Pantalón Jeans Clásico",
+        "tallaLetra": "MEDIUM"
+    },
+    {
+        "precio": 31.99,
+        "id": "PJ009",
+        "stock": 25,
+        "tipoPantalon": "JOGGING",
+        "nombre": "Pantalón Jogging Urbano",
+        "tallaLetra": "LARGE"
+    },
+    {
+        "precio": 59.99,
+        "id": "PJ010",
+        "stock": 50,
+        "tipoPantalon": "JEANS",
+        "nombre": "Pantalón Jeans Slim",
+        "tallaLetra": "SMALL"
+    },
+    {
+        "precio": 19.99,
+        "id": "PL004",
+        "stock": 60,
+        "tipoPantalon": "LEGGINS",
+        "nombre": "Pantalón Leggins",
+        "tallaLetra": "XLARGE"
+    },
+    {
+        "precio": 24.99,
+        "id": "PL008",
+        "stock": 35,
+        "tipoPantalon": "LEGGINS",
+        "nombre": "Pantalón Leggins Yoga",
+        "tallaLetra": "MEDIUM"
+    }
 ]

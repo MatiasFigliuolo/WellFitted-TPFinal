@@ -1,6 +1,9 @@
 package usuarios;
 
+import Interfazes.ToJson;
 import org.example.Menu;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import tienda.Carrito;
 import tienda.GestionProductos;
 import tienda.Producto;
@@ -9,7 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Perfil extends Usuario implements Comparable<Usuario> {
+public class Perfil extends Usuario implements Comparable<Usuario>, ToJson {
 
     private Carrito carrito;
     private ArrayList<Carrito> historial;
@@ -47,6 +50,10 @@ public class Perfil extends Usuario implements Comparable<Usuario> {
 
     public void agregarAlCarrito(GestionProductos gestionProductos){
         Scanner scan = new Scanner(System.in);
+        if(carrito.getProductos().isEmpty())
+        {
+            carrito = new Carrito();
+        }
         for (int intento = 1; intento <= 3; intento++) {
             System.out.print("Ingrese el nombre del producto a agregar al carrito (Intento " + intento + " de 3): ");
             String nombreProducto = scan.nextLine();
@@ -84,7 +91,8 @@ public class Perfil extends Usuario implements Comparable<Usuario> {
                 total += producto.getPrecio().doubleValue(); // Convertir a double para sumar
             }
             System.out.println(Menu.ANSI_GREEN +"Compra realizada. Total a pagar: $" + total+ Menu.ANSI_RESET);
-            historial.add(carrito);
+            Carrito carritoCopia = new Carrito(carrito);
+            historial.add(carritoCopia);
             carrito.limpiarCarrito();
         }
     }
@@ -110,5 +118,24 @@ public class Perfil extends Usuario implements Comparable<Usuario> {
         return super.toString() +"\n" +
                  carrito+ "\n" +
                  "Hisotrial { "+ historial+ " }"+"\n";
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("nombre", this.getNombre());
+        jsonObject.put("email", this.getEmail());
+        jsonObject.put("admin", this.getAdmin());
+
+        JSONObject carritoJson = this.carrito.toJson();
+        jsonObject.put("carrito", carritoJson);
+
+        JSONArray historialJson = new JSONArray();
+        for (Carrito c : historial) {
+            historialJson.put(c.toJson());
+        }
+        jsonObject.put("historial", historialJson);
+
+        return jsonObject;
     }
 }

@@ -1,5 +1,7 @@
 package tienda;
 
+import org.json.JSONObject;
+
 public class Buzo extends ProductoSup {
 
     private boolean capucha;
@@ -32,5 +34,17 @@ public class Buzo extends ProductoSup {
     @Override
     public String toString() {
         return String.format(super.toString() + "|Capucha: " + conSinCapucha() + "| ");
+    }
+
+    public JSONObject toJson()
+    {
+        JSONObject productoJson = new JSONObject();
+        productoJson.put("nombre", getNombre());
+        productoJson.put("id", getId());
+        productoJson.put("stock", getStock());
+        productoJson.put("precio", getPrecio());
+        productoJson.put("talla", getTalla());
+        productoJson.put("capucha", isCapucha());
+        return productoJson;
     }
 }

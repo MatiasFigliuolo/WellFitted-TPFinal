@@ -1,82 +1,82 @@
 [
-  {
-    "nombre": "Buzo Deportivo",
-    "id": "BD001",
-    "stock": 50,
-    "precio": 39.99,
-    "talla": 40.0,
-    "capucha": true
-  },
-  {
-    "nombre": "Buzo Casual",
-    "id": "BC002",
-    "stock": 75,
-    "precio": 44.99,
-    "talla": 42.0,
-    "capucha": false
-  },
-  {
-    "nombre": "Buzo Clásico",
-    "id": "BC003",
-    "stock": 40,
-    "precio": 49.99,
-    "talla": 38.0,
-    "capucha": false
-  },
-  {
-    "nombre": "Buzo con Estampado",
-    "id": "BE004",
-    "stock": 60,
-    "precio": 59.99,
-    "talla": 44.0,
-    "capucha": true
-  },
-  {
-    "nombre": "Buzo Liso",
-    "id": "BL005",
-    "stock": 30,
-    "precio": 34.99,
-    "talla": 39.5,
-    "capucha": false
-  },
-  {
-    "nombre": "Buzo de Algodón",
-    "id": "BA006",
-    "stock": 45,
-    "precio": 29.99,
-    "talla": 41.0,
-    "capucha": true
-  },
-  {
-    "nombre": "Buzo Polar",
-    "id": "BP007",
-    "stock": 55,
-    "precio": 64.99,
-    "talla": 43.0,
-    "capucha": true
-  },
-  {
-    "nombre": "Buzo de Lana",
-    "id": "BL008",
-    "stock": 35,
-    "precio": 54.99,
-    "talla": 37.0,
-    "capucha": false
-  },
-  {
-    "nombre": "Buzo de Invierno",
-    "id": "BI009",
-    "stock": 25,
-    "precio": 69.99,
-    "talla": 45.0,
-    "capucha": true
-  },
-  {
-    "nombre": "Buzo Ligero",
-    "id": "BL010",
-    "stock": 50,
-    "precio": 24.99,
-    "talla": 36.0,
-    "capucha": false
-  }
+    {
+        "precio": 29.99,
+        "talla": 41,
+        "capucha": true,
+        "id": "BA006",
+        "stock": 45,
+        "nombre": "Buzo de Algodón"
+    },
+    {
+        "precio": 44.99,
+        "talla": 42,
+        "capucha": false,
+        "id": "BC002",
+        "stock": 75,
+        "nombre": "Buzo Casual"
+    },
+    {
+        "precio": 49.99,
+        "talla": 38,
+        "capucha": false,
+        "id": "BC003",
+        "stock": 40,
+        "nombre": "Buzo Clásico"
+    },
+    {
+        "precio": 39.99,
+        "talla": 40,
+        "capucha": true,
+        "id": "BD001",
+        "stock": 50,
+        "nombre": "Buzo Deportivo"
+    },
+    {
+        "precio": 59.99,
+        "talla": 44,
+        "capucha": true,
+        "id": "BE004",
+        "stock": 60,
+        "nombre": "Buzo con Estampado"
+    },
+    {
+        "precio": 69.99,
+        "talla": 45,
+        "capucha": true,
+        "id": "BI009",
+        "stock": 25,
+        "nombre": "Buzo de Invierno"
+    },
+    {
+        "precio": 34.99,
+        "talla": 39.5,
+        "capucha": false,
+        "id": "BL005",
+        "stock": 30,
+        "nombre": "Buzo Liso"
+    },
+    {
+        "precio": 54.99,
+        "talla": 37,
+        "capucha": false,
+        "id": "BL008",
+        "stock": 35,
+        "nombre": "Buzo de Lana"
+    },
+    {
+        "precio": 24.99,
+        "talla": 36,
+        "capucha": false,
+        "id": "BL010",
+        "stock": 50,
+        "nombre": "Buzo Ligero"
+    },
+    {
+        "precio": 64.99,
+        "talla": 43,
+        "capucha": true,
+        "id": "BP007",
+        "stock": 55,
+        "nombre": "Buzo Polar"
+    }
 ]

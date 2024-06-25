@@ -1,8 +1,9 @@
 package tienda;
 
 import enums.TallaLetra;
+import org.json.JSONObject;
 
-public class ProductoInf extends Producto{
+public abstract class ProductoInf extends Producto{
 
     private TallaLetra tallaLetra;
     public ProductoInf(String nombre, String id, int stock, Number precio, TallaLetra tallaLetra) {
@@ -22,4 +23,5 @@ public class ProductoInf extends Producto{
     public String toString() {
         return String.format(super.toString() + "|Talla: " + this.tallaLetra + "| ");
     }
+
 }

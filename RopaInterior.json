@@ -1,82 +1,82 @@
 [
-  {
-    "nombre": "Boxer Algodón",
-    "id": "BX001",
-    "stock": 50,
-    "precio": 12.99,
-    "tallaLetra": "MEDIUM",
-    "tipoRopaInterior": "BOXER"
-  },
-  {
-    "nombre": "Slips Deportivo",
-    "id": "CI002",
-    "stock": 75,
-    "precio": 9.99,
-    "tallaLetra": "LARGE",
-    "tipoRopaInterior": "SLIPS"
-  },
-  {
-    "nombre": "Trunks Encaje",
-    "id": "BR003",
-    "stock": 40,
-    "precio": 15.49,
-    "tallaLetra": "SMALL",
-    "tipoRopaInterior": "TRUNKS"
-  },
-  {
-    "nombre": "Calzoncillo Clásico",
-    "id": "CC004",
-    "stock": 60,
-    "precio": 11.99,
-    "tallaLetra": "XLARGE",
-    "tipoRopaInterior": "CALZONCILLOS_CONICOS"
-  },
-  {
-    "nombre": "Slips Seda",
-    "id": "TS005",
-    "stock": 30,
-    "precio": 19.99,
-    "tallaLetra": "XSMALL",
-    "tipoRopaInterior": "SLIPS"
-  },
-  {
-    "nombre": "Bóxer Deportivo",
-    "id": "BD006",
-    "stock": 45,
-    "precio": 14.99,
-    "tallaLetra": "MEDIUM",
-    "tipoRopaInterior": "BOXER"
-  },
-  {
-    "nombre": "Trunks Deportivo",
-    "id": "SD007",
-    "stock": 55,
-    "precio": 22.49,
-    "tallaLetra": "LARGE",
-    "tipoRopaInterior": "TRUNKS"
-  },
-  {
-    "nombre": "Calzoncillo Térmico",
-    "id": "CT008",
-    "stock": 35,
-    "precio": 17.99,
-    "tallaLetra": "MEDIUM",
-    "tipoRopaInterior": "CALZONCILLOS_CONICOS"
-  },
-  {
-    "nombre": "Bóxer Microfibra",
-    "id": "BM009",
-    "stock": 25,
-    "precio": 13.99,
-    "tallaLetra": "LARGE",
-    "tipoRopaInterior": "BOXER"
-  },
-  {
-    "nombre": "Slips Invisible",
-    "id": "BI010",
-    "stock": 50,
-    "precio": 18.49,
-    "tallaLetra": "SMALL",
-    "tipoRopaInterior": "SLIPS"
-  }
+    {
+        "precio": 14.99,
+        "id": "BD006",
+        "tipoRopaInterior": "BOXER",
+        "stock": 45,
+        "nombre": "Bóxer Deportivo",
+        "tallaLetra": "MEDIUM"
+    },
+    {
+        "precio": 18.49,
+        "id": "BI010",
+        "tipoRopaInterior": "SLIPS",
+        "stock": 50,
+        "nombre": "Slips Invisible",
+        "tallaLetra": "SMALL"
+    },
+    {
+        "precio": 13.99,
+        "id": "BM009",
+        "tipoRopaInterior": "BOXER",
+        "stock": 25,
+        "nombre": "Bóxer Microfibra",
+        "tallaLetra": "LARGE"
+    },
+    {
+        "precio": 15.49,
+        "id": "BR003",
+        "tipoRopaInterior": "TRUNKS",
+        "stock": 40,
+        "nombre": "Trunks Encaje",
+        "tallaLetra": "SMALL"
+    },
+    {
+        "precio": 12.99,
+        "id": "BX001",
+        "tipoRopaInterior": "BOXER",
+        "stock": 50,
+        "nombre": "Boxer Algodón",
+        "tallaLetra": "MEDIUM"
+    },
+    {
+        "precio": 11.99,
+        "id": "CC004",
+        "tipoRopaInterior": "CALZONCILLOS_CONICOS",
+        "stock": 60,
+        "nombre": "Calzoncillo Clásico",
+        "tallaLetra": "XLARGE"
+    },
+    {
+        "precio": 9.99,
+        "id": "CI002",
+        "tipoRopaInterior": "SLIPS",
+        "stock": 75,
+        "nombre": "Slips Deportivo",
+        "tallaLetra": "LARGE"
+    },
+    {
+        "precio": 17.99,
+        "id": "CT008",
+        "tipoRopaInterior": "CALZONCILLOS_CONICOS",
+        "stock": 35,
+        "nombre": "Calzoncillo Térmico",
+        "tallaLetra": "MEDIUM"
+    },
+    {
+        "precio": 22.49,
+        "id": "SD007",
+        "tipoRopaInterior": "TRUNKS",
+        "stock": 55,
+        "nombre": "Trunks Deportivo",
+        "tallaLetra": "LARGE"
+    },
+    {
+        "precio": 19.99,
+        "id": "TS005",
+        "tipoRopaInterior": "SLIPS",
+        "stock": 30,
+        "nombre": "Slips Normales",
+        "tallaLetra": "XSMALL"
+    }
 ]

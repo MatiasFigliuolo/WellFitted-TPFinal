@@ -1,6 +1,7 @@
 package tienda;
 
 import enums.TipoRemera;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 
@@ -23,5 +24,17 @@ public class Remera extends ProductoSup  {
     @Override
     public String toString() {
         return String.format(super.toString() + "|Tipo: " + this.tipoRemera + "| ");
+    }
+
+    public JSONObject toJson()
+    {
+        JSONObject productoJson = new JSONObject();
+        productoJson.put("nombre", getNombre());
+        productoJson.put("id", getId());
+        productoJson.put("stock", getStock());
+        productoJson.put("precio", getPrecio());
+        productoJson.put("talla", getTalla());
+        productoJson.put("tipoRemera", getTipoRemera());
+        return productoJson;
     }
 }

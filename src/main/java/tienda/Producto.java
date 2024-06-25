@@ -1,8 +1,11 @@
 package tienda;
 
+import Interfazes.ToJson;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
-public abstract class Producto implements Comparable<Producto> {
+public abstract class Producto implements Comparable<Producto>, ToJson {
 
     private String nombre;
 
