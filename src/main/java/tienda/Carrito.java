@@ -2,6 +2,7 @@ package tienda;
 
 import Interfazes.Agregable;
 import Interfazes.Quitable;
+import org.example.Menu;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -39,7 +40,7 @@ public class Carrito implements Agregable<Producto>, Quitable<String> {
        return productos.add(producto);
     }  //Metodo para agregar productos
 
-    public Boolean quitar(String id)  //Metodo para quitra productos
+    public Boolean quitar(String id)  //Metodo para quitar productos
     {
         int pos=-1;
         for(int i=0;i<productos.size();i++)
@@ -53,7 +54,7 @@ public class Carrito implements Agregable<Producto>, Quitable<String> {
         if(pos!=-1)
         {
             productos.remove(pos);
-            System.out.println("! Producto eliminado con exito !");
+            System.out.println(Menu.ANSI_GREEN + "! Producto eliminado con exito !" + Menu.ANSI_RESET);
             return true;
         }
         return false;
@@ -61,7 +62,7 @@ public class Carrito implements Agregable<Producto>, Quitable<String> {
 
     public  void mostrarCarrito() {
         if (productos.isEmpty()) {
-            System.out.println("El carrito está vacío.");
+            System.out.println(Menu.ANSI_YELLOW + "El carrito está vacío." + Menu.ANSI_RESET);
         } else {
             System.out.println("Carrito de compras:  (" +fecha.format(DateTimeFormatter.ISO_DATE_TIME) + ")");
             productos.forEach(System.out::println);
@@ -75,9 +76,10 @@ public class Carrito implements Agregable<Producto>, Quitable<String> {
 
     @Override
     public String toString() {
-        return "Carrito{" +
-                "fecha=" + fecha +
-                ", productos = "+ '\n' + productos +
-                '}';
+        return String.format(
+                        "\nCARRITO\n" +
+                        "|Fecha: "    + this.fecha +
+                        "|\nProductos: " + this.productos);
+
     }
 }
