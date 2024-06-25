@@ -20,6 +20,6 @@ public class ProductoInf extends Producto{
 
     @Override
     public String toString() {
-        return super.toString() + ", Talla= " + tallaLetra + '\'';
+        return String.format(super.toString() + "|Talla: " + this.tallaLetra + "| ");
     }
 }
