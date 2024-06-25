@@ -20,6 +20,6 @@ public class Campera extends ProductoSup{
 
     @Override
     public String toString() {
-        return super.toString()+ ", Tipo= "+tipoCampera+ '\n';
+        return String.format(super.toString() + "|Tipo: " + this.tipoCampera + "| ");
     }
 }
