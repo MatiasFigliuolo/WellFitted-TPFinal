@@ -1,5 +1,7 @@
 package usuarios;
 
+import Factura.Factura;
+import Factura.GenerarFacturaPNG;
 import Interfazes.ToJson;
 import org.example.Menu;
 import org.json.JSONArray;
@@ -8,7 +10,11 @@ import tienda.Carrito;
 import tienda.GestionProductos;
 import tienda.Producto;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -88,18 +94,40 @@ public class Perfil extends Usuario implements Comparable<Usuario>, ToJson {
     }
 
     public  void realizarCompra() {
+
         if (carrito.getProductos().isEmpty()) {
             System.out.println(Menu.ANSI_YELLOW +"El carrito está vacío. No se puede realizar la compra." + Menu.ANSI_RESET);
         } else {
+            Factura factura = new Factura();
             double total = 0.0;
+            GenerarFacturaPNG generarFacturaPNG = new GenerarFacturaPNG();
+            String facturaPath;
             for (Producto producto : carrito.getProductos()) {
                 total += producto.getPrecio().doubleValue(); // Convertir a double para sumar
             }
+
             System.out.println(Menu.ANSI_GREEN +"Compra realizada. Total a pagar: $" + total+ Menu.ANSI_RESET);
             Carrito carritoCopia = new Carrito(carrito);
+            factura.setTotal(total);
+            factura.setCliente(this.getNombre());
+            factura.setProductos(this.carrito.getProductos());
+            factura.setFecha(this.carrito.getFecha());
             historial.add(carritoCopia);
+            Path path = generarFacturaPath();
+            try {
+                generarFacturaPNG.generarImagen(factura,path.toString());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             carrito.limpiarCarrito();
         }
+    }
+
+    public Path generarFacturaPath() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        String fechaFormateada = carrito.getFecha().format(formatter);
+        String facturaPath = "./" + getNombre() + "_" + fechaFormateada + ".png";
+        return Paths.get(facturaPath);
     }
 
     public void quitarDelCarrito() {

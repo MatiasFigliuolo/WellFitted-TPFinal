@@ -20,11 +20,38 @@
         "email": "Martin@gmail.com"
     },
     {
-        "historial": [],
+        "historial": [{
+            "fecha": "2024-06-25T20:10:19.470689600",
+            "productos": [
+                {
+                    "tipoRemera": "M_LARGA",
+                    "precio": 24.99,
+                    "talla": 40,
+                    "id": "RM002",
+                    "stock": 74,
+                    "nombre": "Remera Manga Larga"
+                },
+                {
+                    "tipoRemera": "M_CORTA",
+                    "precio": 19.99,
+                    "talla": 38,
+                    "id": "RM001",
+                    "stock": 49,
+                    "nombre": "Remera Manga Corta"
+                }
+            ]
+        }],
         "admin": true,
         "carrito": {
-            "fecha": "2024-06-24T15:44:29.173056900",
-            "productos": []
+            "fecha": "2024-06-25T20:12:13.406535100",
+            "productos": [{
+                "tipoRemera": "M_LARGA",
+                "precio": 24.99,
+                "talla": 40,
+                "id": "RM002",
+                "stock": 73,
+                "nombre": "Remera Manga Larga"
+            }]
         },
         "nombre": "MATIAS FIGLIUOLO",
         "email": "Matias@gmail.com"

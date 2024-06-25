@@ -36,7 +36,7 @@
         "precio": 19.99,
         "talla": 38,
         "id": "RM001",
-        "stock": 50,
+        "stock": 49,
         "nombre": "Remera Manga Corta"
     },
     {
@@ -44,7 +44,7 @@
         "precio": 24.99,
         "talla": 40,
         "id": "RM002",
-        "stock": 75,
+        "stock": 73,
         "nombre": "Remera Manga Larga"
     },
     {
