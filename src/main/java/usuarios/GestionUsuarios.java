@@ -3,9 +3,11 @@ package usuarios;
 import Interfazes.Agregable;
 import Interfazes.Quitable;
 import enums.*;
+import exepciones.InvalidOptionException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import tienda.*;
+import org.example.Menu;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -117,30 +119,31 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
     }
 
 //endregion
+
     public void setUsuarios(TreeSet<Perfil> usuarios) {
         this.usuarios = usuarios;
     }
 
-    public Perfil crearUsuario()
-    {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("email: ");
-        String email = scan.next();
-        System.out.println("Nombre: ");
-        String nombre = scan.next();
-        System.out.println("Apellido: ");
-        String apellido = scan.next();
+    public Perfil crearUsuario(){
+
+        System.out.println(Menu.ANSI_GREEN + "\n-NUEVO USUARIO-" + Menu.ANSI_RESET);
+        String email = solicitarCorreo();
+
+        String nombre = solicitarNombre();
+
+        String apellido = solicitarApellido();
+
         String nombreYapellido= nombre +" "+ apellido;
+
         Perfil perfil = new Perfil(nombreYapellido,email);
-        System.out.println("Usuario admin?");
-        System.out.println("1. Si");
-        System.out.println("2. No");
-        int seleccion = scan.nextByte();
-        scan.nextLine();//Limpiar Buffer
+
+
+        int seleccion = solicitarAdmin();
         if(seleccion==1)
         {
             perfil.chequearAdmin();
         }
+
         if(agregar(perfil))
         {
             try {
@@ -152,6 +155,93 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
         }
         return null;
     }
+
+    public String solicitarNombre() {
+        String nombre;
+        Scanner scan = new Scanner(System.in);
+        Menu menu = new Menu();
+
+        while (true) {
+            System.out.print("Nombre: ");
+            nombre = scan.nextLine().trim();
+
+            if (menu.esNombreValido(nombre)) {
+                break;
+            } else {
+                System.out.println(Menu.ANSI_RED + "El nombre ingresado es inválido. No debe contener números. Por favor, intente nuevamente." + Menu.ANSI_RESET);
+            }
+        }
+
+        return nombre;
+    }
+
+    public String solicitarApellido() {
+        String apellido;
+        Scanner scan = new Scanner(System.in);
+        Menu menu = new Menu();
+
+        while (true) {
+            System.out.print("Apellido: ");
+            apellido = scan.nextLine().trim();
+
+            if (menu.esNombreValido(apellido)) {
+                break;
+            } else {
+                System.out.println(Menu.ANSI_RED +"El apellido ingresado es inválido. No debe contener números. Por favor, intente nuevamente." + Menu.ANSI_RESET);
+            }
+        }
+        return apellido;
+    }
+
+    public String solicitarCorreo() {
+        String email;
+        Scanner scan = new Scanner(System.in);
+        Menu menu = new Menu();
+
+        while (true) {
+            System.out.print("Email: ");
+            email = scan.nextLine().trim();
+
+            if (menu.esCorreoValido(email)) {
+                break;
+            } else {
+                System.out.println(Menu.ANSI_RED +"El email ingresado es inválido. debe terminar en [@gmail.com] y debe ser mayor a 10 caracteres. Por favor, intente nuevamente." + Menu.ANSI_RESET);
+            }
+        }
+
+        return email;
+    }
+
+    public int solicitarAdmin() {
+
+        int seleccion = 0;
+        Menu menu = new Menu();
+        Scanner scan = new Scanner(System.in);
+
+        while (true) {
+            System.out.println(
+                             "\nUsuario Administrador?" +
+                            "\n1 Si" +
+                            "\n2 No" +
+                            "\nInsertar Opcion: ");
+
+            try {
+                seleccion = menu.validateOption(scan.nextLine(),1,2);
+                break; // Opción válida, salir del bucle
+            } catch (InvalidOptionException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return seleccion;
+    }
+
+
+    //----------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------
+
+
 
     public static void agregarUsuarioAlArchivo(Perfil perfil, String filePath) throws IOException {
         // Leer el archivo existente
@@ -272,13 +362,15 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
             int seleccion=0;
             System.out.println("1. Iniciar Sesion");
             System.out.println("2. Crear nuevo usuario");
+
             try {
                 seleccion = scan.nextInt();
             }catch (InputMismatchException e)
             {
-                System.err.println("! Dato Ingesado no numerico !");
+                System.err.println(Menu.ANSI_RED + "! Dato Ingesado no numerico !" + Menu.ANSI_RESET);
                 break;
             }
+
             switch (seleccion) {
                 case 1:
                     perfil = buscarUsuario();
@@ -287,12 +379,12 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
                     perfil = crearUsuario();
                     break;
                 default:
-                    System.out.println("! Dato invalido !");
+                    System.out.println(Menu.ANSI_RED +"! Dato invalido !"+ Menu.ANSI_RESET);
                     break;
             }
             if(perfil==null)
             {
-                System.out.println("! Usuario invalido !");
+                System.out.println(Menu.ANSI_RED + "! Usuario invalido !" + Menu.ANSI_RESET);
             }
         }
         return perfil;
@@ -300,9 +392,9 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
 
     public Perfil buscarUsuario()
     {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Ingrese su email: ");
-        String email = scan.next();
+
+        String email = solicitarCorreo();
+
         for(Perfil perfil : usuarios)
         {
             if(perfil.getEmail().equals(email))
