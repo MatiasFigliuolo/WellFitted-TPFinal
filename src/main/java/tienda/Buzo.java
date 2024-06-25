@@ -18,8 +18,19 @@ public class Buzo extends ProductoSup {
         this.capucha = capucha;
     }
 
+    public String conSinCapucha(){
+
+        if(this.capucha){
+
+            return "si";
+        }
+        else{
+            return "no";
+        }
+
+    }
     @Override
     public String toString() {
-        return super.toString() + ", Capucha= " +capucha+ '\n';
+        return String.format(super.toString() + "|Capucha: " + conSinCapucha() + "| ");
     }
 }
