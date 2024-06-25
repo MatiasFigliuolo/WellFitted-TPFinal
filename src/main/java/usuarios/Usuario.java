@@ -96,9 +96,10 @@ public class Usuario implements Comparable<Usuario> {
 
     @Override
     public String toString() {
-        return "Usuario{" +
-                "nombre='" + nombre + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return String.format("-------------------------------------------------------" +
+                             "\nUSUARIO\n" +
+                             "|Nombre: "   + this.nombre +
+                             "| |Email: "  + this.email +
+                             "| |Admin: "  + this.admin);
     }
 }
