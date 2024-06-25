@@ -82,6 +82,11 @@ public class Perfil extends Usuario implements Comparable<Usuario>, ToJson {
         carrito.mostrarCarrito();
     }
 
+    public void mostrarHistorial()
+    {
+        System.out.println(historial);
+    }
+
     public  void realizarCompra() {
         if (carrito.getProductos().isEmpty()) {
             System.out.println(Menu.ANSI_YELLOW +"El carrito está vacío. No se puede realizar la compra." + Menu.ANSI_RESET);

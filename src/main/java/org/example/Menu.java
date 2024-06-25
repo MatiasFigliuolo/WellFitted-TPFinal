@@ -7,7 +7,6 @@ import usuarios.GestionAdministrador;
 import usuarios.GestionUsuarios;
 import usuarios.Perfil;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
@@ -41,11 +40,11 @@ public class Menu {
         Perfil usuario = gestionUsuarios.inicioSesion();
 
         try {
-            if (usuario.getAdmin() == true) {
+            if (usuario.getAdmin()) {
                 menuAdmin(usuario, gestionUsuarios, gestionProductos, gestionAdministrador);
 
             } else {
-                menuCliente(usuario, gestionProductos);
+                menuCliente(usuario, gestionProductos,gestionAdministrador,gestionUsuarios);
             }
         }catch (NullPointerException e)
         {
@@ -58,7 +57,7 @@ public class Menu {
     }
 
 
-    public void menuCliente(Perfil usuario, GestionProductos gestionProductos) throws ProductoNoEncontradoException {
+    public void menuCliente(Perfil usuario, GestionProductos gestionProductos, GestionAdministrador gestionAdministrador,GestionUsuarios gestionUsuarios) throws ProductoNoEncontradoException {
         int seleccion = 0;
         while (seleccion != -1) {
             System.out.println("\n- - - MENU CLIENTE - - -");
@@ -90,6 +89,22 @@ public class Menu {
 //-----------------------------------------------------------------------------------
                 case 6: //Realizar compra
                     usuario.realizarCompra();
+                    break;
+//-----------------------------------------------------------------------------------
+                case 7: //MostrarHistorial
+                    usuario.mostrarHistorial();
+                    break;
+//-----------------------------------------------------------------------------------
+                case 8: //Ir al menu admin (Solo si tiene permisos)
+                    if(usuario.getAdmin())
+                    {
+                        menuAdmin(usuario, gestionUsuarios, gestionProductos, gestionAdministrador);
+                        seleccion = -1;
+                    }
+                    else
+                    {
+                        System.out.println("! Sin Permisos !");
+                    }
                     break;
 //-----------------------------------------------------------------------------------
                 case 0:
@@ -140,6 +155,11 @@ public class Menu {
                     gestionAdministrador.mostrarUsuarios(gestionUsuarios); //Crear usuario nuevo
                     break;
 // -----------------------------------------------------------------------------------
+                  case 8:
+                    menuCliente(usuario,gestionProductos,gestionAdministrador,gestionUsuarios); //Ir al menu Cliente
+                    seleccion = -1;
+                    break;
+// -----------------------------------------------------------------------------------
 
                 case 0:
                     seleccion = -1;
@@ -155,7 +175,7 @@ public class Menu {
 
     public int menuVisualAdmin() {
 
-        int seleccion = 0;
+        int seleccion;
 
         while (true) {
             System.out.println(
@@ -167,11 +187,12 @@ public class Menu {
                     "\n5 Modificar usuario" +
                     "\n6 Crear Usuario" +
                     "\n7 Mostrar Usuarios" +
+                    "\n8 Menu Cliente" +
                     "\n0 Salir" +
                     "\nInsertar Opcion: ");
 
             try {
-                seleccion = validateOption(scan.nextLine(),0, 7);
+                seleccion = validateOption(scan.nextLine(),0, 8);
                 break; // Opción válida, salir del bucle
             } catch (InvalidOptionException e) {
                 System.out.println(e.getMessage());
@@ -184,7 +205,7 @@ public class Menu {
 
     public int menuVisualModifProducto() {
 
-        int seleccion = 0;
+        int seleccion;
 
 
         while (true) {
@@ -209,7 +230,7 @@ public class Menu {
 
     public int menuVisualCliente() {
 
-        int seleccion = 0;
+        int seleccion;
 
         while (true) {
             System.out.println(
@@ -219,11 +240,13 @@ public class Menu {
                             "\n4 Mostrar carrito" +
                             "\n5 listar Productos" +
                             "\n6 Realizar compra" +
+                            "\n7 Mostrar Historial" +
+                            "\n8 Menu Admin" +
                             "\n0 Salir" +
                             "\nInsertar Opcion: ");
 
             try {
-                seleccion = validateOption(scan.nextLine(),0, 6);
+                seleccion = validateOption(scan.nextLine(),0, 8);
                 break; // Opción válida, salir del bucle
             } catch (InvalidOptionException e) {
                 System.out.println(e.getMessage());
@@ -237,7 +260,7 @@ public class Menu {
 
     public int menuVisualFiltrado() {
 
-        int seleccion = 0;
+        int seleccion;
 
 
         while (true) {
