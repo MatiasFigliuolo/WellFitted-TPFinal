@@ -21,6 +21,6 @@ public class RopaInterior extends ProductoInf
 
     @Override
     public String toString() {
-        return super.toString()+", Tipo= "+tipoRopaInterior+'\n';
+        return String.format(super.toString() + "|Tipo: " + this.tipoRopaInterior + "| ");
     }
 }
