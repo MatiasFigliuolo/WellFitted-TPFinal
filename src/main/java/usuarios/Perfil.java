@@ -150,7 +150,7 @@ public class Perfil extends Usuario implements Comparable<Usuario>, ToJson {
     public String toString() {
         return super.toString() +"\n" +
                  carrito+ "\n" +
-                 "Hisotrial { "+ historial+ " }"+"\n";
+                 "HISTORIAL\n"+ historial;
     }
 
     @Override
