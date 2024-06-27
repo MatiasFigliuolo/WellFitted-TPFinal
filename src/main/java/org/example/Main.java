@@ -1,5 +1,6 @@
 package org.example;
 
+import JavaSwing.MenuJavaSwing;
 import exepciones.ProductoNoEncontradoException;
 
 import java.io.IOException;
@@ -7,7 +8,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws ProductoNoEncontradoException, IOException {
-        Menu menu = new Menu();
-        menu.menu();
+        MenuJavaSwing menuJavaSwing = new MenuJavaSwing();
+        menuJavaSwing.createAndShowGUI();
     }
 }

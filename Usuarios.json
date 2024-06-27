@@ -20,38 +20,71 @@
         "email": "Martin@gmail.com"
     },
     {
-        "historial": [{
-            "fecha": "2024-06-25T20:10:19.470689600",
+        "historial": [],
+        "admin": false,
+        "carrito": {
+            "fecha": "2024-06-26T22:52:48.877806600",
             "productos": [
                 {
-                    "tipoRemera": "M_LARGA",
-                    "precio": 24.99,
-                    "talla": 40,
-                    "id": "RM002",
+                    "precio": 44.99,
+                    "talla": 42,
+                    "capucha": false,
+                    "id": "BC002",
                     "stock": 74,
-                    "nombre": "Remera Manga Larga"
+                    "nombre": "Buzo Casual"
                 },
                 {
                     "tipoRemera": "M_CORTA",
                     "precio": 19.99,
                     "talla": 38,
                     "id": "RM001",
-                    "stock": 49,
+                    "stock": 48,
                     "nombre": "Remera Manga Corta"
                 }
             ]
-        }],
+        },
+        "nombre": "MATEO LOPEZ",
+        "email": "Mateo.Lopez@gmail.com"
+    },
+    {
+        "historial": [
+            {
+                "fecha": "2024-06-25T20:10:19.470689600",
+                "productos": [
+                    {
+                        "tipoRemera": "M_LARGA",
+                        "precio": 24.99,
+                        "talla": 40,
+                        "id": "RM002",
+                        "stock": 74,
+                        "nombre": "Remera Manga Larga"
+                    },
+                    {
+                        "tipoRemera": "M_CORTA",
+                        "precio": 19.99,
+                        "talla": 38,
+                        "id": "RM001",
+                        "stock": 49,
+                        "nombre": "Remera Manga Corta"
+                    }
+                ]
+            },
+            {
+                "fecha": "2024-06-25T20:12:13.406535100",
+                "productos": [{
+                    "tipoRemera": "M_LARGA",
+                    "precio": 24.99,
+                    "talla": 40,
+                    "id": "RM002",
+                    "stock": 72,
+                    "nombre": "Remera Manga Larga"
+                }]
+            }
+        ],
         "admin": true,
         "carrito": {
             "fecha": "2024-06-25T20:12:13.406535100",
-            "productos": [{
-                "tipoRemera": "M_LARGA",
-                "precio": 24.99,
-                "talla": 40,
-                "id": "RM002",
-                "stock": 73,
-                "nombre": "Remera Manga Larga"
-            }]
+            "productos": []
         },
         "nombre": "MATIAS FIGLIUOLO",
         "email": "Matias@gmail.com"

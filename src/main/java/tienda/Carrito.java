@@ -7,6 +7,7 @@ import org.example.Menu;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -35,13 +36,10 @@ public class Carrito implements Agregable<Producto>, Quitable<String>, ToJson {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
-    }
-
     public ArrayList<Producto> getProductos() {
         return productos;
     }
+
     public Boolean agregar(Producto producto)
     {
        return productos.add(producto);
@@ -67,12 +65,19 @@ public class Carrito implements Agregable<Producto>, Quitable<String>, ToJson {
         return false;
     }
 
-    public  void mostrarCarrito() {
-        if (productos.isEmpty()) {
-            System.out.println(Menu.ANSI_YELLOW + "El carrito está vacío." + Menu.ANSI_RESET);
-        } else {
-            System.out.println("Carrito de compras:  (" +fecha.format(DateTimeFormatter.ISO_DATE_TIME) + ")");
-            productos.forEach(System.out::println);
+    public  void mostrarCarrito(JFrame frame,JScrollPane scrollPane) {
+        DefaultListModel<Producto> listModel = new DefaultListModel<>();
+        if (getProductos().isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "! Carrito Vacio !", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else
+        {
+            for (Producto producto : getProductos()) {
+                listModel.addElement(producto);
+            }
+            JList<Producto> lista = new JList<>(listModel);
+            scrollPane.setViewportView(lista);
+            frame.revalidate();
+            frame.repaint();
         }
     } //Metodo para mostrar los productos del carrito
 

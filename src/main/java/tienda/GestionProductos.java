@@ -4,11 +4,12 @@ import Interfazes.Agregable;
 import Interfazes.Quitable;
 import enums.*;
 import exepciones.*;
-import org.example.Menu;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import usuarios.Perfil;
 
+import org.example.Menu;
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -31,19 +32,19 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
     private final String creaciondeID;
 
 
-
     public GestionProductos() {
 
         this.productos = new TreeSet<>();
         this.scan = new Scanner(System.in);
-        this.creaciondeID = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";;
+        this.creaciondeID = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        ;
         this.idLenght = 5;
         this.bermudasPath = "./Bermudas.json";
         this.buzosPath = "./Buzos.json";
         this.camperasPath = "./Camperas.json";
         this.pantalonesPath = "./Pantalones.json";
         this.ropaInteriorPath = "./RopaInterior.json";
-        this.remerasPath= "./Remeras.json";
+        this.remerasPath = "./Remeras.json";
     }
 
     public TreeSet<Producto> getProductos() {
@@ -109,125 +110,117 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
         }
     }
 
-    public void cargarBermudas(JSONArray jsonArray)
-    {
+    public void cargarBermudas(JSONArray jsonArray) {
         JSONObject jsonObject = new JSONObject();
-        for(int i=0 ; i<jsonArray.length();i++)
-        {
+        for (int i = 0; i < jsonArray.length(); i++) {
             jsonObject = jsonArray.getJSONObject(i);
             cargarDatosJsonABermudas(jsonObject);
         }
     }
-    public void cargarDatosJsonABermudas(JSONObject jsonObject)
-    {
+
+    public void cargarDatosJsonABermudas(JSONObject jsonObject) {
         String nombre = jsonObject.getString("nombre");
         String id = jsonObject.getString("id");
         int stock = jsonObject.getInt("stock");
         Number precio = jsonObject.getNumber("precio");
         TallaLetra tallaLetra = TallaLetra.valueOf(jsonObject.getString("tallaLetra"));
         TipoBermuda tipoBermuda = TipoBermuda.valueOf(jsonObject.getString("tipoBermuda"));
-        Bermuda bermuda = new Bermuda(nombre,id,stock,precio,tallaLetra,tipoBermuda);
+        Bermuda bermuda = new Bermuda(nombre, id, stock, precio, tallaLetra, tipoBermuda);
         agregar(bermuda);
     }
 
-    public void cargarPantalon(JSONArray jsonArray)
-    {
+    public void cargarPantalon(JSONArray jsonArray) {
         JSONObject jsonObject = new JSONObject();
-        for(int i=0 ; i<jsonArray.length();i++)
-        {
+        for (int i = 0; i < jsonArray.length(); i++) {
             jsonObject = jsonArray.getJSONObject(i);
             cargarDatosJsonAPantalon(jsonObject);
         }
     }
-    public void cargarDatosJsonAPantalon(JSONObject jsonObject)
-    {
+
+    public void cargarDatosJsonAPantalon(JSONObject jsonObject) {
         String nombre = jsonObject.getString("nombre");
         String id = jsonObject.getString("id");
         int stock = jsonObject.getInt("stock");
         Number precio = jsonObject.getNumber("precio");
         TallaLetra tallaLetra = TallaLetra.valueOf(jsonObject.getString("tallaLetra"));
         TipoPantalon tipoPantalon = TipoPantalon.valueOf(jsonObject.getString("tipoPantalon"));
-        Pantalon pantalon = new Pantalon(nombre,id,stock,precio,tallaLetra,tipoPantalon);
+        Pantalon pantalon = new Pantalon(nombre, id, stock, precio, tallaLetra, tipoPantalon);
         agregar(pantalon);
     }
-   public void cargarRopaInterior(JSONArray jsonArray)
-    {
+
+    public void cargarRopaInterior(JSONArray jsonArray) {
         JSONObject jsonObject = new JSONObject();
-        for(int i=0 ; i<jsonArray.length();i++)
-        {
+        for (int i = 0; i < jsonArray.length(); i++) {
             jsonObject = jsonArray.getJSONObject(i);
             cargarDatosJsonARopaInterior(jsonObject);
         }
     }
-    public void cargarDatosJsonARopaInterior(JSONObject jsonObject)
-    {
+
+    public void cargarDatosJsonARopaInterior(JSONObject jsonObject) {
         String nombre = jsonObject.getString("nombre");
         String id = jsonObject.getString("id");
         int stock = jsonObject.getInt("stock");
         Number precio = jsonObject.getNumber("precio");
         TallaLetra tallaLetra = TallaLetra.valueOf(jsonObject.getString("tallaLetra"));
         TipoRopaInterior tipoRopaInterior = TipoRopaInterior.valueOf(jsonObject.getString("tipoRopaInterior"));
-        RopaInterior ropaInterior = new RopaInterior(nombre,id,stock,precio,tallaLetra,tipoRopaInterior);
+        RopaInterior ropaInterior = new RopaInterior(nombre, id, stock, precio, tallaLetra, tipoRopaInterior);
         agregar(ropaInterior);
     }
-  public void cargarBuzos(JSONArray jsonArray)
-    {
+
+    public void cargarBuzos(JSONArray jsonArray) {
         JSONObject jsonObject = new JSONObject();
-        for(int i=0 ; i<jsonArray.length();i++)
-        {
+        for (int i = 0; i < jsonArray.length(); i++) {
             jsonObject = jsonArray.getJSONObject(i);
             cargarDatosJsonABuzos(jsonObject);
         }
     }
-    public void cargarDatosJsonABuzos(JSONObject jsonObject)
-    {
+
+    public void cargarDatosJsonABuzos(JSONObject jsonObject) {
         String nombre = jsonObject.getString("nombre");
         String id = jsonObject.getString("id");
         int stock = jsonObject.getInt("stock");
         Number precio = jsonObject.getNumber("precio");
-        float talla= jsonObject.getFloat("talla");
+        float talla = jsonObject.getFloat("talla");
         Boolean capucha = jsonObject.getBoolean("capucha");
-        Buzo buzo = new Buzo(nombre,id,stock,precio,talla,capucha);
+        Buzo buzo = new Buzo(nombre, id, stock, precio, talla, capucha);
         agregar(buzo);
     }
-  public void cargarRemeras(JSONArray jsonArray)
-    {
+
+    public void cargarRemeras(JSONArray jsonArray) {
         JSONObject jsonObject = new JSONObject();
-        for(int i=0 ; i<jsonArray.length();i++)
-        {
+        for (int i = 0; i < jsonArray.length(); i++) {
             jsonObject = jsonArray.getJSONObject(i);
             cargarDatosJsonARemeras(jsonObject);
         }
     }
-    public void cargarDatosJsonARemeras(JSONObject jsonObject)
-    {
+
+    public void cargarDatosJsonARemeras(JSONObject jsonObject) {
         String nombre = jsonObject.getString("nombre");
         String id = jsonObject.getString("id");
         int stock = jsonObject.getInt("stock");
         Number precio = jsonObject.getNumber("precio");
-        float talla= jsonObject.getFloat("talla");
+        float talla = jsonObject.getFloat("talla");
         TipoRemera tipoRemera = TipoRemera.valueOf(jsonObject.getString("tipoRemera"));
-        Remera remera = new Remera(nombre,id,stock,precio,talla,tipoRemera);
+        Remera remera = new Remera(nombre, id, stock, precio, talla, tipoRemera);
         agregar(remera);
     }
- public void cargarCamperas(JSONArray jsonArray)
-    {
+
+    public void cargarCamperas(JSONArray jsonArray) {
         JSONObject jsonObject = new JSONObject();
-        for(int i=0 ; i<jsonArray.length();i++)
-        {
+        for (int i = 0; i < jsonArray.length(); i++) {
             jsonObject = jsonArray.getJSONObject(i);
             cargarDatosJsonACamperas(jsonObject);
         }
     }
-    public void cargarDatosJsonACamperas(JSONObject jsonObject)
-    {
+
+    public void cargarDatosJsonACamperas(JSONObject jsonObject) {
         String nombre = jsonObject.getString("nombre");
         String id = jsonObject.getString("id");
         int stock = jsonObject.getInt("stock");
         Number precio = jsonObject.getNumber("precio");
-        float talla= jsonObject.getFloat("talla");
+        float talla = jsonObject.getFloat("talla");
         TipoCampera tipoCampera = TipoCampera.valueOf(jsonObject.getString("tipoCampera"));
-        Campera campera = new Campera(nombre,id,stock,precio,talla,tipoCampera);
+        Campera campera = new Campera(nombre, id, stock, precio, talla, tipoCampera);
         agregar(campera);
     }
 
@@ -240,33 +233,27 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
         JSONArray jsonArrayPantalon = new JSONArray();
 
         for (Producto producto : productos) {
-            if(producto instanceof Bermuda)
-            {
+            if (producto instanceof Bermuda) {
                 JSONObject jsonObject = producto.toJson();
                 jsonArrayBermuda.put(jsonObject);
             }
-           if(producto instanceof Buzo)
-            {
+            if (producto instanceof Buzo) {
                 JSONObject jsonObject = producto.toJson();
                 jsonArrayBuzo.put(jsonObject);
             }
-             if(producto instanceof Campera)
-            {
+            if (producto instanceof Campera) {
                 JSONObject jsonObject = producto.toJson();
                 jsonArrayCampera.put(jsonObject);
             }
-             if(producto instanceof Remera)
-            {
+            if (producto instanceof Remera) {
                 JSONObject jsonObject = producto.toJson();
                 jsonArrayRemera.put(jsonObject);
             }
-             if(producto instanceof RopaInterior)
-            {
+            if (producto instanceof RopaInterior) {
                 JSONObject jsonObject = producto.toJson();
                 jsonArrayRopaInterior.put(jsonObject);
             }
-            if(producto instanceof Pantalon)
-            {
+            if (producto instanceof Pantalon) {
                 JSONObject jsonObject = producto.toJson();
                 jsonArrayPantalon.put(jsonObject);
             }
@@ -290,709 +277,20 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
     }
 
 
-
     //endregion
-//---------------------------------------------------------------------------------------------------------
-    public void crearAgregarProducto() {
 
-        //-------------------------------------------------------
-        System.out.print("Ingrese el nombre del producto: ");
-        String nombre = scan.nextLine();
 
-        //-------------------------------------------------------
-
-        String ID = generarIdReserva();
-
-        //-------------------------------------------------------
-
-        int stock = solicitarStock();
-
-        //-------------------------------------------------------
-
-        double precio = solicitarPrecio();
-
-        //-------------------------------------------------------
-
-        String categoria = solicitarCategoria();
-
-        //-------------------------------------------------------
-
-        if (categoria.equalsIgnoreCase("inferior")) {
-
-            TallaLetra talle = TallaLetra.valueOf(solicitarTalleLetra().toUpperCase()); //
-
-
-            String tipoInferior = solicitarTipoProductoInferior().toLowerCase(); //
-
-            switch (tipoInferior) {
-                case "pantalon":
-
-                    TipoPantalon tipoPantalon = TipoPantalon.valueOf(solicitarTipoPantalon().toUpperCase());
-
-                    if(agregar(new Pantalon(nombre, ID, stock, precio, talle, tipoPantalon)))
-                    {
-                        System.out.println(Menu.ANSI_GREEN + "\n! Producto agregado exitosamente !" + Menu.ANSI_RESET);
-                    }else {
-                        System.out.println("! el id del producto creado ya esta en el sistema !");
-                    }
-                    break;
-
-                case "bermuda":
-
-                    TipoBermuda tipoBermuda = TipoBermuda.valueOf(solicitarTipoBermuda().toUpperCase());
-
-                    if(agregar(new Bermuda(nombre, ID, stock, precio, talle, tipoBermuda)))
-                    {
-                        System.out.println(Menu.ANSI_GREEN + "\n! Producto agregado exitosamente !" + Menu.ANSI_RESET);
-                    }else {
-                        System.out.println("! el id del producto creado ya esta en el sistema !");
-                    }
-                    break;
-
-                case "ropa_interior":
-
-                    TipoRopaInterior tipoRopaInterior = TipoRopaInterior.valueOf(solicitarTipoRopaInterior().toUpperCase());
-
-                    if(agregar(new RopaInterior(nombre, ID, stock, precio, talle, tipoRopaInterior)))
-                    {
-                        System.out.println(Menu.ANSI_GREEN + "\n! Producto agregado exitosamente !" + Menu.ANSI_RESET);
-                    }else {
-                        System.out.println("! el id del producto creado ya esta en el sistema !");
-                    }
-                    break;
-
-                default:
-                    System.out.println("Tipo de producto inferior no válido.");
-                    break;
-            }
-
-        } else if (categoria.equalsIgnoreCase("superior")) {
-
-            float talleNumerico = solicitarTalleNumerico();
-
-
-            String tipoSuperior = solicitarTipoProductoSuperior().toLowerCase();
-
-            switch (tipoSuperior) {
-                case "remera":
-
-                    TipoRemera tipoRemera = TipoRemera.valueOf(solicitarTipoRemera().toUpperCase());
-
-                    if( agregar(new Remera(nombre, ID, stock, precio, talleNumerico, tipoRemera)))
-                    {
-                        System.out.println(Menu.ANSI_GREEN + "\n! Producto agregado exitosamente !" + Menu.ANSI_RESET);
-                    }else {
-                        System.out.println("! el id del producto creado ya esta en el sistema !");
-                    }
-
-                    break;
-                case "campera":
-
-                    TipoCampera tipoCampera = TipoCampera.valueOf(solicitarTipoCampera().toUpperCase());
-
-                    if(agregar(new Campera(nombre, ID, stock, precio, talleNumerico, tipoCampera)))
-                    {
-                        System.out.println(Menu.ANSI_GREEN + "! Producto agregado exitosamente !" + Menu.ANSI_RESET);
-                    }else {
-                        System.out.println("! el id del producto creado ya esta en el sistema !");
-                    }
-                    break;
-                case "buzo":
-
-                    boolean tieneCapucha = solicitarCapucha();
-
-                    if(agregar(new Buzo(nombre, ID, stock, precio, talleNumerico, tieneCapucha)))
-                    {
-                        System.out.println(Menu.ANSI_GREEN + "\n! Producto agregado exitosamente !" + Menu.ANSI_RESET);
-                    }else {
-                        System.out.println("! el id del producto creado ya esta en el sistema !");
-                    }
-                    break;
-                default:
-                    System.out.println("Tipo de producto superior no válido.");
-                    break;
-            }
-        } else {
-            System.out.println("Categoría de producto no válida.");
-        }
-
-    }
-
-    public int solicitarStock() {
-        int stock = -1;
-        Menu menu = new Menu();
-
-        while (true) {
-            System.out.print("Stock: ");
-            if (scan.hasNextInt()) {
-
-                stock = scan.nextInt();
-                scan.nextLine(); // Limpiar Buffer
-
-                if(stock > 0){
-                    break;
-                }
-                else{
-
-                    System.out.println(Menu.ANSI_RED + "El stock ingresado es inválido.Debe ser un stock mayor a 0. Por favor, intente nuevamente.\n" + Menu.ANSI_RESET);
-
-                }
-            } else {
-                System.out.println(Menu.ANSI_RED +"Entrada inválida. Por favor, ingrese un número entero válido.\n" + Menu.ANSI_RESET);
-                scan.nextLine(); // Consumir la entrada inválida
-            }
-        }
-
-        return stock;
-    }
-
-    public Double solicitarPrecio() {
-
-        Double precio;
-        Menu menu = new Menu();
-
-        while (true) {
-            System.out.print("Precio: ");
-            if (scan.hasNextDouble()) {
-
-                precio = scan.nextDouble();
-                scan.nextLine(); // Limpiar Buffer
-
-                if(precio > 0){
-                    break;
-                }
-                else{
-                    System.out.println(Menu.ANSI_RED + "El precio ingresado es inválido.Debe ser un precio mayor a 0. Por favor, intente nuevamente.\n" + Menu.ANSI_RESET);
-                }
-            } else {
-                System.out.println(Menu.ANSI_RED +"Entrada inválida. Por favor, ingrese un número entero válido.\n"+ Menu.ANSI_RESET);
-                scan.nextLine(); // Consumir la entrada inválida
-            }
-        }
-
-        return precio;
-    }
-
-    public String solicitarCategoria() {
-
-        String categoria;
-        Menu menu = new Menu();
-
-        while (true) {
-
-            System.out.print("Categoria(inferior/superior): ");
-
-                if(scan.hasNext()){
-                    categoria = scan.nextLine().trim();
-
-                if(categoria.equalsIgnoreCase("inferior") || categoria.equalsIgnoreCase("superior")){
-                    break;
-                }
-                else{
-                    System.out.println(Menu.ANSI_RED + "La categoria ingresada es inválida.Debe ser |superior| o |inferior|. Por favor, intente nuevamente.\n" + Menu.ANSI_RESET);
-                }
-            } else {
-                System.out.println(Menu.ANSI_RED +"Entrada inválida. Por favor, ingrese una opcion valida.\n"+ Menu.ANSI_RESET);
-            }
-        }
-
-        return categoria;
-    }
-
-    public String solicitarTalleLetra() {
-
-        String talleLetra;
-        Menu menu = new Menu();
-        Set<String> tiposValidos = Set.of("XSMALL","SMALL","MEDIUM","LARGE", "XLARGE");
-
-        while (true) {
-            System.out.print("Talle(XSMALL, SMALL, MEDIUM, LARGE, XLARGE): ");
-
-            if (scan.hasNext()){
-
-                talleLetra = scan.nextLine();
-
-                if(tiposValidos.contains(talleLetra.toUpperCase())){
-                    break;
-                }
-                else{
-                    System.out.println(Menu.ANSI_RED + "La talla ingresada es inválida.Debe ser (XSMALL, SMALL, MEDIUM, LARGE, XLARGE). Por favor, intente nuevamente.\n" + Menu.ANSI_RESET);
-                }
-            } else {
-                System.out.println(Menu.ANSI_RED +"Entrada inválida. Por favor, ingrese una opcion valida.\n"+ Menu.ANSI_RESET);
-
-            }
-        }
-
-        return talleLetra;
-    }
-
-    public String solicitarTipoProductoInferior() {
-
-        String tipoProductoInferior;
-        Menu menu = new Menu();
-        Set<String> tiposValidos = Set.of("pantalon","ropa_interior","bermuda");
-
-        while (true) {
-            System.out.print("Talle(pantalon, ropa_interior, bermuda): ");
-
-            if (scan.hasNext()){
-
-                tipoProductoInferior = scan.nextLine();
-
-                if(tiposValidos.contains(tipoProductoInferior.toLowerCase())){
-                    break;
-                }
-                else{
-                    System.out.println(Menu.ANSI_RED + "El tipo de producto inferior ingresado es inválido.Debe ser (pantalon, ropa_interior, bermuda). Por favor, intente nuevamente.\n" + Menu.ANSI_RESET);
-                }
-            } else {
-                System.out.println(Menu.ANSI_RED +"Entrada inválida. Por favor, ingrese una opcion valida.\n"+ Menu.ANSI_RESET);
-
-            }
-        }
-        return tipoProductoInferior;
-    }
-
-    public String solicitarTipoPantalon() {
-
-        String tipoPantalon;
-        Menu menu = new Menu();
-        Set<String> tiposValidos = Set.of("JOGGING","JEANS","CARGO","LEGGINS");
-
-        while (true) {
-            System.out.print("Tipo(JOGGING,JEANS,CARGO,LEGGINS): ");
-
-            if (scan.hasNext()){
-
-                tipoPantalon = scan.nextLine();
-
-                if(tiposValidos.contains(tipoPantalon.toUpperCase())){
-                    break;
-                }
-                else{
-                    System.out.println(Menu.ANSI_RED + "\nEl tipo de pantalon ingresado es inválido.Debe ser (JOGGING,JEANS,CARGO,LEGGINS). Por favor, intente nuevamente.\n" + Menu.ANSI_RESET);
-                }
-            } else {
-                System.out.println(Menu.ANSI_RED + "\nEntrada inválida. Por favor, ingrese una opcion valida.\n" + Menu.ANSI_RESET);
-
-            }
-        }
-        return tipoPantalon;
-    }
-
-    public String solicitarTipoBermuda() {
-
-        String tipoBermuda;
-        Menu menu = new Menu();
-        Set<String> tiposValidos = Set.of("AJUSTADA","PIERNA_ANCHA","A_MEDIDA","CASUAL", "DEPORTIVA");
-
-        while (true) {
-            System.out.print("Tipo(AJUSTADA, PIERNA_ANCHA, A_MEDIDA, CASUAL, DEPORTIVA): ");
-
-            if (scan.hasNext()){
-
-                tipoBermuda = scan.nextLine();
-
-                if(tiposValidos.contains(tipoBermuda.toUpperCase())){
-                    break;
-                }
-                else{
-                    System.out.println(Menu.ANSI_RED + "\nEl tipo de bermuda ingresado es inválido.Debe ser (AJUSTADA, PIERNA_ANCHA, A_MEDIDA, CASUAL, DEPORTIVA). Por favor, intente nuevamente.\n" + Menu.ANSI_RESET);
-                }
-            } else {
-                System.out.println(Menu.ANSI_RED + "\nEntrada inválida. Por favor, ingrese una opcion valida.\n" + Menu.ANSI_RESET);
-
-            }
-        }
-        return tipoBermuda;
-    }
-
-    public String solicitarTipoRopaInterior() {
-
-        String tipoRopaInterior;
-        Menu menu = new Menu();
-        Set<String> tiposValidos = Set.of("BOXER","SLIPS","TRUNKS","CALZONCILLOS_CONICOS");
-
-        while (true) {
-            System.out.print("Tipo(BOXER, SLIPS, TRUNKS, CALZONCILLOS_CONICOS): ");
-
-            if (scan.hasNext()){
-
-                tipoRopaInterior = scan.nextLine();
-
-                if(tiposValidos.contains(tipoRopaInterior.toUpperCase())){
-                    break;
-                }
-                else{
-                    System.out.println(Menu.ANSI_RED + "\nEl tipo de ropa interior ingresado es inválido.Debe ser (AJUSTADA, PIERNA_ANCHA, A_MEDIDA, CASUAL, DEPORTIVA). Por favor, intente nuevamente.\n" + Menu.ANSI_RESET);
-                }
-            } else {
-                System.out.println(Menu.ANSI_RED + "\nEntrada inválida. Por favor, ingrese una opcion valida.\n" + Menu.ANSI_RESET);
-
-            }
-        }
-        return tipoRopaInterior;
-    }
-
-    public float solicitarTalleNumerico(){
-
-        float talleNumerico;
-        Menu menu = new Menu();
-
-        while (true) {
-            System.out.println("Ingrese el talle (número entre 30 y 50):  ");
-
-            try {
-                talleNumerico = menu.validateOption(scan.nextLine(),30,50 );
-                break; // Opción válida, salir del bucle
-            } catch (InvalidOptionException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        return talleNumerico;
-    }
-
-    public String solicitarTipoProductoSuperior() {
-
-        String tipoProductoSuperior;
-        Menu menu = new Menu();
-        Set<String> tiposValidos = Set.of("remera","campera","buzo");
-
-        while (true) {
-            System.out.print("Talle(remera, campera, buzo): ");
-
-            if (scan.hasNext()){
-
-                tipoProductoSuperior = scan.nextLine();
-
-                if(tiposValidos.contains(tipoProductoSuperior.toLowerCase())){
-                    break;
-                }
-                else{
-                    System.out.println(Menu.ANSI_RED + "El tipo de producto superior ingresado es inválido.Debe ser (pantalon, ropa_interior, bermuda). Por favor, intente nuevamente.\n" + Menu.ANSI_RESET);
-                }
-            } else {
-                System.out.println(Menu.ANSI_RED + "Entrada inválida. Por favor, ingrese una opcion valida.\n" + Menu.ANSI_RESET);
-
-            }
-        }
-        return tipoProductoSuperior;
-    }
-
-    public String solicitarTipoRemera() {
-
-        String tipoRemera;
-        Menu menu = new Menu();
-        Set<String> tiposValidos = Set.of("M_CORTA","M_LARGA","MUSCULOSA","DEPORTIVA");
-
-        while (true) {
-            System.out.print("Tipo(M_CORTA,M_LARGA,MUSCULOSA,DEPORTIVA): ");
-
-            if (scan.hasNext()){
-
-                tipoRemera = scan.nextLine();
-
-                if(tiposValidos.contains(tipoRemera.toUpperCase())){
-                    break;
-                }
-                else{
-                    System.out.println(Menu.ANSI_RED + "\nEl tipo de ropa remera ingresado es inválido.Debe ser (M_CORTA,M_LARGA,MUSCULOSA,DEPORTIVA). Por favor, intente nuevamente.\n" + Menu.ANSI_RESET);
-                }
-            } else {
-                System.out.println(Menu.ANSI_RED + "\nEntrada inválida. Por favor, ingrese una opcion valida.\n" + Menu.ANSI_RESET);
-
-            }
-        }
-        return tipoRemera;
-    }
-
-    public String solicitarTipoCampera() {
-
-        String tipoCampera;
-        Menu menu = new Menu();
-        Set<String> tiposValidos = Set.of("ROMPE_VIENTO","NIEVE","AISLANTE");
-
-        while (true) {
-            System.out.print("Tipo(ROMPE_VIENTO,NIEVE,AISLANTE): ");
-
-            if (scan.hasNext()){
-
-                tipoCampera = scan.nextLine();
-
-                if(tiposValidos.contains(tipoCampera.toUpperCase())){
-                    break;
-                }
-                else{
-                    System.out.println(Menu.ANSI_RED + "\nEl tipo de ropa remera ingresado es inválido.Debe ser (ROMPE_VIENTO,NIEVE,AISLANTE). Por favor, intente nuevamente.\n" + Menu.ANSI_RESET);
-                }
-            } else {
-                System.out.println(Menu.ANSI_RED + "\nEntrada inválida. Por favor, ingrese una opcion valida.\n" + Menu.ANSI_RESET);
-
-            }
-        }
-        return tipoCampera;
-    }
-
-    public Boolean solicitarCapucha() {
-
-        String capucha;
-        Menu menu = new Menu();
-        Set<String> tiposValidos = Set.of("si","no");
-
-        while (true) {
-            System.out.print("Capucha(si/no): ");
-
-            if (scan.hasNext()){
-
-                capucha = scan.nextLine();
-
-                if(tiposValidos.contains(capucha.toLowerCase())){
-                    break;
-                }
-                else{
-                    System.out.println(Menu.ANSI_RED + "\nEl valor de capucha ingresado es inválido.Debe ser (si/no). Por favor, intente nuevamente.\n" + Menu.ANSI_RESET);
-                }
-            } else {
-                System.out.println(Menu.ANSI_RED + "\nEntrada inválida. Por favor, ingrese una opcion valida.\n" +Menu.ANSI_RESET);
-
-            }
-        }
-
-        if(capucha.equalsIgnoreCase("si")){
-            return true;
-        }
-        else{
-            return false;
-        }
-
-    }
-
-    public String solicitarTipoProductoGeneral() {
-
-        String tipoProductoGeneral;
-        Menu menu = new Menu();
-        Set<String> tiposValidos = Set.of("pantalon","ropa_interior","bermuda","remera","campera","buzo");
-
-        while (true) {
-            System.out.print("Prenda(pantalon, ropa_interior, bermuda, remera, campera, buzo): ");
-
-            if (scan.hasNext()){
-
-                tipoProductoGeneral = scan.nextLine();
-
-                if(tiposValidos.contains(tipoProductoGeneral.toLowerCase())){
-                    break;
-                }
-                else{
-                    System.out.println(Menu.ANSI_RED + "El tipo de producto  ingresado es inválido.Debe ser (pantalon, ropa_interior, bermuda, remera, campera, buzo). Por favor, intente nuevamente.\n" + Menu.ANSI_RESET);
-                }
-            } else {
-                System.out.println(Menu.ANSI_RED +"Entrada inválida. Por favor, ingrese una opcion valida.\n"+ Menu.ANSI_RESET);
-
-            }
-        }
-        return tipoProductoGeneral;
-    }
-
-
-    public String generarIdReserva(){
+    public String generarId() {
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
         String id = null;
-        for (int i = 0; i < idLenght; i++)
-        {
+        for (int i = 0; i < idLenght; i++) {
             int index = random.nextInt(creaciondeID.length());
             sb.append(creaciondeID.charAt(index));
         }
         id = sb.toString();
         return id;
     }//Metodo que crea un id de 5 caracteres de manera aleatoria
-
-    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    public void eliminarProductoPorId() {
-        // Pedir al usuario que ingrese el ID del producto a eliminar
-        System.out.print("Ingrese el ID del producto que desea eliminar: ");
-        String id = scan.nextLine().trim();
-
-        try {
-            boolean encontrado = false;
-            for (Producto producto : productos) {
-                if (producto.getId().equals(id)) {
-                    encontrado = quitar(producto);
-                    System.out.println(Menu.ANSI_GREEN + "Producto eliminado correctamente." + Menu.ANSI_RESET);
-                    break; // Termina el bucle una vez que se elimina el producto
-                }
-            }
-            if (!encontrado) {
-                throw new ProductoNoEncontradoException(Menu.ANSI_RED +"No se encontró ningún producto con el ID " + id + Menu.ANSI_RESET);
-            }
-        } catch (ProductoNoEncontradoException e) {
-            System.out.println(e.getMessage()); // Maneja la excepción si no se encuentra el producto
-        }
-    }         //Metodo para la eliminacion de productos por id
-
-
-
-    //---------------------------------------------------------------------------------------------------------
-    public void filtrarPorPrenda() throws ProductoNoEncontradoException{
-
-        String tipo = solicitarTipoProductoGeneral();
-
-        System.out.println("Productos encontrados: \n");
-        productos.stream().filter(producto -> producto.getClass().getSimpleName().equalsIgnoreCase(tipo)).forEach(System.out::println);
-    }    //Metodo de filtrado
-
-    public void filtrarPorTipo(){
-        String tipo = solicitarCategoria();
-
-        try{
-            if (tipo.equalsIgnoreCase("superior")){
-                filtrarYImprimirPorClase(productos, ProductoSup.class);
-            }else if (tipo.equalsIgnoreCase("inferior")){
-                filtrarYImprimirPorClase(productos,ProductoInf.class);
-            } else {
-                throw new IllegalArgumentException(Menu.ANSI_RED + "Tipo inválido: "+ tipo + Menu.ANSI_RESET);
-            }
-        }catch (IllegalArgumentException e){
-            System.err.println(e.getMessage());
-        }
-    }     //Metodo de filtrado
-
-    public static void filtrarYImprimirPorClase(Set<Producto> productos, Class<? extends Producto> claseDeseada) {
-        productos.stream()
-                .filter(claseDeseada::isInstance)
-                .forEach(System.out::println);
-    }   //Metodo de filtrado
-
-    public void filtrarProductos() throws ProductoNoEncontradoException {
-        Menu menu = new Menu();
-        int seleccion = 0;
-
-        while (seleccion != -1){
-            seleccion = menu.menuVisualFiltrado();
-
-            switch (seleccion){
-
-                case 1:
-                    filtrarPorTipo();
-                    break;
-                case 2:
-                    filtrarPorPrenda();
-                    break;
-                case 0:
-                    seleccion = -1;
-                    break;
-                default:
-                    System.out.println("Opcion invalida");
-                    break;
-            }
-        }
-    }   //Metodo para filtrar la lista de productos por filtro a eleccion
-
-   //---------------------------------------------------------------------------------------------------------
-
-    public void modificarProducto () throws ProductoNoEncontradoException {
-
-        Menu menu = new Menu();
-
-        int seleccion = 0;
-
-
-        while(seleccion != -1){
-
-            seleccion = menu.menuVisualModifProducto();
-
-            switch (seleccion){
-
-                case 1:
-                    modificarNombre();
-                    break;
-                //------------------------------------------------
-                case 2:
-                    modificarStock();
-                    break;
-                //------------------------------------------------
-                case 3:
-                    modificarPrecio();
-                    break;
-                //------------------------------------------------
-                case 0:
-                    seleccion = -1;
-                    break;
-                //------------------------------------------------
-                default:
-                    System.out.println("Opcion invalida");
-                    break;
-            }
-        }
-    }  //Metodo para la modificacion de algun atributo de un producto
-
-    public void modificarNombre() throws ProductoNoEncontradoException {
-
-        System.out.print("Ingrese el ID del producto buscado: ");
-        String idBuscado = scan.nextLine();
-
-
-        Producto productoBuscado = buscarProductoPorId(idBuscado);
-
-        System.out.print("Ingrese el nuevo nombre del producto: ");
-        String nombre = scan.nextLine();
-
-        for (Producto producto : productos) {
-            if (producto.getId().equals(idBuscado)) {
-                producto.setNombre(nombre);// cambia el valor si el producto si se encuentra
-                System.out.println(Menu.ANSI_GREEN + "\nModificacion realizada correctamente" + Menu.ANSI_RESET);
-            }
-        }
-
-    } //Metodo de modificacion
-
-    public void modificarStock() throws ProductoNoEncontradoException {
-
-        System.out.print("Ingrese el ID del producto buscado: ");
-        String idBuscado = scan.nextLine();
-
-
-        Producto productoBuscado = buscarProductoPorId(idBuscado);
-
-        System.out.print("Ingrese el nuevo stock del producto: ");
-        int stock = solicitarStock();
-
-        for (Producto producto : productos) {
-            if (producto.getId().equals(idBuscado)) {
-                producto.setStock(stock);// cambia el valor si el producto si se encuentra
-                System.out.println(Menu.ANSI_GREEN + "\nModificacion realizada correctamente" + Menu.ANSI_RESET);
-            }
-        }
-
-    } //Metodo de modificacion
-
-    public void modificarPrecio() throws ProductoNoEncontradoException {
-
-        System.out.print("Ingrese el ID del producto buscado: ");
-        String idBuscado = scan.nextLine();
-
-
-        Producto productoBuscado = buscarProductoPorId(idBuscado);
-
-        System.out.print("Ingrese el nuevo precio del producto: ");
-        double precio = solicitarPrecio();
-        scan.nextLine();//limpiar buffer
-
-        for (Producto producto : productos) {
-            if (producto.getId().equals(idBuscado)) {
-                producto.setPrecio(precio);// cambia el valor si el producto si se encuentra
-                System.out.println(Menu.ANSI_GREEN + "\nModificacion realizada correctamente" + Menu.ANSI_RESET);
-            }
-        }
-
-    } //Metodo de modificacion
-//---------------------------------------------------------------------------------------------------------
 
     public Producto buscarProductoPorId(String idBuscado) throws ProductoNoEncontradoException {
 
@@ -1004,17 +302,6 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
         throw new ProductoNoEncontradoException("No se encontró ningún producto con el ID " + idBuscado);
     }  //Metodo de busqueda de productos por id
 
-    public void listarProductos(){
-
-        System.out.println("\n\n");
-        for (Producto producto : productos) {
-
-            System.out.println(producto);//HACER UNA BUENA PLANTILLA
-        }
-        System.out.println("\n\n");
-
-    }  //Metodo para mostrar todos los productos
-
     @Override
     public Boolean agregar(Producto elemento) {   //Metodo para agregar productos
         return productos.add(elemento);
@@ -1025,5 +312,476 @@ public class GestionProductos implements Agregable<Producto>, Quitable<Producto>
         return productos.remove(elemento);
     }    //Metodo para quitar productos
 
+
+
+    //region   Metodos JavaSwing
+
+    public void filtrarProductosSwing() {
+        String[] opciones = {"Filtrar por Tipo", "Filtrar por Prenda", "Cancelar"};
+        JComboBox<String> filtroComboBox = new JComboBox<>(opciones);
+
+        JOptionPane.showMessageDialog(null, filtroComboBox, "Seleccione una opción de filtro", JOptionPane.PLAIN_MESSAGE);
+
+        String seleccion = (String) filtroComboBox.getSelectedItem();
+        if (seleccion != null) {
+            switch (seleccion) {
+                case "Filtrar por Tipo":
+                    filtrarPorTipoSwing();
+                    break;
+                case "Filtrar por Prenda":
+                    filtrarPorPrendaSwing();
+                    break;
+                case "Cancelar":
+                    JOptionPane.showMessageDialog(null, "Operación cancelada", "Cancelar", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opción inválida", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+        }
+    }
+    public void filtrarPorTipoSwing() {
+        String[] opciones = {"Superior", "Inferior"};
+
+        JComboBox<String> tipoComboBox = new JComboBox<>(opciones);
+        JOptionPane.showMessageDialog(null, tipoComboBox, "Seleccione el tipo de prenda", JOptionPane.PLAIN_MESSAGE);
+
+        String seleccion = (String) tipoComboBox.getSelectedItem();
+        if (seleccion != null) {
+            try {
+                if (seleccion.equalsIgnoreCase("superior")) {
+                    filtrarYImprimirPorClaseSwing(ProductoSup.class);
+                } else if (seleccion.equalsIgnoreCase("inferior")) {
+                    filtrarYImprimirPorClaseSwing(ProductoInf.class);
+                } else {
+                    throw new IllegalArgumentException(Menu.ANSI_RED + "Tipo inválido: " + seleccion + Menu.ANSI_RESET);
+                }
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void filtrarPorPrendaSwing() {
+        String[] opciones = {"Campera", "Pantalon", "Bermuda", "Remera"}; // Ejemplo de tipos de prendas disponibles
+
+        JComboBox<String> prendaComboBox = new JComboBox<>(opciones);
+        JOptionPane.showMessageDialog(null, prendaComboBox, "Seleccione el tipo de prenda", JOptionPane.PLAIN_MESSAGE);
+
+        String seleccion = (String) prendaComboBox.getSelectedItem();
+        if (seleccion != null) {
+            DefaultListModel<Producto> listModel = new DefaultListModel<>();
+            productos.stream()
+                    .filter(producto -> producto.getClass().getSimpleName().equalsIgnoreCase(seleccion))
+                    .forEach(listModel::addElement);
+
+            JList<Producto> lista = new JList<>(listModel);
+            JScrollPane scrollPane = new JScrollPane(lista);
+            JOptionPane.showMessageDialog(null, scrollPane, "Productos encontrados", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+
+    public void filtrarYImprimirPorClaseSwing(Class<? extends Producto> claseDeseada) {
+        DefaultListModel<Producto> listModel = new DefaultListModel<>();
+        productos.stream()
+                .filter(claseDeseada::isInstance)
+                .forEach(listModel::addElement);
+
+        JList<Producto> lista = new JList<>(listModel);
+        JScrollPane scrollPane = new JScrollPane(lista);
+        JOptionPane.showMessageDialog(null, scrollPane, "Productos encontrados", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    public void listrarProductosSwing(JFrame frame, JScrollPane scrollPane) {
+        DefaultListModel<Producto> listModel = new DefaultListModel<>();
+        for (Producto producto : getProductos()) {
+            listModel.addElement(producto);
+        }
+        JList<Producto> lista = new JList<>(listModel);
+        scrollPane.setViewportView(lista);
+        try {
+            frame.revalidate();
+            frame.repaint();
+        } catch (NullPointerException e)
+        {
+        }
+    }
+
+    public void crearProductoSwing(JFrame frame) {
+        // Ingresar el nombre del producto
+        String nombre = solicitarNombre();
+
+        // Generar ID
+        String ID = generarId();
+
+        // Solicitar Stock
+        int stock = solicitarStockSwing();
+
+        // Solicitar Precio
+        double precio = solicitarPrecioSwing();
+
+        // Solicitar Categoría
+        String categoria = solicitarCategoriaSwing();
+
+        if (categoria.equalsIgnoreCase("inferior")) {
+            String talleLetra = solicitarTalleLetraSwing();
+            TallaLetra talle = TallaLetra.valueOf(talleLetra.toUpperCase());
+            String tipoInferior = solicitarTipoProductoInferiorSwing().toLowerCase();
+
+            switch (tipoInferior) {
+                case "pantalon":
+                    TipoPantalon tipoPantalon = TipoPantalon.valueOf(solicitarTipoPantalonSwing().toUpperCase());
+                    if (agregar(new Pantalon(nombre, ID, stock, precio, talle, tipoPantalon))) {
+                        JOptionPane.showMessageDialog(frame, "! Producto Agregado !.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "! Id del producto ya en sistema !", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+                case "bermuda":
+                    TipoBermuda tipoBermuda = TipoBermuda.valueOf(solicitarTipoBermudaSwing().toUpperCase());
+                    if (agregar(new Bermuda(nombre, ID, stock, precio, talle, tipoBermuda))) {
+                        JOptionPane.showMessageDialog(frame, "! Producto Agregado !.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "! Id del producto ya en sistema !", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+                case "ropa_interior":
+                    TipoRopaInterior tipoRopaInterior = TipoRopaInterior.valueOf(solicitarTipoRopaInteriorSwing().toUpperCase());
+                    if (agregar(new RopaInterior(nombre, ID, stock, precio, talle, tipoRopaInterior))) {
+                        JOptionPane.showMessageDialog(frame, "! Producto Agregado !.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "! Id del producto ya en sistema !", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(frame, "Tipo de producto inferior no válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+        } else if (categoria.equalsIgnoreCase("superior")) {
+            float talleNumerico = solicitarTalleNumericoSwing();
+            String tipoSuperior = solicitarTipoProductoSuperiorSwing().toLowerCase();
+
+            switch (tipoSuperior) {
+                case "remera":
+                    TipoRemera tipoRemera = TipoRemera.valueOf(solicitarTipoRemeraSwing().toUpperCase());
+                    if (agregar(new Remera(nombre, ID, stock, precio, talleNumerico, tipoRemera))) {
+                        JOptionPane.showMessageDialog(frame, "! Producto Agregado !.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "! Id del producto ya en sistema !", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+                case "campera":
+                    TipoCampera tipoCampera = TipoCampera.valueOf(solicitarTipoCamperaSwing().toUpperCase());
+                    if (agregar(new Campera(nombre, ID, stock, precio, talleNumerico, tipoCampera))) {
+                        JOptionPane.showMessageDialog(frame, "! Producto Agregado !.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "! Id del producto ya en sistema !", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+                case "buzo":
+                    boolean tieneCapucha = solicitarCapuchaSwing();
+                    if (agregar(new Buzo(nombre, ID, stock, precio, talleNumerico, tieneCapucha))) {
+                        JOptionPane.showMessageDialog(frame, "! Producto Agregado !.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "! Id del producto ya en sistema !", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(frame, "Tipo de producto superior no válido.", "Error", JOptionPane.ERROR_MESSAGE);
+
+                    break;
+            }
+        } else {
+            System.out.println("Categoría de producto no válida.");
+        }
+    }
+
+    private String solicitarNombre() {
+        return JOptionPane.showInputDialog(null, "Ingrese el nombre del producto:");
+    }
+
+    public int solicitarStockSwing() {
+        int stock = -1;
+        while (true) {
+            try {
+                String input = JOptionPane.showInputDialog(null, "Stock:");
+                stock = Integer.parseInt(input);
+                if (stock > 0) {
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(null, "El stock ingresado es inválido. Debe ser un stock mayor a 0. Por favor, intente nuevamente.");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, ingrese un número entero válido.");
+            }
+        }
+        return stock;
+    }
+
+    public Double solicitarPrecioSwing() {
+        double precio = -1;
+        while (true) {
+            try {
+                String input = JOptionPane.showInputDialog(null, "Precio:");
+                precio = Double.parseDouble(input);
+                if (precio > 0) {
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(null, "El precio ingresado es inválido. Debe ser un precio mayor a 0. Por favor, intente nuevamente.");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, ingrese un número válido.");
+            }
+        }
+        return precio;
+    }
+
+    public String solicitarCategoriaSwing() {
+        Set<String> categoriasValidas = Set.of("inferior", "superior");
+        String categoria;
+        while (true) {
+            categoria = JOptionPane.showInputDialog(null, "Categoría (inferior/superior):");
+            if (categoriasValidas.contains(categoria.toLowerCase())) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "Categoría no válida. Debe ser 'inferior' o 'superior'.");
+            }
+        }
+        return categoria;
+    }
+
+    public String solicitarTalleLetraSwing() {
+        Set<String> tiposValidos = Set.of("XSMALL", "SMALL", "MEDIUM", "LARGE", "XLARGE");
+        String talleLetra;
+        while (true) {
+            talleLetra = JOptionPane.showInputDialog(null, "Talle (XSMALL, SMALL, MEDIUM, LARGE, XLARGE):");
+            if (tiposValidos.contains(talleLetra.toUpperCase())) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "La talla ingresada es inválida. Debe ser (XSMALL, SMALL, MEDIUM, LARGE, XLARGE). Por favor, intente nuevamente.");
+            }
+        }
+        return talleLetra;
+    }
+
+    public String solicitarTipoProductoInferiorSwing() {
+        Set<String> tiposValidos = Set.of("pantalon", "bermuda", "ropa_interior");
+        String tipoInferior;
+        while (true) {
+            tipoInferior = JOptionPane.showInputDialog(null, "Tipo de producto inferior (pantalon, bermuda, ropa_interior):");
+            if (tiposValidos.contains(tipoInferior.toLowerCase())) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "El tipo de producto ingresado es inválido. Debe ser (pantalon, bermuda, ropa_interior). Por favor, intente nuevamente.");
+            }
+        }
+        return tipoInferior;
+    }
+
+    public String solicitarTipoPantalonSwing() {
+        Set<String> tiposValidos = Set.of("JOGGING", "JEANS", "CARGO", "LEGGINS");
+        String tipoPantalon;
+        while (true) {
+            tipoPantalon = JOptionPane.showInputDialog(null, "Tipo de pantalón (JOGGING, JEANS, CARGO, LEGGINS):");
+            if (tiposValidos.contains(tipoPantalon.toUpperCase())) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "El tipo de pantalón ingresado es inválido. Debe ser (JOGGING, JEANS, CARGO, LEGGINS). Por favor, intente nuevamente.");
+            }
+        }
+        return tipoPantalon;
+    }
+
+    public String solicitarTipoBermudaSwing() {
+        Set<String> tiposValidos = Set.of("AJUSTADA", "PIERNA_ANCHA", "A_MEDIDA", "CASUAL", "DEPORTIVA");
+        String tipoBermuda;
+        while (true) {
+            tipoBermuda = JOptionPane.showInputDialog(null, "Tipo de bermuda (AJUSTADA, PIERNA_ANCHA, A_MEDIDA, CASUAL, DEPORTIVA):");
+            if (tiposValidos.contains(tipoBermuda.toUpperCase())) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "El tipo de bermuda ingresado es inválido. Debe ser (AJUSTADA, PIERNA_ANCHA, A_MEDIDA, CASUAL, DEPORTIVA). Por favor, intente nuevamente.");
+            }
+        }
+        return tipoBermuda;
+    }
+
+    public String solicitarTipoRopaInteriorSwing() {
+        Set<String> tiposValidos = Set.of("BOXER", "SLIPS", "TRUNKS", "CALZONCILLOS_CONICOS");
+        String tipoRopaInterior;
+        while (true) {
+            tipoRopaInterior = JOptionPane.showInputDialog(null, "Tipo de ropa interior (BOXER, SLIPS, TRUNKS, CALZONCILLOS_CONICOS):");
+            if (tiposValidos.contains(tipoRopaInterior.toUpperCase())) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "El tipo de ropa interior ingresado es inválido. Debe ser (BOXER, SLIPS, TRUNKS, CALZONCILLOS_CONICOS). Por favor, intente nuevamente.");
+            }
+        }
+        return tipoRopaInterior;
+    }
+
+    public float solicitarTalleNumericoSwing() {
+        float talleNumerico = -1;
+        while (true) {
+            try {
+                String input = JOptionPane.showInputDialog(null, "Ingrese el talle (número entre 30 y 50):");
+                talleNumerico = Float.parseFloat(input);
+                if (talleNumerico >= 30 && talleNumerico <= 50) {
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(null, "El talle ingresado es inválido. Debe ser un número entre 30 y 50.");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, ingrese un número válido.");
+            }
+        }
+        return talleNumerico;
+    }
+
+    public String solicitarTipoProductoSuperiorSwing() {
+        Set<String> tiposValidos = Set.of("remera", "campera", "buzo");
+        String tipoSuperior;
+        while (true) {
+            tipoSuperior = JOptionPane.showInputDialog(null, "Tipo de producto superior (remera, campera, buzo):");
+            if (tiposValidos.contains(tipoSuperior.toLowerCase())) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "El tipo de producto ingresado es inválido. Debe ser (remera, campera, buzo). Por favor, intente nuevamente.");
+            }
+        }
+        return tipoSuperior;
+    }
+
+    public String solicitarTipoRemeraSwing() {
+        Set<String> tiposValidos = Set.of("M_CORTA", "M_LARGA", "MUSCULOSA", "DEPORTIVA");
+        String tipoRemera;
+        while (true) {
+            tipoRemera = JOptionPane.showInputDialog(null, "Tipo de remera (M_CORTA, M_LARGA, MUSCULOSA, DEPORTIVA):");
+            if (tiposValidos.contains(tipoRemera.toUpperCase())) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "El tipo de remera ingresado es inválido. Debe ser (M_CORTA, M_LARGA, MUSCULOSA, DEPORTIVA). Por favor, intente nuevamente.");
+            }
+        }
+        return tipoRemera;
+    }
+
+    public String solicitarTipoCamperaSwing() {
+        Set<String> tiposValidos = Set.of("ROMPE_VIENTO", "NIEVE", "AISLANTE");
+        String tipoCampera;
+        while (true) {
+            tipoCampera = JOptionPane.showInputDialog(null, "Tipo de campera (ROMPE_VIENTO, NIEVE, AISLANTE):");
+            if (tiposValidos.contains(tipoCampera.toUpperCase())) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "El tipo de campera ingresado es inválido. Debe ser (ROMPE_VIENTO, NIEVE, AISLANTE). Por favor, intente nuevamente.");
+            }
+        }
+        return tipoCampera;
+    }
+
+    public boolean solicitarCapuchaSwing() {
+        Set<String> tiposValidos = Set.of("si", "no");
+        String capucha;
+        while (true) {
+            capucha = JOptionPane.showInputDialog(null, "Capucha (si/no):");
+            if (tiposValidos.contains(capucha.toLowerCase())) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "El valor de capucha ingresado es inválido. Debe ser (si/no). Por favor, intente nuevamente.");
+            }
+        }
+        return capucha.equalsIgnoreCase("si");
+    }
+
+    public void eliminarProductoPorIdSwing() {
+        // Pedir al usuario que ingrese el ID del producto a eliminar
+        String id = JOptionPane.showInputDialog(null, "Ingrese el ID del producto que desea eliminar:").trim();
+
+        try {
+            boolean encontrado = false;
+            for (Producto producto : productos) {
+                if (producto.getId().equals(id)) {
+                    encontrado = quitar(producto);
+                    JOptionPane.showMessageDialog(null, "Producto eliminado correctamente.");
+                    break; // Termina el bucle una vez que se elimina el producto
+                }
+            }
+            if (!encontrado) {
+                throw new ProductoNoEncontradoException("No se encontró ningún producto con el ID " + id);
+            }
+        } catch (ProductoNoEncontradoException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage()); // Maneja la excepción si no se encuentra el producto
+        }
+    }
+
+    public void modificarProductoSwing() {
+        Producto productoBuscado;
+        try {
+        String idBuscado = JOptionPane.showInputDialog(null, "Ingrese el ID del producto buscado:").trim();
+        productoBuscado = buscarProductoPorId(idBuscado);
+        } catch (ProductoNoEncontradoException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return;
+        }catch (NullPointerException e)
+        {
+            JOptionPane.showMessageDialog(null, "Cancelado Modificacion");
+            return;
+        }
+
+        String[] opciones = {"Modificar Nombre", "Modificar Stock", "Modificar Precio", "Salir"};
+        while (true) {
+            int seleccion = JOptionPane.showOptionDialog(
+                    null,
+                    "Seleccione la modificación que desea realizar",
+                    "Modificar Producto",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    opciones,
+                    opciones[0]
+            );
+
+            switch (seleccion) {
+                case 0:
+                    modificarNombreSwing(productoBuscado);
+                    break;
+                case 1:
+                    modificarStockSwing(productoBuscado);
+                    break;
+                case 2:
+                    modificarPrecioSwing(productoBuscado);
+                    break;
+                case 3:
+                    return;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opción inválida");
+                    break;
+            }
+        }
+    }
+
+    private void modificarNombreSwing(Producto productoBuscado) {
+        String nombre = JOptionPane.showInputDialog(null, "Ingrese el nuevo nombre del producto:").trim();
+        productoBuscado.setNombre(nombre);
+        JOptionPane.showMessageDialog(null, "Modificación realizada correctamente");
+    }
+
+    private void modificarStockSwing(Producto productoBuscado) {
+        int stock = solicitarStockSwing();
+        productoBuscado.setStock(stock);
+        JOptionPane.showMessageDialog(null, "Modificación realizada correctamente");
+    }
+
+    private void modificarPrecioSwing(Producto productoBuscado) {
+        double precio = solicitarPrecioSwing();
+        productoBuscado.setPrecio(precio);
+        JOptionPane.showMessageDialog(null, "Modificación realizada correctamente");
+    }
+
+
+    //endregion
+
 }
+
 

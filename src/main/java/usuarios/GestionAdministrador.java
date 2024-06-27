@@ -1,9 +1,8 @@
 package usuarios;
 
-import Interfazes.Quitable;
 import exepciones.InvalidOptionException;
 import org.example.Menu;
-
+import javax.swing.*;
 import java.util.Scanner;
 
 public class GestionAdministrador {
@@ -11,138 +10,141 @@ public class GestionAdministrador {
     public GestionAdministrador() {
     }
 
-    public void modificacionUsuario(GestionUsuarios gestionUsuarios)
-    {
-        Scanner scan = new Scanner(System.in);
-        gestionUsuarios.mostrarUsuarios();
-        Perfil usuario = null;
-        usuario = gestionUsuarios.buscarUsuario();
-        if(usuario!=null)
-        {
-            menuModificarUsuario(usuario,gestionUsuarios);
-        }
-        else
-        {
-        }
-    }
+    //region Metodos JavaSwing
+    public void modificacionUsuarioSwing(GestionUsuarios gestionUsuarios) {
+        // Crear un JTextField para que el usuario ingrese el correo electrónico
+        JTextField correoTextField = new JTextField(20);
+        Menu menu = new Menu();
 
-    public void menuModificarUsuario(Perfil usuario,GestionUsuarios gestionUsuarios)
-    {
-        Scanner scan = new Scanner(System.in);
-        int seleccion;
-     while(true) {
-         System.out.println("Que quiere hacer? ");
-         System.out.println("1. Cambiar nombre");
-         System.out.println("2. Cambiar permiso admin");
-         System.out.println("3. Eliminar Usuario");
-         System.out.println("0. Cancelar");
+        // Crear un JPanel para contener el JTextField y el mensaje de error
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Ingrese el correo electrónico del usuario:"));
+        panel.add(correoTextField);
 
-         try {
-             seleccion = Menu.validateOption(scan.nextLine(),0, 3);
-             break; // Opción válida, salir del bucle
-         } catch (InvalidOptionException e) {
-             System.out.println(e.getMessage());
-         }
-     }
+        int option = JOptionPane.showConfirmDialog(null, panel, "Buscar Usuario", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
+        if (option == JOptionPane.OK_OPTION) {
+            String correo = correoTextField.getText();
 
-        switch (seleccion)
-        {
-            case 1: cambiarNombre(usuario);
-                break;
+            // Validar el correo electrónico ingresado
+            if (menu.esCorreoValido(correo)) {
+                Perfil usuario = gestionUsuarios.buscarUsuario(correo);
 
-            case 2: cambiarPermisoAdmin(usuario);
-                break;
-
-            case 3: eliminarUsuario(usuario,gestionUsuarios);
-                break;
-
-            default: ;
-                break;
-        }
-
-    }
-
-    public void cambiarNombre(Perfil usuario)
-    {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Ingrese nuevo nombre:");
-        String nombre = scan.next();
-        System.out.println("Ingrese nuevo apellido:");
-        String apellido = scan.next();
-        String nombreYapellido= nombre +" "+ apellido;
-        usuario.setNombre(nombreYapellido);
-        System.out.println("Nombre cambiado a: "+nombreYapellido);
-    }
-
-    public void cambiarPermisoAdmin(Perfil usuario)
-    {
-        Scanner scan = new Scanner(System.in);
-        int seleccion;
-        if(usuario.getAdmin())
-        {
-
-            while(true) {
-
-                System.out.println("Quitar permiso admin?");
-                System.out.println("1. Si");
-                System.out.println("2. No");
-
-                try {
-                    seleccion = Menu.validateOption(scan.nextLine(),1, 2);
-                    break; // Opción válida, salir del bucle
-                } catch (InvalidOptionException e) {
-                    System.out.println(e.getMessage());
+                if (usuario != null) {
+                    menuModificarUsuarioSwing(usuario, gestionUsuarios);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "El correo ingresado es inválido. Debe terminar en '@gmail.com' y debe tener más de 10 caracteres.");
             }
+        }
+    }
 
-            if(seleccion==1)
-            {
+    public void menuModificarUsuarioSwing(Perfil usuario,GestionUsuarios gestionUsuarios) {
+        String[] opciones = {"Cambiar nombre", "Cambiar permiso admin", "Eliminar Usuario", "Cancelar"};
+        int seleccion = JOptionPane.showOptionDialog(
+                null,
+                "¿Qué acción desea realizar?",
+                "Modificar Usuario",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                opciones[3]
+        );
+
+        switch (seleccion) {
+            case 0:
+                cambiarNombreSwing(usuario);
+                break;
+            case 1:
+                cambiarPermisoAdminSwing(usuario);
+                break;
+            case 2:
+                eliminarUsuarioSwing(usuario,gestionUsuarios);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void cambiarNombreSwing(Perfil usuario) {
+        String nombre = JOptionPane.showInputDialog(null, "Ingrese nuevo nombre:");
+        String apellido = JOptionPane.showInputDialog(null, "Ingrese nuevo apellido:");
+        String nombreCompleto = nombre + " " + apellido;
+        usuario.setNombre(nombreCompleto.toUpperCase());
+        JOptionPane.showMessageDialog(null, "Nombre cambiado a: " + nombreCompleto);
+    }
+
+    public void cambiarPermisoAdminSwing(Perfil usuario) {
+        String[] opciones = {"Si", "No"};
+        int seleccion;
+        if (usuario.getAdmin()) {
+            seleccion = JOptionPane.showOptionDialog(
+                    null,
+                    "Quitar permiso admin?",
+                    "Cambiar Permiso Admin",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opciones,
+                    opciones[1]
+            );
+
+            if (seleccion == 0) {
                 usuario.setAdmin(false);
-                System.out.println(Menu.ANSI_GREEN + "! Permisos quitados exitosamente !" + Menu.ANSI_RESET);
+                JOptionPane.showMessageDialog(null, "! Permisos quitados exitosamente !");
             }
-        }
-        else
-        {
+        } else {
+            seleccion = JOptionPane.showOptionDialog(
+                    null,
+                    "Agregar permiso admin?",
+                    "Cambiar Permiso Admin",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opciones,
+                    opciones[1]
+            );
 
-            while(true) {
-                System.out.println("Agregar permiso admin?");
-                System.out.println("1. Si");
-                System.out.println("2. No");
-
-                try {
-                    seleccion = Menu.validateOption(scan.nextLine(),1, 2);
-                    break; // Opción válida, salir del bucle
-                } catch (InvalidOptionException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-
-            if(seleccion == 1)
-            {
+            if (seleccion == 0) {
                 usuario.setAdmin(true);
-                System.out.println(Menu.ANSI_GREEN + "! Permiso Agregado exitosamente !" + Menu.ANSI_RESET);
+                JOptionPane.showMessageDialog(null, "! Permiso Agregado exitosamente !");
             }
         }
     }
 
-    public void eliminarUsuario(Perfil usuario,GestionUsuarios gestionUsuarios)
-    {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Seguro que quiere eliminar este usuario?");
-        System.out.println("1. Si");
-        System.out.println("2. No");
-        int seleccion = scan.nextByte();
-        if(seleccion==1)
-        {
+    public void eliminarUsuarioSwing(Perfil usuario, GestionUsuarios gestionUsuarios) {
+        int seleccion = JOptionPane.showConfirmDialog(
+                null,
+                "¿Seguro que quiere eliminar este usuario?",
+                "Eliminar Usuario",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (seleccion == JOptionPane.YES_OPTION) {
             gestionUsuarios.quitar(usuario);
-            System.out.println("! Usuario eliminado !");
+            JOptionPane.showMessageDialog(null, "! Usuario eliminado !");
         }
     }
 
-    public void mostrarUsuarios(GestionUsuarios gestionUsuarios)
-    {
-        gestionUsuarios.mostrarUsuarios();
+    public void mostrarUsuariosSwing(GestionUsuarios gestionUsuarios) {
+        StringBuilder sb = new StringBuilder();
+        for (Perfil usuario : gestionUsuarios.getUsuarios()) {
+            sb.append(usuario.toString()).append("\n");
+        }
+
+        JTextArea textArea = new JTextArea(10, 30);
+        textArea.setText(sb.toString());
+        textArea.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        JOptionPane.showMessageDialog(null, scrollPane, "Lista de Usuarios", JOptionPane.INFORMATION_MESSAGE);
     }
+    //endregion
 
 }
+
+
+

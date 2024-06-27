@@ -7,8 +7,10 @@ import exepciones.InvalidOptionException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import tienda.*;
+
 import org.example.Menu;
 
+import javax.swing.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -142,163 +144,17 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
         this.usuarios = usuarios;
     }
 
-    public Perfil crearUsuario(){
-
-        System.out.println(Menu.ANSI_GREEN + "\n-NUEVO USUARIO-" + Menu.ANSI_RESET);
-        String email = solicitarCorreo();
-
-        String nombre = solicitarNombre();
-
-        String apellido = solicitarApellido();
-
-        String nombreYapellido= nombre +" "+ apellido;
-
-        Perfil perfil = new Perfil(nombreYapellido,email);
-
-        int seleccion = solicitarAdmin();
-        if(seleccion==1)
-        {
-            perfil.chequearAdmin();
-        }
-
-        if(agregar(perfil))
-        {
-            return perfil;
-        }
-         return null;
-    }
-
-    public String solicitarNombre() {
-        String nombre;
-        Scanner scan = new Scanner(System.in);
-        Menu menu = new Menu();
-
-        while (true) {
-            System.out.print("Nombre: ");
-            nombre = scan.nextLine().trim();
-
-            if (menu.esNombreValido(nombre)) {
-                break;
-            } else {
-                System.out.println(Menu.ANSI_RED + "El nombre ingresado es inválido. No debe contener números. Por favor, intente nuevamente." + Menu.ANSI_RESET);
-            }
-        }
-
-        return nombre;
-    }
-
-    public String solicitarApellido() {
-        String apellido;
-        Scanner scan = new Scanner(System.in);
-        Menu menu = new Menu();
-
-        while (true) {
-            System.out.print("Apellido: ");
-            apellido = scan.nextLine().trim();
-
-            if (menu.esNombreValido(apellido)) {
-                break;
-            } else {
-                System.out.println(Menu.ANSI_RED +"El apellido ingresado es inválido. No debe contener números. Por favor, intente nuevamente." + Menu.ANSI_RESET);
-            }
-        }
-        return apellido;
-    }
-
-    public String solicitarCorreo() {
-        String email;
-        Scanner scan = new Scanner(System.in);
-        Menu menu = new Menu();
-
-        while (true) {
-            System.out.print("Email: ");
-            email = scan.nextLine().trim();
-
-            if (menu.esCorreoValido(email)) {
-                break;
-            } else {
-                System.out.println(Menu.ANSI_RED +"El email ingresado es inválido. debe terminar en [@gmail.com] y debe ser mayor a 10 caracteres. Por favor, intente nuevamente." + Menu.ANSI_RESET);
-            }
-        }
-
-        return email;
-    }
-
-    public int solicitarAdmin() {
-
-        int seleccion = 0;
-        Menu menu = new Menu();
-        Scanner scan = new Scanner(System.in);
-
-        while (true) {
-            System.out.println(
-                             "\nUsuario Administrador?" +
-                            "\n1 Si" +
-                            "\n2 No" +
-                            "\nInsertar Opcion: ");
-
-            try {
-                seleccion = menu.validateOption(scan.nextLine(),1,2);
-                break; // Opción válida, salir del bucle
-            } catch (InvalidOptionException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        return seleccion;
-    }
-
-
     //----------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------
 
-
-    public Perfil inicioSesion()
-    {
-        Scanner scan = new Scanner(System.in);
-        Perfil perfil = null;
-        while (perfil == null)
-        {
-            int seleccion=0;
-            System.out.println("1. Iniciar Sesion");
-            System.out.println("2. Crear nuevo usuario");
-
-            try {
-                seleccion = scan.nextInt();
-            }catch (InputMismatchException e)
-            {
-                System.err.println(Menu.ANSI_RED + "! Dato Ingesado no numerico !" + Menu.ANSI_RESET);
-                break;
-            }
-
-            switch (seleccion) {
-                case 1:
-                    perfil = buscarUsuario();
-                    break;
-                case 2:
-                    perfil = crearUsuario();
-                    break;
-                default:
-                    System.out.println(Menu.ANSI_RED +"! Dato invalido !"+ Menu.ANSI_RESET);
-                    break;
-            }
-            if(perfil==null)
-            {
-                System.out.println(Menu.ANSI_RED + "! Usuario invalido !" + Menu.ANSI_RESET);
-            }
-        }
-        return perfil;
-    }
-
-    public Perfil buscarUsuario()
+    public Perfil buscarUsuario(String usuarioEmail)
     {
 
-        String email = solicitarCorreo();
 
         for(Perfil perfil : usuarios)
         {
-            if(perfil.getEmail().equals(email))
+            if(perfil.getEmail().equals(usuarioEmail))
             {
                 return perfil;
             }
@@ -316,10 +172,6 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
         return usuarios.remove(usuario);
     }
 
-    public void mostrarUsuarios()
-    {
-        System.out.println(usuarios.toString());
-    }
 
     @Override
     public String toString() {
@@ -327,4 +179,106 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
                 "usuarios=" + usuarios +
                 '}';
     }
+
+    //region Metodos JavaSwing
+
+    public Perfil crearUsuarioSwing() {
+        JOptionPane.showMessageDialog(null, "Creación de Nuevo Usuario", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+
+        String email = solicitarCorreoSwing();
+        String nombre = solicitarNombreSwing();
+        String apellido = solicitarApellidoSwing();
+
+        String nombreCompleto = nombre + " " + apellido;
+
+        Perfil perfil = new Perfil(nombreCompleto, email);
+
+        int seleccion = solicitarAdminSwing();
+        if (seleccion == 1) {
+            perfil.chequearAdminSwing();
+        }
+
+        if (agregar(perfil)) {
+            JOptionPane.showMessageDialog(null, "Usuario creado exitosamente.", "Creación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+            return perfil;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al crear el usuario. Inténtelo nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    public String solicitarNombreSwing() {
+        String nombre = null;
+        Menu menu = new Menu();
+        while (true) {
+            nombre = JOptionPane.showInputDialog(null, "Ingrese el nombre:", "Nombre", JOptionPane.PLAIN_MESSAGE);
+
+            if (nombre != null && !nombre.isEmpty() && menu.esNombreValido(nombre)) {
+                break; // Salir del bucle si el nombre es válido y no se cancela
+            } else {
+                JOptionPane.showMessageDialog(null, "El nombre ingresado es inválido o está vacío. Por favor, intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        return nombre;
+    }
+
+    public String solicitarApellidoSwing() {
+        String apellido = null;
+        Menu menu = new Menu();
+        while (true) {
+            apellido = JOptionPane.showInputDialog(null, "Ingrese el apellido:", "Apellido", JOptionPane.PLAIN_MESSAGE);
+
+            if (apellido != null && !apellido.isEmpty() && menu.esNombreValido(apellido)) {
+                break; // Salir del bucle si el apellido es válido y no se cancela
+            } else {
+                JOptionPane.showMessageDialog(null, "El apellido ingresado es inválido o está vacío. Por favor, intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        return apellido;
+    }
+
+    public String solicitarCorreoSwing() {
+        String email = null;
+        Menu menu = new Menu();
+
+        while (true) {
+            email = JOptionPane.showInputDialog(null, "Ingrese el correo electrónico:", "Correo Electrónico", JOptionPane.PLAIN_MESSAGE);
+
+            if (email != null && !email.isEmpty() && menu.esCorreoValido(email)) {
+                break; // Salir del bucle si el correo es válido y no se cancela
+            } else {
+                JOptionPane.showMessageDialog(null, "El correo electrónico ingresado es inválido o está vacío. Debe terminar en [@gmail.com] y ser mayor a 10 caracteres. Por favor, intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        return email;
+    }
+
+    public int solicitarAdminSwing() {
+        int seleccion = 0;
+        Object[] opciones = {"Si", "No"};
+
+        while (true) {
+            // Mostrar un cuadro de diálogo con opciones usando JOptionPane
+            seleccion = JOptionPane.showOptionDialog(null, "¿Usuario Administrador?",
+                    "Selección de Administrador", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+            if (seleccion == JOptionPane.YES_OPTION  || seleccion == JOptionPane.NO_OPTION)
+            {
+                break; // Salir del bucle si se selecciona una opción válida
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione una opción válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        // Devolver 1 si se selecciona "Si" (administrador), 2 si se selecciona "No" (no administrador)
+        return seleccion == JOptionPane.YES_OPTION ? 1 : 2;
+    }
+
+
+    //endregion
+
+
 }

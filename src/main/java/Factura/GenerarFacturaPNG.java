@@ -51,8 +51,7 @@ public class GenerarFacturaPNG {
         g.drawString("Productos:", 10, y);
         y += 20;
 
-        g.drawLine(10, y, ancho - 10, y);
-        y += 20;
+
         for (Producto producto : factura.getProductos()) {
             g.drawString(producto.getNombre(), 10, y);
             g.drawString("Precio: $" + producto.getPrecio(), 400, y);
