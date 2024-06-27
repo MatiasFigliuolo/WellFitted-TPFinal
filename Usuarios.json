@@ -10,10 +10,30 @@
         "email": "Angel.manco@gmail.com"
     },
     {
-        "historial": [],
+        "historial": [{
+            "fecha": "2024-06-27T18:33:33.206441200",
+            "productos": [
+                {
+                    "precio": 39.99,
+                    "talla": 40,
+                    "capucha": true,
+                    "id": "BD001",
+                    "stock": 48,
+                    "nombre": "Messi"
+                },
+                {
+                    "tipoRemera": "M_LARGA",
+                    "precio": 24.99,
+                    "talla": 40,
+                    "id": "RM002",
+                    "stock": 71,
+                    "nombre": "Remera Manga Larga"
+                }
+            ]
+        }],
         "admin": false,
         "carrito": {
-            "fecha": "2024-06-24T16:08:03.618287400",
+            "fecha": "2024-06-27T18:33:33.206441200",
             "productos": []
         },
         "nombre": "MARTIN RODRIGUEZ",
@@ -79,11 +99,22 @@
                     "stock": 72,
                     "nombre": "Remera Manga Larga"
                 }]
+            },
+            {
+                "fecha": "2024-06-27T18:09:00.611253100",
+                "productos": [{
+                    "tipoRemera": "M_LARGA",
+                    "precio": 24.99,
+                    "talla": 40,
+                    "id": "RM002",
+                    "stock": 71,
+                    "nombre": "Remera Manga Larga"
+                }]
             }
         ],
         "admin": true,
         "carrito": {
-            "fecha": "2024-06-25T20:12:13.406535100",
+            "fecha": "2024-06-27T18:09:00.611253100",
             "productos": []
         },
         "nombre": "MATIAS FIGLIUOLO",

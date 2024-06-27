@@ -79,11 +79,15 @@ public class MenuJavaSwing {
             {
 
                 Perfil perfil= gestionUsuarios.crearUsuarioSwing();
-                if (perfil.getAdmin())
+                try{
+                    if (perfil.getAdmin())
+                    {
+                        menuAdmin.menuAdmin(perfil);
+                    } else {
+                        menuCliente.menuCliente(perfil);
+                    }
+                }catch (NullPointerException ex)
                 {
-                    menuAdmin.menuAdmin(perfil);
-                } else {
-                    menuCliente.menuCliente(perfil);
                 }
             }
         });

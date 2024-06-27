@@ -186,6 +186,9 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
         JOptionPane.showMessageDialog(null, "Creación de Nuevo Usuario", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
 
         String email = solicitarCorreoSwing();
+        if (email == null) {
+            return null;
+        }
         String nombre = solicitarNombreSwing();
         String apellido = solicitarApellidoSwing();
 
@@ -245,8 +248,14 @@ public class GestionUsuarios implements Agregable<Perfil>, Quitable<Perfil> {
         while (true) {
             email = JOptionPane.showInputDialog(null, "Ingrese el correo electrónico:", "Correo Electrónico", JOptionPane.PLAIN_MESSAGE);
 
-            if (email != null && !email.isEmpty() && menu.esCorreoValido(email)) {
-                break; // Salir del bucle si el correo es válido y no se cancela
+            if (email == null) {
+                // El usuario presionó "Cancelar" o cerró el cuadro de diálogo
+                JOptionPane.showMessageDialog(null, "Operación cancelada.", "Cancelado", JOptionPane.INFORMATION_MESSAGE);
+                return null;
+            }
+
+            if (!email.isEmpty() && menu.esCorreoValido(email)) {
+                break; // Salir del bucle si el correo es válido
             } else {
                 JOptionPane.showMessageDialog(null, "El correo electrónico ingresado es inválido o está vacío. Debe terminar en [@gmail.com] y ser mayor a 10 caracteres. Por favor, intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
             }
